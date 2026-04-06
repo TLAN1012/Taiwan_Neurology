@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 台灣神經學年會 Day 2 預習指南</title>
+  <style>
+    :root {
+      --primary: #1a5276;
+      --accent: #2980b9;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #dee2e6;
+      --text: #2c3e50;
+      --text-light: #6c757d;
+      --session-a: #2980b9;
+      --session-b: #8e44ad;
+      --session-hall: #c0392b;
+      --session-c: #27ae60;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    header { background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460); color: white; padding: 2.5rem 1rem; text-align: center; }
+    header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    header .subtitle { font-size: 1rem; opacity: 0.9; }
+    header .meta { font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
+    .toc { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1rem 0 1.5rem; }
+    .toc h2 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .toc ul { list-style: none; }
+    .toc li { margin: 0.3rem 0; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+    .toc .toc-time { color: var(--text-light); font-size: 0.8rem; margin-right: 0.3rem; }
+    .toc .toc-room { font-size: 0.72rem; padding: 0.1rem 0.4rem; border-radius: 8px; color: white; margin-left: 0.3rem; vertical-align: middle; }
+    .session { margin: 2rem 0; border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+    .session-header { padding: 1rem 1.2rem; color: white; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .session-header h2 { font-size: 1.05rem; }
+    .session-header .room { font-size: 0.8rem; opacity: 0.85; }
+    .session-header .toggle { font-size: 1.2rem; transition: transform 0.3s; }
+    .session-header .toggle.collapsed { transform: rotate(-90deg); }
+    .session-body { background: var(--card-bg); }
+    .talk { padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border); }
+    .talk:last-child { border-bottom: none; }
+    .talk-header { display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem; }
+    .talk-title { font-size: 0.95rem; font-weight: 700; color: var(--primary); flex: 1; }
+    .talk-time { font-size: 0.8rem; color: var(--text-light); white-space: nowrap; }
+    .talk-speaker { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; font-weight: 600; }
+    .talk-speaker span { font-weight: 400; color: var(--text-light); }
+    .prep-box { background: #f0f6fb; border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 0.8rem 1rem; margin-top: 0.5rem; }
+    .prep-box h4 { font-size: 0.82rem; color: var(--accent); margin-bottom: 0.4rem; text-transform: uppercase; letter-spacing: 0.5px; }
+    .prep-box ul { padding-left: 1.2rem; font-size: 0.85rem; }
+    .prep-box li { margin: 0.25rem 0; }
+    .prep-box .refs { margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-light); }
+    .prep-box .refs a { color: var(--accent); text-decoration: none; }
+    .prep-box .refs a:hover { text-decoration: underline; }
+    .clinic-tip { background: #fef9e7; border-left: 3px solid #f39c12; border-radius: 0 6px 6px 0; padding: 0.6rem 1rem; margin-top: 0.5rem; font-size: 0.83rem; }
+    .clinic-tip strong { color: #e67e22; }
+    .guideline-badge { display: inline-block; background: #16a085; color: white; font-size: 0.7rem; padding: 0.1rem 0.5rem; border-radius: 8px; font-weight: 600; margin-left: 0.3rem; vertical-align: middle; }
+    footer { text-align: center; font-size: 0.8rem; color: var(--text-light); padding: 2rem 1rem 1rem; border-top: 1px solid var(--border); margin-top: 2rem; }
+    footer a { color: var(--accent); }
+    @media (max-width: 600px) { .talk { padding: 1rem; } .talk-header { flex-direction: column; } }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>2026 台灣神經學年會 — Day 2 預習指南</h1>
+  <div class="subtitle">基層醫師必看：每場演講的重點預覽與 PubMed 文獻索引</div>
+  <div class="meta">2026/5/3（日）｜年會官網：<a href="https://www.amtns.org.tw/" target="_blank" style="color:#93d0f5;">amtns.org.tw</a></div>
+</header>
+
+<div class="container">
+
+<div class="toc">
+  <h2>場次總覽 — 點選跳轉</h2>
+  <ul>
+    <li><span class="toc-time">08:30</span><a href="#dementia">失智症研討會</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span></li>
+    <li><span class="toc-time">08:30</span><a href="#neuroinflam">神經免疫研討會</a><span class="toc-room" style="background:var(--session-a)">A廳</span></li>
+    <li><span class="toc-time">08:30</span><a href="#neurophysio">神經生理研討會</a><span class="toc-room" style="background:var(--session-b)">B廳</span></li>
+    <li><span class="toc-time">08:30</span><a href="#cme-general">CME 一般神經學</a><span class="toc-room" style="background:var(--session-c)">簡報室</span></li>
+    <li><span class="toc-time">10:20</span><a href="#movement">動作障礙研討會</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span></li>
+    <li><span class="toc-time">10:20</span><a href="#neurogenetics">神經遺傳學研討會</a><span class="toc-room" style="background:var(--session-a)">A廳</span></li>
+    <li><span class="toc-time">10:20</span><a href="#sleep">睡眠與眩暈研討會</a><span class="toc-room" style="background:var(--session-b)">B廳</span></li>
+    <li><span class="toc-time">13:10</span><a href="#guidelines">TNS 臨床指引</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span><span class="guideline-badge">Guidelines</span></li>
+  </ul>
+</div>
+
+<!-- ===== 失智症 ===== -->
+<div class="session" id="dementia">
+  <div class="session-header" style="background:var(--session-hall);" onclick="toggleSession(this)">
+    <div><h2>失智症研討會 Dementia</h2><div class="room">08:30–10:00 ｜ 國際會議廳</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Updates on Alzheimer's Disease Genetics</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">Cathy S.-J. Fann <span>｜主持：Jong-Ling Fuh</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Fann 參與<strong>台灣精準醫療計畫（TPMI）</strong>，為最大非歐裔基因體醫療整合研究</li>
+          <li>AD 基因風險：APOE ε4 仍是最強風險因子；台灣研究確認 <strong>APOE + SORL1</strong> 是漢人認知退化最重要的基因因子</li>
+          <li>GWAS 已發現超過 75 個 AD 風險位點，多數與免疫、脂質代謝、內吞作用（endocytosis）相關</li>
+          <li>多基因風險評分（PRS）用於個人化風險預測的潛力與侷限</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/41810385/" target="_blank">Fann 2025 - TPMI genetic risk for PD and dementia</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/34214049/" target="_blank">2021 - AD genes and cognitive decline in Han Chinese</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>患者問「失智會遺傳嗎？」— 絕大多數 AD 是多基因 + 環境因素，APOE ε4 攜帶者風險較高但非決定性，目前不建議一般人做基因篩檢。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Molecular Therapy for Dementia: Update and Perspectives</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">Yi-Chun Kuan <span>｜主持：Jung-Lung Hsu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>抗類澱粉蛋白抗體</strong>新時代：lecanemab（FDA 2023 核准）、donanemab（2024 核准）可清除腦中 Aβ 斑塊</li>
+          <li>臨床效益：認知退化速度減緩約 25–35%，但伴隨 <strong>ARIA（amyloid-related imaging abnormalities）</strong>風險</li>
+          <li>ARIA 包含腦水腫（ARIA-E）和微出血（ARIA-H），APOE ε4 純合子風險最高</li>
+          <li>台灣的挑戰：需要 amyloid PET 或 CSF 確認 Aβ 陽性才能用藥，基礎建設與費用門檻</li>
+          <li>下一波方向：anti-tau 抗體、ASO 基因治療、GLP-1 agonists（semaglutide）的神經保護潛力</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>患者或家屬問「有沒有新的失智藥？」— 抗 Aβ 抗體確實是突破，但需早期診斷（MCI 或輕度 AD）、確認 amyloid 陽性才適用，且需定期 MRI 監測 ARIA。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Reconceptualizing Frontotemporal Dementia: from Genomics to Current Clinical Trials</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">Wei-Min Ho <span>｜主持：Ming-Chyi Pai</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>FTD 三大遺傳基因：<strong>C9orf72（最常見）、GRN（progranulin）、MAPT</strong></li>
+          <li>針對性治療進展：GRN 攜帶者可用 <strong>progranulin 補充療法</strong>或 sortilin 抑制劑提高 progranulin 濃度</li>
+          <li>C9orf72 攜帶者：<strong>ASO（antisense oligonucleotide）</strong>抑制異常重複擴增 RNA 的臨床試驗進行中</li>
+          <li>液體生物標記：NfL（neurofilament light）可追蹤疾病進展；CSF progranulin 用於 GRN 變異監測</li>
+          <li>FTD 的重新概念化：從臨床症候群 → 病理分子分型 → 基因導向治療</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/38687620/" target="_blank">2024 - FTD from genetics to therapeutic approaches</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/35182511/" target="_blank">2022 - Advances in FTD: diagnosis, biomarkers, therapeutics</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>65 歲以下的失智、行為人格改變或進行性失語，要想到 FTD。有家族史的更要注意，基因檢測可能改變治療選擇。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 神經免疫 ===== -->
+<div class="session" id="neuroinflam">
+  <div class="session-header" style="background:var(--session-a);" onclick="toggleSession(this)">
+    <div><h2>神經免疫研討會 Neuroinflammation</h2><div class="room">08:30–10:00 ｜ 討論室A</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Molecular and Clinical Biomarkers for CIDP</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">Chun-Wei Chang <span>｜主持：Jiann-Horng Yeh</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>CIDP 的<strong>新型自體抗體</strong>定義出不同亞型：anti-NF155、anti-contactin-1、anti-CASPR1</li>
+          <li>這些「nodopathy/paranodopathy」亞型對 IVIg 反應差，但對 <strong>rituximab</strong> 效果好</li>
+          <li>NfL（neurofilament light）作為疾病活性的血液標記：升高代表軸突損傷進行中</li>
+          <li>超音波可見周邊神經腫大，是非侵入性的輔助診斷工具</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Clinical Characteristics of Myasthenia Gravis in Taiwan</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">Nai-Wen Tsai <span>｜主持：Kuo-Hsuan Chang</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣 MG 流行病學：每年新診斷約 440–540 人，盛行率逐年上升，女男比 1.3:1</li>
+          <li>台灣特色：<strong>晚發型 MG（>50歲）比例增加</strong>，常合併高血壓（32–34%）、糖尿病（16–21%）</li>
+          <li>MuSK 抗體陽性 MG 在台灣的臨床特徵：球部症狀嚴重、危象比例高</li>
+          <li>gMG 患者數從 2009 年 1,576 人增至 2019 年 2,638 人</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/38678112/" target="_blank">2024 - MG Epidemiology in Taiwan</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/37426446/" target="_blank">2023 - Growing burden of gMG in Taiwan</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>老年人新發的眼瞼下垂 + 疲勞感加重，不要只想到老化——晚發型 MG 在台灣比例越來越高。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Diagnosis, Treatment and Vaccination of Japanese Encephalitis</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">Yuan-Ting Sun <span>｜主持：Yuh-Cherng Guo</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣 1968 年引入 JE 疫苗後發生率大幅下降，2017 年改用<strong>活性減毒嵌合疫苗</strong>（兩劑）</li>
+          <li>高風險族群：1976 年前出生者（可能未接種）、農林漁牧從業人員</li>
+          <li>臨床表現：急性腦炎症狀（發燒、意識改變、癲癇），死亡率約 20–30%，存活者約 30–50% 有後遺症</li>
+          <li>診斷：CSF 或血清 JE virus IgM（急性期）；MRI 可見丘腦雙側對稱訊號</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/37782654/" target="_blank">2023 - JE Epidemiology and Risk Factors in Taiwan</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>夏季急性腦炎 + MRI 丘腦病灶，要想到日本腦炎。確認患者疫苗史，高風險族群建議補接種。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 神經生理 ===== -->
+<div class="session" id="neurophysio">
+  <div class="session-header" style="background:var(--session-b);" onclick="toggleSession(this)">
+    <div><h2>神經生理研討會 Neurophysiology</h2><div class="room">08:30–10:00 ｜ 討論室B</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">The Role of Ultrasound in the Diagnosis of Neuromuscular Diseases</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">Hsueh-Wen Hsueh <span>｜主持：Chi-Chao Chao</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>神經肌肉超音波</strong>：非侵入性、即時、可反覆檢查，補充 NCV/EMG 的不足</li>
+          <li>可偵測：周邊神經腫大（CIDP、多灶性運動神經病變）、肌肉萎縮 / 脂肪浸潤（肌病變）</li>
+          <li>ALS 的超音波特徵：fasciculation 即時可視化，比 EMG 更敏感</li>
+          <li>Point-of-care 趨勢：手持式超音波讓神經科門診即可執行</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Ultrasound in Movement Disorders: Dual-Target Treatment for Parkinson Disease</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">Jui-Cheng Chen <span>｜主持：Ming-Kuei Lu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Jui-Cheng Chen 團隊開創<strong>雙靶點 MRgFUS（磁振導引聚焦超音波）</strong>治療顫抖型 PD</li>
+          <li>方法：同一次手術先消融 VIM（丘腦腹中間核），再消融 <strong>PTT（蒼白丘腦束）</strong></li>
+          <li>2023 年可行性研究 + 2024 年一年追蹤：顫抖改善持續且安全</li>
+          <li>優勢：免開刀、不需植入電極；侷限：單側治療、需 CT 確認顱骨密度</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/36563853/" target="_blank">Chen 2023 - Dual-Target MRgFUS Feasibility</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39287607/" target="_blank">Chen 2024 - One-Year Follow-up</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/40888435/" target="_blank">Chen 2025 - PTT Circuit Ablation</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>藥物控制不佳的顫抖型 PD 患者，除了 DBS 外，MRgFUS 是新的非侵入性選項。台灣中國醫藥大學已有此技術。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Focused Ultrasound + Drug-Loaded Microbubbles for Neurological Disorders</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">Yi-Jen Wu <span>｜主持：Chou-Ching Lin</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>聚焦超音波 + 微泡</strong>可暫時、局部打開血腦障壁（BBB），讓藥物進入腦實質</li>
+          <li>應用方向：讓抗體藥物（如 anti-Aβ）更精準送入特定腦區、化療藥物治療腦瘤</li>
+          <li>BBB 開啟是可逆的（數小時內恢復），安全性已在人體試驗中確認</li>
+          <li>未來可能改變神經退化疾病的藥物遞送方式</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== CME 一般 ===== -->
+<div class="session" id="cme-general">
+  <div class="session-header" style="background:var(--session-c);" onclick="toggleSession(this)">
+    <div><h2>CME 一般神經學與臨床主題</h2><div class="room">08:30–11:50 ｜ 簡報室</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Orthobiologics and Regenerative Intervention: An Overview</div>
+        <div class="talk-time">08:30–09:30</div>
+      </div>
+      <div class="talk-speaker">Ding-Hao Liu <span>｜主持：Zhi-He Chou</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Orthobiologics：PRP（富血小板血漿）、幹細胞、增生療法在神經肌肉骨骼疼痛的應用</li>
+          <li>神經科相關：周邊神經卡壓的超音波導引注射、carpal tunnel syndrome 的非手術選項</li>
+          <li>實證等級與適應症選擇仍在建立中</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">保險診斷之眉眉角角</div>
+        <div class="talk-time">09:30–10:30</div>
+      </div>
+      <div class="talk-speaker">Hsueh-Mien Chu <span>｜主持：Hsiao-Ya Shi</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>神經科常見保險爭議：TIA vs stroke 的診斷、意識障礙的等級判定</li>
+          <li>診斷書撰寫要點：用語精準、避免過度或不足描述</li>
+          <li>基層實務的必修課</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>這場對基層開業醫非常實用，保險診斷書寫法直接影響患者權益與醫療糾紛風險。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">頸椎內視鏡</div>
+        <div class="talk-time">10:50–11:50</div>
+      </div>
+      <div class="talk-speaker">Yu-Jen Lu <span>｜主持：Ping-Knu Chen</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>頸椎內視鏡手術：微創、傷口小、恢復快，適用於頸椎間盤突出壓迫神經根</li>
+          <li>與傳統前路椎間盤切除（ACDF）的比較：適應症選擇是關鍵</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 動作障礙 ===== -->
+<div class="session" id="movement">
+  <div class="session-header" style="background:var(--session-hall);" onclick="toggleSession(this)">
+    <div><h2>動作障礙研討會 Movement Disorders</h2><div class="room">10:20–11:50 ｜ 國際會議廳</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Application of Clinical Diagnostic Criteria for Atypical Parkinsonism</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">Han-Lin Chiang <span>｜主持：Yueh-Feng Sung</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>非典型巴金森症三大疾病：<strong>PSP（進行性核上麻痺）、MSA（多系統萎縮）、CBD（皮質基底核退化）</strong></li>
+          <li>PSP 紅旗徵：早期跌倒（第一年內）、垂直眼球運動障礙、頸部後仰僵硬</li>
+          <li>MSA 紅旗徵：嚴重自律神經失調（姿態性低血壓、尿失禁）+ 小腦徵</li>
+          <li>CBD 紅旗徵：不對稱的肢體失用、alien limb phenomenon、皮質感覺喪失</li>
+          <li>MDS 2017 PSP 診斷標準將 PSP 擴展為多種亞型（PSP-RS, PSP-P, PSP-CBS 等）</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/31571273/" target="_blank">2019 - Validation of MDS criteria for 4R tauopathies</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>PD 藥物反應差 + 早期跌倒或嚴重自律神經症狀 → 要懷疑非典型巴金森症，及早轉介運動障礙專科。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Neurophysiology of Atypical Parkinsonian Syndromes</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">Kai-Hsiang Stanley Chen <span>｜主持：Yih-Ru Wu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>神經電生理在鑑別典型 vs 非典型巴金森症的角色</li>
+          <li>TMS（經顱磁刺激）特徵：PD 保留皮質抑制，CBD/PSP 的皮質抑制減少</li>
+          <li>自律神經功能檢查：MSA 的心率變異和皮膚交感反應異常最嚴重</li>
+          <li>眼動檢查：PSP 的垂直掃視速度減慢是最敏感的早期徵象</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Genetics and Biomarkers for 4R Tauopathy: A Bridge to Targeted Therapies</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">Huw Morris <span>（UCL, UK）｜主持：Tu-Hsueh Yeh</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Morris 第二場演講，聚焦 <strong>4R tauopathy</strong>（PSP、CBD）的基因與生物標記</li>
+          <li>MAPT 基因超過 100 個已知突變，某些突變選擇性增加 4R tau 產生</li>
+          <li>治療方向：
+            <ul>
+              <li><strong>Anti-tau 抗體</strong>：tilavonemab 等已在 PSP 試驗中（結果不一）</li>
+              <li><strong>MAPT ASO</strong>：降低 tau 表現量</li>
+              <li><strong>Tau aggregation inhibitor</strong>：阻止 4R tau 形成不可溶纖維</li>
+            </ul>
+          </li>
+          <li>生物標記：CSF/blood NfL 追蹤進展、tau PET（PI-2620）區分 3R vs 4R tauopathy</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/34426686/" target="_blank">Morris 2021 - Evolving concepts in PSP and 4R tauopathies</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/41405696/" target="_blank">2025 - Biomarkers in PSP: biotyping framework</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 神經遺傳 ===== -->
+<div class="session" id="neurogenetics">
+  <div class="session-header" style="background:var(--session-a);" onclick="toggleSession(this)">
+    <div><h2>神經遺傳學研討會 Neurogenetics</h2><div class="room">10:20–11:50 ｜ 討論室A</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Decoding Neurogenetic Disorders Using WGS</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">Ni-Chung Lee <span>｜主持：Chih-Chao Yang</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>WGS（全基因組定序）</strong>比 WES 多覆蓋非編碼區、結構變異、重複序列</li>
+          <li>診斷率提升：不明原因神經退化疾病的 WGS 診斷率約 25–40%</li>
+          <li>臨床應用：不明原因的早發失智、遺傳性痙攣性截癱、不明白質腦病變</li>
+          <li>挑戰：VUS（意義未明變異）的判讀、倫理議題</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Hereditary Nonvascular Leukoencephalopathy</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">Yi-Chu Liao <span>｜主持：Yi-Chung Lee</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Yi-Chu Liao 專精台灣 <strong>HTRA1 相關腦小血管疾病</strong>與遺傳性白質腦病變</li>
+          <li>非血管性白質腦病變分類：<strong>HDLS（CSF1R 突變）、VWM、Alexander disease、MLC</strong> 等</li>
+          <li>HDLS（hereditary diffuse leukoencephalopathy with spheroids）：成人發病的認知退化 + 行為改變 + 步態障礙，MRI 白質病灶不對稱</li>
+          <li>鑑別：MRI 白質病灶 ≠ 都是血管性，年輕患者或家族史陽性要考慮遺傳性</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/29895533/" target="_blank">Liao 2018 - HTRA1 mutations in Taiwanese patients</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>MRI 白質病灶在年輕患者（<50歲）且沒有明顯血管風險因子時，不要輕易歸因於「小血管疾病」——需考慮遺傳性白質腦病變。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Recent Developments and Evolving Therapeutic Options for Hereditary Neuropathies</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">Tsai-Wei Liu <span>｜主持：Long-Sun Ro</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>CMT（Charcot-Marie-Tooth）是最常見的遺傳性神經病變，盛行率約 1/2,500</li>
+          <li>CMT1A（PMP22 重複）佔 50%：基因治療方向是降低 PMP22 過度表現</li>
+          <li>新治療進展：<strong>PXT3003（baclofen+naltrexone+sorbitol）</strong>Phase 3 進行中</li>
+          <li>hATTR（遺傳性澱粉樣多發性神經病變）：已有 <strong>patisiran（RNAi）和 inotersen（ASO）</strong>核准</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>年輕人足部變形（高弓足、錘趾）+ 慢性感覺運動神經病變 → 考慮 CMT，應做基因檢測確認亞型。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 睡眠與眩暈 ===== -->
+<div class="session" id="sleep">
+  <div class="session-header" style="background:var(--session-b);" onclick="toggleSession(this)">
+    <div><h2>睡眠與眩暈研討會 Sleep & Vertigo</h2><div class="room">10:20–11:50 ｜ 討論室B</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">From RBD to Lewy Body Disease: Diagnostic Biomarkers, Conversion Factors, and Clinical Trial Updates</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">Yen-Chung Chen <span>｜主持：Shey-Lin Wu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>iRBD（特發性 REM 睡眠行為障礙）</strong>是 α-synucleinopathy 的前驅期，轉化率 >80%（追蹤 10–15 年）</li>
+          <li>轉化預測因子：嗅覺喪失、便秘、DAT scan 異常、認知減退</li>
+          <li>iRBD 作為<strong>神經保護試驗的黃金窗口</strong>：在臨床 PD/DLB 發病前介入</li>
+          <li>DLB 2017 修訂診斷標準：RBD 被列為核心特徵之一（與波動性認知、視幻覺、巴金森症並列）</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/41134495/" target="_blank">2025 - RBD as Prodromal Synucleinopathy: Updates</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>患者或床伴描述「睡覺時拳打腳踢、大喊大叫」→ 考慮 RBD，應轉介做 PSG 確認。確診 iRBD 後需長期追蹤巴金森或失智的早期徵兆。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Sleep, Glymphatic Flow, and Neurodegeneration: How Deep Sleep Protects the Aging Brain</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">Jung-Lung Hsu <span>｜主持：Yu Sun</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>Glymphatic system（類淋巴系統）</strong>：腦脊髓液沿動脈周圍空間流入，帶走代謝廢物（Aβ、tau），主要在<strong>深層睡眠（N3 NREM）</strong>活化</li>
+          <li>Jung-Lung Hsu 團隊用 <strong>DTI-ALPS index</strong>（MRI 標記）量化 glymphatic 功能</li>
+          <li>研究發現：睡眠品質差 → ALPS index 降低 → 記憶力下降；glymphatic 障礙可能<strong>介導 amyloid/tau 病理與認知衰退的關係</strong></li>
+          <li>臨床意義：改善睡眠品質可能延緩神經退化</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39397082/" target="_blank">Hsu 2025 - Sleep, glymphatic and memory in older adults</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36214568/" target="_blank">Hsu 2022 - Glymphatic Alterations in AD</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>「睡好覺可以預防失智嗎？」— 現在有科學根據了。深層睡眠讓腦部清除 Aβ 等有毒蛋白。處理失眠不只是改善生活品質，也是神經保護策略。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Cutting-Edge Developments in Neuro-Otology: From Mechanisms to Therapeutics</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">Hsun-Hua Lee <span>｜主持：Chin-Chung Chen</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Hsun-Hua Lee 團隊研發 <strong>AI + 眼振圖（VOG）</strong>系統，自動鑑別危險性 vs 良性眩暈</li>
+          <li>中樞性 vs 周邊性眩暈的鑑別要點：HINTS 檢查（Head Impulse, Nystagmus, Test of Skew）</li>
+          <li>急性前庭症候群（AVS）：排除後循環中風是首要任務</li>
+          <li>前庭性偏頭痛：比想像中常見，診斷標準仍在演進</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/41521318/" target="_blank">Lee 2025 - AI-based vertigo diagnosis using VOG</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>急性眩暈 HINTS 三步驟：(1) 頭脈衝測試正常 (2) 方向改變性眼振 (3) skew deviation → 任一陽性提示中樞性，需緊急影像。</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TNS 指引 ===== -->
+<div class="session" id="guidelines">
+  <div class="session-header" style="background:linear-gradient(135deg, #16a085, #1abc9c);" onclick="toggleSession(this)">
+    <div><h2>TNS 臨床指引 Guidelines <span class="guideline-badge">CME</span></h2><div class="room">13:10–14:40 ｜ 國際會議廳</div></div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Amyloid Targeting Therapy</div>
+        <div class="talk-time">13:10–13:30</div>
+      </div>
+      <div class="talk-speaker">Li-Kai Huang <span>｜主持：Wen-Chuin Hsu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣神經學學會對 <strong>lecanemab / donanemab</strong> 的使用建議</li>
+          <li>適應症：早期 AD（MCI 或輕度），需 amyloid PET 或 CSF 確認 Aβ 陽性</li>
+          <li>ARIA 監測 protocol：用藥前後定期 MRI，APOE 基因型影響風險分層</li>
+          <li>台灣的可近性與健保給付展望</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Acute Stroke Pathway</div>
+        <div class="talk-time">13:30–13:50</div>
+      </div>
+      <div class="talk-speaker">Chih-Hao Chen <span>｜主持：Sung-Chun Tang</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣急性中風路徑更新：從辨識、轉送、影像、tPA/EVT 到急性期照護的完整 SOP</li>
+          <li>2020 台灣急性中風到院前處理指引：涵蓋 12 個面向</li>
+          <li>關鍵更新重點：取栓時間窗延長、wake-up stroke 處理、雙抗血小板適應症</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/33928011/" target="_blank">2020 - Taiwan Guideline for Acute Ischemic Stroke</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36313610/" target="_blank">2022 - DAPT for Minor Stroke/TIA Expert Consensus</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>基層必背：minor stroke/high-risk TIA 的 DAPT（aspirin + clopidogrel）21 天方案，之後轉單一抗血小板。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Treatment in Parkinson's Disease</div>
+        <div class="talk-time">13:50–14:10</div>
+      </div>
+      <div class="talk-speaker">Yi-Cheng Tai <span>｜主持：Ruey-Meei Wu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣 PD 治療指引更新：早期 vs 進階期的藥物選擇流程</li>
+          <li>Motor fluctuation 處理：on-off 現象、wearing off、dyskinesia 的階梯式調整</li>
+          <li>非運動症狀管理：憂鬱、便秘、RBD、衝動控制障礙</li>
+          <li>進階治療轉介時機：DBS、levodopa-carbidopa intestinal gel（LCIG）、MRgFUS</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>PD 患者出現 wearing off（藥效時間縮短），不是單純加量就好——需調整給藥間隔或加用 MAO-B/COMT 抑制劑。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Taiwan Clinical Practice Guidelines for Myasthenia Gravis</div>
+        <div class="talk-time">14:10–14:30</div>
+      </div>
+      <div class="talk-speaker">Jiann-Horng Yeh <span>｜主持：Hou-Chang Chiu</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>台灣 MG 臨床指引：從診斷到治療的完整共識</li>
+          <li>治療階梯：<strong>AChE inhibitor → 免疫抑制劑（steroids + azathioprine/mycophenolate）→ IVIg/PLEX → 生物製劑</strong></li>
+          <li>新型生物製劑：<strong>eculizumab（anti-C5）、efgartigimod（FcRn inhibitor）、rozanolixizumab</strong></li>
+          <li>胸腺切除：gMG + AChR Ab 陽性 + 年齡 18–65 歲，MGTX trial 支持早期手術</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/38678112/" target="_blank">2024 - MG Treatment Patterns in Taiwan</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33144515/" target="_blank">2020 - International Consensus for MG Management</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>MG 患者要注意藥物禁忌清單：aminoglycosides、fluoroquinolones、magnesium、beta-blockers 等可能加重症狀。</div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p>年會官網：<a href="https://www.amtns.org.tw/" target="_blank">www.amtns.org.tw</a></p>
+  <p>資料來源：PubMed、年會議程表｜聖星診所 藍聖星理事 數位助理 CMini 整理</p>
+  <p style="margin-top:0.5rem;"><a href="annual2026_day1.html">← Day 1 預習指南</a>｜<a href="index.html">教育訓練課程列表</a></p>
+</footer>
+
+<script>
+function toggleSession(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.toggle');
+  if (body.style.display === 'none') { body.style.display = ''; toggle.classList.remove('collapsed'); }
+  else { body.style.display = 'none'; toggle.classList.add('collapsed'); }
+}
+</script>
+</body>
+</html>
