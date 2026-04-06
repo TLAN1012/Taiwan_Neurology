@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026 台灣神經學年會 Day 1 預習指南</title>
+  <style>
+    :root {
+      --primary: #1a5276;
+      --accent: #2980b9;
+      --bg: #f8f9fa;
+      --card-bg: #ffffff;
+      --border: #dee2e6;
+      --text: #2c3e50;
+      --text-light: #6c757d;
+      --session-a: #2980b9;
+      --session-b: #8e44ad;
+      --session-hall: #c0392b;
+      --session-c: #27ae60;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC", sans-serif;
+      background: var(--bg); color: var(--text); line-height: 1.7;
+    }
+    header {
+      background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+      color: white; padding: 2.5rem 1rem; text-align: center;
+    }
+    header h1 { font-size: 1.6rem; margin-bottom: 0.3rem; }
+    header .subtitle { font-size: 1rem; opacity: 0.9; }
+    header .meta { font-size: 0.85rem; opacity: 0.7; margin-top: 0.5rem; }
+    .container { max-width: 900px; margin: 0 auto; padding: 1rem; }
+
+    .toc {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.2rem 1.5rem; margin: 1rem 0 1.5rem;
+    }
+    .toc h2 { font-size: 1rem; margin-bottom: 0.5rem; color: var(--primary); }
+    .toc ul { list-style: none; }
+    .toc li { margin: 0.3rem 0; }
+    .toc a { color: var(--accent); text-decoration: none; font-size: 0.9rem; }
+    .toc a:hover { text-decoration: underline; }
+    .toc .toc-time { color: var(--text-light); font-size: 0.8rem; margin-right: 0.3rem; }
+    .toc .toc-room { font-size: 0.72rem; padding: 0.1rem 0.4rem; border-radius: 8px;
+      color: white; margin-left: 0.3rem; vertical-align: middle; }
+
+    .session {
+      margin: 2rem 0; border-radius: 10px; overflow: hidden;
+      border: 1px solid var(--border);
+    }
+    .session-header {
+      padding: 1rem 1.2rem; color: white; cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .session-header h2 { font-size: 1.05rem; }
+    .session-header .room { font-size: 0.8rem; opacity: 0.85; }
+    .session-header .toggle { font-size: 1.2rem; transition: transform 0.3s; }
+    .session-header .toggle.collapsed { transform: rotate(-90deg); }
+
+    .session-body { background: var(--card-bg); }
+
+    .talk {
+      padding: 1.2rem 1.5rem; border-bottom: 1px solid var(--border);
+    }
+    .talk:last-child { border-bottom: none; }
+    .talk-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      flex-wrap: wrap; gap: 0.3rem; margin-bottom: 0.5rem;
+    }
+    .talk-title { font-size: 0.95rem; font-weight: 700; color: var(--primary); flex: 1; }
+    .talk-time { font-size: 0.8rem; color: var(--text-light); white-space: nowrap; }
+    .talk-speaker {
+      font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem;
+      font-weight: 600;
+    }
+    .talk-speaker span { font-weight: 400; color: var(--text-light); }
+
+    .prep-box {
+      background: #f0f6fb; border-left: 3px solid var(--accent);
+      border-radius: 0 6px 6px 0; padding: 0.8rem 1rem; margin-top: 0.5rem;
+    }
+    .prep-box h4 {
+      font-size: 0.82rem; color: var(--accent); margin-bottom: 0.4rem;
+      text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .prep-box ul { padding-left: 1.2rem; font-size: 0.85rem; }
+    .prep-box li { margin: 0.25rem 0; }
+    .prep-box .refs {
+      margin-top: 0.5rem; font-size: 0.78rem; color: var(--text-light);
+    }
+    .prep-box .refs a { color: var(--accent); text-decoration: none; }
+    .prep-box .refs a:hover { text-decoration: underline; }
+
+    .clinic-tip {
+      background: #fef9e7; border-left: 3px solid #f39c12;
+      border-radius: 0 6px 6px 0; padding: 0.6rem 1rem; margin-top: 0.5rem;
+      font-size: 0.83rem;
+    }
+    .clinic-tip strong { color: #e67e22; }
+
+    .keynote-badge {
+      display: inline-block; background: #c0392b; color: white;
+      font-size: 0.7rem; padding: 0.1rem 0.5rem; border-radius: 8px;
+      font-weight: 600; margin-left: 0.3rem; vertical-align: middle;
+    }
+
+    footer {
+      text-align: center; font-size: 0.8rem; color: var(--text-light);
+      padding: 2rem 1rem 1rem; border-top: 1px solid var(--border); margin-top: 2rem;
+    }
+    footer a { color: var(--accent); }
+
+    @media (max-width: 600px) {
+      .talk { padding: 1rem; }
+      .talk-header { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>2026 台灣神經學年會 — Day 1 預習指南</h1>
+  <div class="subtitle">基層醫師必看：每場演講的重點預覽與 PubMed 文獻索引</div>
+  <div class="meta">2026/5/2（六）｜年會官網：<a href="https://www.amtns.org.tw/" target="_blank" style="color:#93d0f5;">amtns.org.tw</a></div>
+</header>
+
+<div class="container">
+
+<!-- 目錄 -->
+<div class="toc">
+  <h2>場次總覽 — 點選跳轉</h2>
+  <ul>
+    <li><span class="toc-time">08:30</span><a href="#headache">頭痛研討會</a><span class="toc-room" style="background:var(--session-a)">A廳</span></li>
+    <li><span class="toc-time">08:30</span><a href="#epilepsy">癲癇研討會</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span></li>
+    <li><span class="toc-time">08:30</span><a href="#neurocritical">神經重症照護研討會</a><span class="toc-room" style="background:var(--session-c)">簡報室</span></li>
+    <li><span class="toc-time">08:30</span><a href="#workshop">神經科醫師未來工作坊</a><span class="toc-room" style="background:var(--session-b)">B廳</span></li>
+    <li><span class="toc-time">10:20</span><a href="#rehab">神經復健與老年長照研討會</a><span class="toc-room" style="background:var(--session-a)">A廳</span></li>
+    <li><span class="toc-time">10:20</span><a href="#stroke">中風研討會</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span></li>
+    <li><span class="toc-time">10:20</span><a href="#nmd">神經肌肉疾病研討會</a><span class="toc-room" style="background:var(--session-c)">簡報室</span></li>
+    <li><span class="toc-time">15:10</span><a href="#keynote">主題演講</a><span class="toc-room" style="background:var(--session-hall)">國際廳</span><span class="keynote-badge">Keynote</span></li>
+  </ul>
+</div>
+
+<!-- ===== 頭痛研討會 ===== -->
+<div class="session" id="headache">
+  <div class="session-header" style="background:var(--session-a);" onclick="toggleSession(this)">
+    <div>
+      <h2>頭痛研討會 Headache</h2>
+      <div class="room">08:30–10:00 ｜ 討論室A</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Demystifying Migraine Aura</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">陳世斌 Shih-Pin Chen <span>｜主持：楊春派</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>皮質擴散抑制（CSD）</strong>是偏頭痛先兆的核心機制，一波去極化從枕葉向前擴散，速度約 3–5 mm/min，正好解釋先兆的「漸進式」視覺變化</li>
+          <li>陳世斌團隊近年用 <strong>microRNA + 遺傳風險評分</strong>建立偏頭痛診斷模型，可區分發作期 vs 間歇期（2025, Brain）</li>
+          <li>偏頭痛先兆患者的<strong>中風風險</strong>較高（尤其年輕女性合併口服避孕藥），影像研究顯示腦白質病灶增加</li>
+          <li>先兆的鑑別診斷：TIA、癲癇、視網膜偏頭痛、持續性先兆</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39825787/" target="_blank">Chen 2025 Brain - miRNA-genetic risk score</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/31579941/" target="_blank">Chen 2019 - Migraine-Stroke Connection</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/28842982/" target="_blank">Chen 2017 - Therapeutic Targets Against CSD</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>患者描述「看東西有閃光鋸齒」時，先確認是否有漸進擴散特徵（先兆）vs 突發（TIA）。合併先兆的偏頭痛患者應評估心血管風險因子。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Migraine Treatment in the CGRP Era: Evidence and Sex Differences</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">楊富琪 Fu-Chi Yang <span>｜主持：吳至韋</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>CGRP（降鈣素基因相關胜肽）</strong>是偏頭痛發作的關鍵介質，目前有兩類藥物：單株抗體（erenumab, fremanezumab, galcanezumab）和小分子拮抗劑（gepants）</li>
+          <li><strong>性別差異關鍵發現</strong>：女性偏頭痛盛行率是男性的 3 倍；50 歲以下女性的腦膜中動脈對 CGRP 反應與男性顯著不同</li>
+          <li>荷爾蒙（雌激素、黃體素）影響 CGRP 系統，月經性偏頭痛的治療需考慮週期</li>
+          <li>慢性偏頭痛女性的失能度、發作頻率、工作效率影響都比男性嚴重</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39043230/" target="_blank">2024 - Sex differences CGRP vasodilation</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/35218478/" target="_blank">2022 - Sex Differences in Chronic Migraine</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/37486684/" target="_blank">2023 - Patient Sex in Prescribing CGRP Antagonists</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>開立偏頭痛預防藥物時，注意患者性別與年齡。CGRP 單株抗體在台灣已有健保給付條件，適用於慢性偏頭痛且傳統預防藥物無效者。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">OnabotulinumtoxinA in Chronic Migraine: An Update</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">王晏風 Yen-Feng Wang <span>｜主持：陳柔沙音</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>OnabotulinumtoxinA（肉毒桿菌素A）是台灣指引的<strong>慢性偏頭痛一線預防治療</strong>（2022 Taiwan Guidelines）</li>
+          <li>王晏風團隊 2024 年完成台灣多中心研究，直接比較 <strong>CGRP 單株抗體 vs 肉毒桿菌素</strong>在難治型慢性偏頭痛的療效</li>
+          <li>PREEMPT protocol：31 個注射點、155–195 單位，每 12 週一次</li>
+          <li>機制：不只是肌肉鬆弛，更重要的是<strong>抑制周邊 CGRP 和 substance P 釋放</strong>，阻斷三叉神經痛覺傳導</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/38837528/" target="_blank">Wang 2024 - CGRP mAb vs OnabotulinumtoxinA 多中心研究</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33008506/" target="_blank">Wang 2020 - OnabotulinumtoxinA in Chronic Migraine</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36089629/" target="_blank">2022 Taiwan Guidelines for Migraine Prevention</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>慢性偏頭痛（≥15天/月，其中≥8天有偏頭痛特徵，持續>3個月）且口服預防藥失敗 ≥2 種，可轉介注射肉毒桿菌素。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 癲癇研討會 ===== -->
+<div class="session" id="epilepsy">
+  <div class="session-header" style="background:var(--session-hall);" onclick="toggleSession(this)">
+    <div>
+      <h2>癲癇研討會 Epilepsy</h2>
+      <div class="room">08:30–10:00 ｜ 國際會議廳</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">The Role of Neuroimage (MRI, fMRI) in Epilepsy</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">周建甄 Chien-Chen Chou <span>｜主持：關尚穎</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>3T MRI 癲癇 protocol</strong>：薄切 FLAIR、3D T1（偵測 FCD）、高解析度 hippocampal 切面</li>
+          <li>fMRI 在術前評估中定位語言區和運動區，減少術後神經功能缺損</li>
+          <li>藥物難治型癲癇（佔 30%）需要影像學找出結構性病因：海馬硬化、局灶皮質發育不良（FCD）、腫瘤、血管畸形</li>
+          <li>AI 輔助偵測 MRI 微小病灶是近年趨勢</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Neuroinflammation in Epilepsy</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">鄭美雲 Mei-Yun Cheng <span>｜主持：吳玉麗</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>神經發炎在癲癇生成（epileptogenesis）中扮演關鍵角色：IL-1β、TNF-α、HMGB1 pathway</li>
+          <li><strong>自體免疫性腦炎</strong>（anti-NMDAR、anti-LGI1）引發的癲癇，免疫治療可能比抗癲癇藥更有效</li>
+          <li>血腦障壁破壞 → 白蛋白滲入 → 星狀膠質細胞活化 → 過度興奮的惡性循環</li>
+          <li>抗發炎策略作為癲癇的輔助治療正在臨床試驗中</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>新發癲癇合併認知或精神症狀變化，特別是年輕患者，要考慮自體免疫性腦炎，儘早送 autoimmune encephalitis panel。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Future Direction of Research in Epilepsy</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">黃金旺 Chin-Wei Huang <span>｜主持：謝良波</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>精準醫療在癲癇的應用：基因檢測指導用藥選擇（如 SCN1A 突變避用 Na⁺ channel blockers）</li>
+          <li>穿戴式裝置即時偵測癲癇發作與預測</li>
+          <li>基因治療與 antisense oligonucleotides（ASO）用於單基因癲癇</li>
+          <li>閉環式神經刺激（responsive neurostimulation）作為藥物難治型新選擇</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 神經重症照護 ===== -->
+<div class="session" id="neurocritical">
+  <div class="session-header" style="background:var(--session-c);" onclick="toggleSession(this)">
+    <div>
+      <h2>神經重症照護研討會 Neurocritical Care</h2>
+      <div class="room">08:30–10:00 ｜ 簡報室</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Diagnostic Value and Limitations of mNGS in CNS Infections</div>
+        <div class="talk-time">08:30–09:00</div>
+      </div>
+      <div class="talk-speaker">陳奕君 Yee-Chun Chen <span>｜主持：鄭建興</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>mNGS（次世代定序）</strong>可在 24–48 小時內從腦脊髓液直接定序所有微生物核酸，不需預先猜測病原</li>
+          <li>靈敏度約 68–73%，特異度約 83%；對已使用抗生素的患者特別有優勢</li>
+          <li><strong>侷限性</strong>：無法區分「感染」vs「污染/colonization」；無法做藥敏測試；費用高（約 2–3 萬台幣）</li>
+          <li>最佳適用情境：傳統培養陰性、臨床高度懷疑 CNS 感染的困難個案</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39043813/" target="_blank">2024 - Clinical application of mNGS in CNS infections</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/38992308/" target="_blank">2024 - mNGS for CNS Infections: Advances and Challenges</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>遇到不明原因腦膜炎/腦炎，培養與 PCR 均陰性時，可建議轉診至有 mNGS 能力的醫學中心。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Imaging Pitfalls in Patients with Hyperacute Stroke</div>
+        <div class="talk-time">09:00–09:30</div>
+      </div>
+      <div class="talk-speaker">李仲偉 Chung-Wei Lee <span>｜主持：龔瑞新</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>超急性期 CT 的<strong>假陰性</strong>：發作 6 小時內 CT 約 60% 看不出早期缺血變化</li>
+          <li>需注意的早期徵象：MCA dense sign、insular ribbon sign、loss of gray-white differentiation</li>
+          <li><strong>Stroke mimics</strong>在影像上的陷阱：癲癇後 Todd's paralysis、低血糖、轉化症</li>
+          <li>CTA/CTP 的判讀要點：core vs penumbra 的判定直接影響是否取栓</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>疑似中風患者在診所初步評估後，即使 CT 看起來正常也不能排除中風，應盡速轉送有取栓能力的醫院。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Optimal Multimodal Monitoring in Neurocritical Care</div>
+        <div class="talk-time">09:30–10:00</div>
+      </div>
+      <div class="talk-speaker">郭燁軍 Yeh-Jung Kuo <span>｜主持：李俊泰</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>多模態監測整合：ICP monitor + continuous EEG + brain tissue O₂ + microdialysis</li>
+          <li>目標：偵測<strong>二次腦損傷</strong>（secondary brain injury）的早期變化並即時介入</li>
+          <li>Spreading depolarization 的即時偵測是近年新進展</li>
+          <li>個人化的 CPP（腦灌注壓）目標取代固定閾值</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 工作坊 ===== -->
+<div class="session" id="workshop">
+  <div class="session-header" style="background:var(--session-b);" onclick="toggleSession(this)">
+    <div>
+      <h2>神經科醫師未來工作坊</h2>
+      <div class="room">08:30–11:50 ｜ 討論室B</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Career / Research / Clinic / AI / TNS Direction</div>
+        <div class="talk-time">08:30–11:50（6場）</div>
+      </div>
+      <div class="talk-speaker">黃國倫、林晉賢、林家宜、謝承洋、許楷程、蔡禮楷</div>
+      <div class="prep-box">
+        <h4>場次概覽</h4>
+        <ul>
+          <li><strong>08:30</strong> 黃國倫 — 台灣神經科醫師的職涯發展</li>
+          <li><strong>09:00</strong> 林晉賢 — 臨床醫師如何做研究</li>
+          <li><strong>09:30</strong> 林家宜 — 神經科診所的日常與心得</li>
+          <li><strong>10:20</strong> 謝承洋 — 神經科醫師的甘苦與建議</li>
+          <li><strong>10:50</strong> 許楷程 — <strong>AI 輔助臨床工作與研究</strong>（基層最相關！）</li>
+          <li><strong>11:20</strong> 蔡禮楷 — 學會的角色與方向</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>推薦場次：</strong>許楷程的 AI 場次對所有基層醫師都很實用，值得優先安排。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 神經復健與老年長照 ===== -->
+<div class="session" id="rehab">
+  <div class="session-header" style="background:var(--session-a);" onclick="toggleSession(this)">
+    <div>
+      <h2>神經復健與老年長照研討會</h2>
+      <div class="room">10:20–11:50 ｜ 討論室A</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Wearable Technology in Stroke Rehabilitation</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">陳昱緯 Yu-Wei Chen <span>｜主持：張庫州</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>陳昱緯參與 <strong>WEAR-Stroke Study Group</strong>，2024 年發表穿戴裝置輔助急性/亞急性中風復健的 RCT</li>
+          <li>穿戴裝置可客觀量化上肢活動量、步態參數、活動時間，取代主觀評估</li>
+          <li>居家復健監測：讓患者在家持續訓練並即時回傳數據給治療師</li>
+          <li>加速度計、陀螺儀、肌電圖感測器是主要技術</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39387211/" target="_blank">Chen 2024 - WEAR-Stroke RCT</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Digital Plus Plasma Biomarkers for Early AD Detection</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">劉怡前 Yi-Chien Liu <span>｜主持：陳培豪</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li><strong>血漿生物標記</strong>新時代：p-tau 181、p-tau 217、Aβ42/40 ratio 可用血液偵測阿茲海默症病理</li>
+          <li>劉怡前團隊研究結合<strong>語言分析（digital biomarker）+ 血漿標記</strong>提升早期 AD 偵測準確度</li>
+          <li>超高靈敏度檢測平台（Simoa/單分子陣列）使血漿檢測成為可能</li>
+          <li>未來可能取代 PET 或 CSF 檢查做為第一線篩檢工具</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/39376506/" target="_blank">Liu 2024 - Linguistic features + biomarkers for early AD</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/34662373/" target="_blank">2021 - Plasma Biomarker Model for AD Screening</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>家屬主訴「最近講話變少、用詞變簡單」可能是早期 AD 的語言退化徵兆。未來血漿 p-tau 217 檢測若普及，基層即可進行初步篩檢。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Smartphone-Based Multimodal Biomarkers for Parkinson's Disease</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">范松彬 Sung-Pin Fan <span>｜主持：林祖恭</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>手機內建感測器可捕捉 PD 早期運動徵兆：<strong>語音變化、手指敲擊速度、步態不穩</strong></li>
+          <li>語音分析：PD 患者的單調語調、音量降低、發音不清可被 AI 偵測</li>
+          <li>數位生物標記的優勢：<strong>居家、連續、客觀</strong>，補充門診短暫評估的不足</li>
+          <li>范松彬團隊 2025 年在 J Formosan Med Assoc 發表數位生物標記用於早期 PD 偵測</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/29994713/" target="_blank">2018 - Smartphone Speech Abnormalities in PD</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39181623/" target="_blank">2024 - Digital biomarkers in PD</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>懷疑早期巴金森的患者，除了看靜止性顫抖，也可注意語音變化（變小聲、單調）與書寫變小（micrographia），這些都是可量化的數位標記。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 中風研討會 ===== -->
+<div class="session" id="stroke">
+  <div class="session-header" style="background:var(--session-hall);" onclick="toggleSession(this)">
+    <div>
+      <h2>中風研討會 Stroke</h2>
+      <div class="room">10:20–11:50 ｜ 國際會議廳</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Update of Acute Stroke Reperfusion Therapy</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">周弘傑 Hong-Jie Jhou <span>｜主持：詹隆</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>周弘傑 2025 年統合分析：<strong>超過 24 小時的取栓</strong>在特定影像篩選下，療效不劣於 24 小時內（Thrombectomy Beyond 24h Meta-Analysis）</li>
+          <li>tPA 時間窗仍為 4.5 小時，但合併 <strong>DWI-FLAIR mismatch</strong> 可延伸（wake-up stroke 的 EXTEND/WAKE-UP trial）</li>
+          <li>癌症患者中風取栓：成功再灌注率與一般人相當，但 3 個月功能預後較差、死亡率較高</li>
+          <li>血壓控制爭議：再灌注後降壓可能有害（2024 Lancet Neurology 討論）</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/40283111/" target="_blank">Jhou 2025 - Thrombectomy Beyond 24h Meta-Analysis</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/36163348/" target="_blank">Jhou 2022 - EVT in active malignancy</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39608392/" target="_blank">2024 - BP lowering after reperfusion</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>中風黃金時間已不只是「3小時」。在有 perfusion imaging 的中心，合適的患者甚至 24 小時後仍可能受益於取栓。基層的任務：FAST 辨識 + 盡速轉送。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Large Artery Disease: Atherosclerotic vs. Non-Atherosclerotic</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">劉啟宏 Chi-Hung Liu <span>｜主持：林俊仁</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>劉啟宏參與制定 <strong>2023 台灣中風學會顱內動脈粥狀硬化指引</strong></li>
+          <li>大動脈疾病不全是 atherosclerosis：<strong>moyamoya、動脈夾層、血管炎、RCVS</strong> 都需鑑別</li>
+          <li>亞洲人顱內動脈狹窄比例高於歐美（ICAS vs ECAS 的種族差異）</li>
+          <li>ICAS 的最佳治療：積極藥物治療（雙抗血小板 + 高強度 statin）vs 支架（SAMMPRIS trial 教訓）</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/37341526/" target="_blank">2023 Taiwan Guidelines - Intracranial Atherosclerotic Disease</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/35507097/" target="_blank">2021 Taiwan Guidelines - BP Control for Stroke Prevention</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>年輕中風患者（<50歲）若影像顯示大動脈病變，不要預設是動脈粥狀硬化——需排除夾層、血管炎等非典型原因。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Regional Network for Acute Stroke Management</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">宋琵珊 Pi-Shan Sung <span>｜主持：陳柏林</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>宋琵珊在成大醫院推動區域中風聯防網絡，參與 <strong>TREAT-AIS</strong>（台灣取栓登錄系統）</li>
+          <li>drip-and-ship vs mothership model：小型醫院先給 tPA 再轉院 vs 直送取栓中心</li>
+          <li>台灣目前的挑戰：偏鄉轉運時間長、24/7 取栓醫院分布不均</li>
+          <li>COVID-19 期間台灣中風照護品質維持的經驗</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/40620221/" target="_blank">2025 - TREAT-AIS 台韓登錄比較</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/33053957/" target="_blank">Sung 2020 - Stroke Care Quality during COVID-19</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>基層診所是中風聯防的第一線。確認你轄區的最近取栓醫院在哪裡，掌握轉診 SOP。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 神經肌肉疾病 ===== -->
+<div class="session" id="nmd">
+  <div class="session-header" style="background:var(--session-c);" onclick="toggleSession(this)">
+    <div>
+      <h2>神經肌肉疾病研討會 Neuromuscular Disorders</h2>
+      <div class="room">10:20–11:50 ｜ 簡報室</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Evolving Strategies for the Treatment of Spinal Muscular Atrophy</div>
+        <div class="talk-time">10:20–10:50</div>
+      </div>
+      <div class="talk-speaker">Keita Takahashi 高橋慶太 <span>（日本橫濱市大）｜主持：蔡禮楷</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>SMA 目前有<strong>三種治療</strong>：nusinersen（鞘注 ASO）、risdiplam（口服 SMN2 splicing modifier）、onasemnogene（基因治療，一次性 AAV9）</li>
+          <li>Takahashi 2025 年研究：成人 SMA 患者 nusinersen <strong>6 個月間隔給藥</strong>的長期療效不劣於標準 4 個月間隔</li>
+          <li>日本新生兒篩檢經驗：SMA 預後取決於<strong>症狀前治療</strong>，越早越好</li>
+          <li>基因治療 + 基因編輯的合併策略是下一步方向</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/40320994/" target="_blank">Takahashi 2025 - Nusinersen 6-Month Dosing</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39048567/" target="_blank">2024 - Gene supplementation + genome editing for SMA</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Paraprotein-Related Neuropathy: A Diagnostic Maze</div>
+        <div class="talk-time">10:50–11:20</div>
+      </div>
+      <div class="talk-speaker">賴冠霖 Kuan-Lin Lai <span>｜主持：林昆平</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>副蛋白血症相關神經病變的分類：<strong>MGUS-neuropathy、POEMS、AL amyloidosis、Waldenström</strong></li>
+          <li>關鍵診斷線索：慢性進行性感覺運動神經病變 + 血清蛋白電泳異常 → 需做 immunofixation</li>
+          <li><strong>Anti-MAG neuropathy</strong>：IgM MGUS 最常見的神經病變，遠端為主，感覺 > 運動</li>
+          <li>POEMS 五大特徵：Polyneuropathy + Organomegaly + Endocrinopathy + M-protein + Skin changes</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/40549225/" target="_blank">2025 - Update on paraproteinemic neuropathy</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/38816958/" target="_blank">2024 - Paraproteinemic neuropathies review</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>慢性多發性神經病變原因不明時，別忘了查蛋白電泳！如果有 M-protein 就要進一步分型。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">Diagnostic Odyssey and Management in CIDP</div>
+        <div class="talk-time">11:20–11:50</div>
+      </div>
+      <div class="talk-speaker">郭郁承 Yuh-Cherng Guo <span>｜主持：宋家瑩</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>CIDP 診斷三要素：<strong>進行 > 8 週的對稱性近端+遠端無力 + 反射減弱 + NCV 脫髓鞘特徵</strong></li>
+          <li>CIDP 常被誤診為 POEMS、多發性硬化、運動神經元疾病</li>
+          <li>治療選擇：<strong>IVIg、血漿置換、類固醇</strong>為一線；皮下免疫球蛋白（SCIg）改善便利性</li>
+          <li>Anti-contactin、anti-NF155 等新型抗體定義了 CIDP 的自體免疫亞型</li>
+        </ul>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>GBS 好了又復發？超過 8 週的進行性或反覆多發性神經病變，要考慮 CIDP 而非反覆 GBS。</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ===== 主題演講 ===== -->
+<div class="session" id="keynote">
+  <div class="session-header" style="background:linear-gradient(135deg, #c0392b, #e74c3c);" onclick="toggleSession(this)">
+    <div>
+      <h2>主題演講 Keynote Speech</h2>
+      <div class="room">15:10–16:40 ｜ 國際會議廳</div>
+    </div>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="session-body">
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">From Genetic Discovery to Mechanism-Targeted Therapy in Parkinson's Disease <span class="keynote-badge">Keynote</span></div>
+        <div class="talk-time">15:10–15:55</div>
+      </div>
+      <div class="talk-speaker">Huw Morris <span>（英國 UCL Queen Square Institute of Neurology）｜主持：林晉賢</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Morris 是 <strong>Global Parkinson's Genetics Program (GP2)</strong> 核心成員，推動全球 PD 基因研究</li>
+          <li>PD 基因圖譜：從單基因（SNCA, LRRK2, GBA, PARK2/Parkin, PINK1）到多基因風險評分</li>
+          <li>機制導向治療的三大方向：
+            <ul>
+              <li><strong>GBA/GCase pathway</strong>：ambroxol 和 venglustat 等小分子增強 glucocerebrosidase 活性</li>
+              <li><strong>LRRK2 inhibitor</strong>：DNL151 等正在 Phase 2 試驗</li>
+              <li><strong>α-synuclein 靶向</strong>：抗體（prasinezumab）和 ASO 抑制表現</li>
+            </ul>
+          </li>
+          <li>α-synuclein 的腸-腦軸傳播假說（Braak staging）與疾病進展</li>
+          <li>2024 Lancet Neurology: PD 病理機制涉及<strong>粒線體、溶酶體、內體</strong>三條路徑</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/38245249/" target="_blank">Morris 2024 Lancet Neurol - Pathogenesis of PD</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39447588/" target="_blank">2024 - Uncovering genetic basis of PD globally</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/37560120/" target="_blank">Morris 2023 - Genome-wide Motor Progression</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>雖然基因治療離基層還遠，但了解 GBA 變異讓我們知道：有高乳糖症（Gaucher disease）家族史的 PD 患者，病程可能較快、認知退化較早。</div>
+    </div>
+
+    <div class="talk">
+      <div class="talk-header">
+        <div class="talk-title">The Neurology of Social Cognition in Health and Neurodegeneration <span class="keynote-badge">Keynote</span></div>
+        <div class="talk-time">15:55–16:40</div>
+      </div>
+      <div class="talk-speaker">Katherine P. Rankin <span>（美國 UCSF Memory and Aging Center）｜主持：胡中志</span></div>
+      <div class="prep-box">
+        <h4>預習重點</h4>
+        <ul>
+          <li>Rankin 是社會認知與神經退化疾病的頂尖專家，在 UCSF 記憶與老化中心任職</li>
+          <li><strong>社會認知</strong>包含：情緒辨識、同理心、心智理論（theory of mind）、社交行為規範判斷</li>
+          <li>不同退化症有不同社會認知特徵：
+            <ul>
+              <li><strong>bvFTD</strong>：最早且最嚴重，脫抑制、缺乏同理心、社交不適切行為</li>
+              <li><strong>AD</strong>：較晚期才出現，主要是情緒辨識困難</li>
+              <li><strong>PSP/CBS</strong>：有但較輕微</li>
+            </ul>
+          </li>
+          <li>Rankin 開發的 <strong>SBOCL（Social Behavior Observer Checklist）</strong>：3 分鐘即可完成，幫助鑑別不同退化症</li>
+          <li>腦區對應：前島葉（interoception）、杏仁核（情緒）、內側前額葉（心智理論）的網絡</li>
+        </ul>
+        <div class="refs">
+          關鍵文獻：<a href="https://pubmed.ncbi.nlm.nih.gov/34557141/" target="_blank">Rankin 2021 - SBOCL checklist</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/40145360/" target="_blank">2025 - Social cognition in MCI and dementia meta-analysis</a>｜
+          <a href="https://pubmed.ncbi.nlm.nih.gov/39442786/" target="_blank">2024 - Neuroimaging meta-analysis: interoception, emotion, social cognition</a>
+        </div>
+      </div>
+      <div class="clinic-tip"><strong>診間連結：</strong>家屬說「他變了一個人、不在乎別人感受、在公共場合舉止不當」——這不是單純的「脾氣變差」，而是前額顳葉退化（bvFTD）的核心症狀。這比記憶力變差更值得警覺。</div>
+    </div>
+
+  </div>
+</div>
+
+</div>
+
+<footer>
+  <p>年會官網：<a href="https://www.amtns.org.tw/" target="_blank">www.amtns.org.tw</a></p>
+  <p>資料來源：PubMed、年會議程表｜聖星診所 藍聖星理事 數位助理 CMini 整理</p>
+  <p style="margin-top:0.5rem;"><a href="index.html">← 回教育訓練課程列表</a></p>
+</footer>
+
+<script>
+function toggleSession(header) {
+  const body = header.nextElementSibling;
+  const toggle = header.querySelector('.toggle');
+  if (body.style.display === 'none') {
+    body.style.display = '';
+    toggle.classList.remove('collapsed');
+  } else {
+    body.style.display = 'none';
+    toggle.classList.add('collapsed');
+  }
+}
+</script>
+</body>
+</html>
