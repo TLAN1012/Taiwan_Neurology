@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<title>LM Studio Chat</title>
+<style>
+  :root {
+    --bg: #1a1a1a; --panel: #242424; --border: #3a3a3a;
+    --text: #e8e8e8; --muted: #999; --accent: #4a9eff;
+    --user: #2d4a6e; --assistant: #2a2a2a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; font-family: -apple-system, "Segoe UI", "Microsoft JhengHei", sans-serif;
+    background: var(--bg); color: var(--text); height: 100vh;
+    display: flex; flex-direction: column;
+  }
+  header {
+    padding: 10px 16px; background: var(--panel); border-bottom: 1px solid var(--border);
+    display: flex; gap: 10px; align-items: center; flex-wrap: wrap;
+  }
+  header label { font-size: 13px; color: var(--muted); }
+  header input, header select, header button {
+    background: #1a1a1a; color: var(--text); border: 1px solid var(--border);
+    padding: 6px 10px; border-radius: 4px; font-size: 13px;
+  }
+  header input { width: 260px; }
+  header select { min-width: 200px; }
+  header button { cursor: pointer; }
+  header button:hover { background: #333; }
+  header button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .status { font-size: 12px; color: var(--muted); margin-left: auto; }
+  .status.ok { color: #4ade80; }
+  .status.err { color: #f87171; }
+
+  #chat {
+    flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px;
+  }
+  .msg {
+    max-width: 80%; padding: 10px 14px; border-radius: 10px; white-space: pre-wrap;
+    word-wrap: break-word; line-height: 1.5;
+  }
+  .msg.user { background: var(--user); align-self: flex-end; }
+  .msg.assistant { background: var(--assistant); align-self: flex-start; border: 1px solid var(--border); }
+  .msg.system { background: transparent; color: var(--muted); align-self: center;
+    font-size: 12px; font-style: italic; border: 1px dashed var(--border); }
+  .msg .role { font-size: 11px; color: var(--muted); margin-bottom: 4px; text-transform: uppercase; }
+  .msg .meta { font-size: 11px; color: var(--muted); margin-top: 6px; }
+
+  footer {
+    padding: 12px 16px; background: var(--panel); border-top: 1px solid var(--border);
+    display: flex; gap: 10px; align-items: flex-end;
+  }
+  #sysPrompt { width: 100%; }
+  #input {
+    flex: 1; background: #1a1a1a; color: var(--text); border: 1px solid var(--border);
+    border-radius: 6px; padding: 10px; font-size: 14px; font-family: inherit;
+    resize: none; min-height: 42px; max-height: 200px;
+  }
+  #send, #stop, #clear {
+    padding: 10px 18px; border-radius: 6px; border: none; cursor: pointer; font-size: 14px;
+  }
+  #send { background: var(--accent); color: #fff; }
+  #send:disabled { opacity: 0.5; cursor: not-allowed; }
+  #stop { background: #dc2626; color: #fff; display: none; }
+  #clear { background: #444; color: var(--text); }
+
+  .settings {
+    padding: 8px 16px; background: #1f1f1f; border-bottom: 1px solid var(--border);
+    display: none; gap: 12px; align-items: center; flex-wrap: wrap;
+  }
+  .settings.open { display: flex; }
+  .settings label { font-size: 12px; color: var(--muted); }
+  .settings input[type="number"] { width: 70px; }
+  .settings textarea {
+    background: #1a1a1a; color: var(--text); border: 1px solid var(--border);
+    border-radius: 4px; padding: 6px; font-size: 13px; font-family: inherit;
+    width: 400px; height: 50px; resize: vertical;
+  }
+</style>
+</head>
+<body>
+<header>
+  <label>Endpoint:</label>
+  <input id="endpoint" value="http://100.121.34.14:1234/v1">
+  <button id="reload">↻ 載入模型</button>
+  <label>Model:</label>
+  <select id="model"><option value="">(尚未載入)</option></select>
+  <button id="toggleSettings">⚙</button>
+  <span id="status" class="status">未連線</span>
+</header>
+
+<div class="settings" id="settings">
+  <label>Temperature: <input type="number" id="temperature" value="0.7" min="0" max="2" step="0.1"></label>
+  <label>Max tokens: <input type="number" id="maxTokens" value="-1" min="-1" step="1"></label>
+  <label>System prompt:
+    <textarea id="sysPrompt" placeholder="（留空表示不使用 system prompt）"></textarea>
+  </label>
+</div>
+
+<div id="chat"></div>
+
+<footer>
+  <textarea id="input" placeholder="輸入訊息… (Enter 送出 / Shift+Enter 換行)"></textarea>
+  <button id="send">送出</button>
+  <button id="stop">停止</button>
+  <button id="clear">清空</button>
+</footer>
+
+<script>
+const $ = id => document.getElementById(id);
+const endpointEl = $('endpoint');
+const modelEl = $('model');
+const statusEl = $('status');
+const chatEl = $('chat');
+const inputEl = $('input');
+const sendBtn = $('send');
+const stopBtn = $('stop');
+
+let history = [];     // {role, content}
+let controller = null;
+
+function setStatus(text, cls='') {
+  statusEl.textContent = text;
+  statusEl.className = 'status ' + cls;
+}
+
+function addMsg(role, content, meta='') {
+  const div = document.createElement('div');
+  div.className = 'msg ' + role;
+  const roleLabel = document.createElement('div');
+  roleLabel.className = 'role';
+  roleLabel.textContent = role;
+  const body = document.createElement('div');
+  body.className = 'body';
+  body.textContent = content;
+  div.appendChild(roleLabel);
+  div.appendChild(body);
+  if (meta) {
+    const m = document.createElement('div');
+    m.className = 'meta';
+    m.textContent = meta;
+    div.appendChild(m);
+  }
+  chatEl.appendChild(div);
+  chatEl.scrollTop = chatEl.scrollHeight;
+  return body;
+}
+
+async function loadModels() {
+  const url = endpointEl.value.replace(/\/+$/, '') + '/models';
+  setStatus('載入模型中…');
+  try {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    const data = await r.json();
+    const models = (data.data || []).map(m => m.id);
+    modelEl.innerHTML = '';
+    if (models.length === 0) {
+      modelEl.innerHTML = '<option value="">(無模型)</option>';
+      setStatus('已連線，但沒有可用模型', 'err');
+      return;
+    }
+    for (const id of models) {
+      const opt = document.createElement('option');
+      opt.value = id; opt.textContent = id;
+      modelEl.appendChild(opt);
+    }
+    // 還原上次選擇
+    const last = localStorage.getItem('lm-model');
+    if (last && models.includes(last)) modelEl.value = last;
+    setStatus(`已連線 · ${models.length} 個模型`, 'ok');
+  } catch (e) {
+    setStatus('連線失敗: ' + e.message, 'err');
+  }
+}
+
+async function send() {
+  const text = inputEl.value.trim();
+  if (!text) return;
+  const model = modelEl.value;
+  if (!model) { alert('請先選擇模型'); return; }
+
+  inputEl.value = '';
+  inputEl.style.height = 'auto';
+  addMsg('user', text);
+  history.push({ role: 'user', content: text });
+
+  // 組 messages
+  const sys = $('sysPrompt').value.trim();
+  const messages = [];
+  if (sys) messages.push({ role: 'system', content: sys });
+  messages.push(...history);
+
+  const body = {
+    model,
+    messages,
+    temperature: parseFloat($('temperature').value),
+    max_tokens: parseInt($('maxTokens').value),
+    stream: true
+  };
+
+  const url = endpointEl.value.replace(/\/+$/, '') + '/chat/completions';
+  const assistantBody = addMsg('assistant', '');
+  const metaEl = document.createElement('div');
+  metaEl.className = 'meta';
+  assistantBody.parentElement.appendChild(metaEl);
+
+  sendBtn.disabled = true;
+  stopBtn.style.display = 'inline-block';
+  controller = new AbortController();
+
+  const t0 = performance.now();
+  let firstTokenAt = null;
+  let tokenCount = 0;
+  let acc = '';
+
+  try {
+    const r = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal: controller.signal
+    });
+    if (!r.ok) {
+      const errText = await r.text();
+      throw new Error('HTTP ' + r.status + ': ' + errText);
+    }
+    const reader = r.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop();
+      for (const line of lines) {
+        const s = line.trim();
+        if (!s.startsWith('data:')) continue;
+        const payload = s.slice(5).trim();
+        if (payload === '[DONE]') continue;
+        try {
+          const obj = JSON.parse(payload);
+          const delta = obj.choices?.[0]?.delta?.content || '';
+          if (delta) {
+            if (!firstTokenAt) firstTokenAt = performance.now();
+            tokenCount++;
+            acc += delta;
+            assistantBody.textContent = acc;
+            chatEl.scrollTop = chatEl.scrollHeight;
+          }
+        } catch(e) {}
+      }
+    }
+    const t1 = performance.now();
+    const ttft = firstTokenAt ? ((firstTokenAt - t0) / 1000).toFixed(2) : '-';
+    const elapsed = ((t1 - (firstTokenAt || t0)) / 1000);
+    const tps = tokenCount && elapsed > 0 ? (tokenCount / elapsed).toFixed(1) : '-';
+    metaEl.textContent = `TTFT ${ttft}s · ${tokenCount} chunks · ${tps} chunk/s`;
+    history.push({ role: 'assistant', content: acc });
+  } catch (e) {
+    if (e.name === 'AbortError') {
+      metaEl.textContent = '（已中止）';
+      if (acc) history.push({ role: 'assistant', content: acc });
+    } else {
+      assistantBody.textContent = '[錯誤] ' + e.message;
+      assistantBody.parentElement.classList.add('system');
+    }
+  } finally {
+    sendBtn.disabled = false;
+    stopBtn.style.display = 'none';
+    controller = null;
+    localStorage.setItem('lm-model', modelEl.value);
+    localStorage.setItem('lm-endpoint', endpointEl.value);
+    localStorage.setItem('lm-sys', $('sysPrompt').value);
+  }
+}
+
+// 事件
+$('reload').onclick = loadModels;
+sendBtn.onclick = send;
+stopBtn.onclick = () => controller && controller.abort();
+$('clear').onclick = () => {
+  history = [];
+  chatEl.innerHTML = '';
+  addMsg('system', '對話已清空');
+};
+$('toggleSettings').onclick = () => $('settings').classList.toggle('open');
+
+inputEl.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); }
+});
+inputEl.addEventListener('input', () => {
+  inputEl.style.height = 'auto';
+  inputEl.style.height = Math.min(inputEl.scrollHeight, 200) + 'px';
+});
+
+// 還原設定
+const savedEp = localStorage.getItem('lm-endpoint');
+if (savedEp) endpointEl.value = savedEp;
+const savedSys = localStorage.getItem('lm-sys');
+if (savedSys) $('sysPrompt').value = savedSys;
+
+// 啟動時自動載入
+loadModels();
+</script>
+</body>
+</html>
