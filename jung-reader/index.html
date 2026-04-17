@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="description" content="榮格三書閱讀器">
+  <meta name="robots" content="noindex, nofollow">
+  <title>閱讀器</title>
+  <link rel="stylesheet" href="reader.css">
+  <script src="https://cdn.jsdelivr.net/npm/marked@11.1.1/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.8/dist/purify.min.js"></script>
+</head>
+<body>
+  <!-- Token 輸入畫面 -->
+  <div id="auth-screen" class="screen hidden">
+    <div class="auth-box">
+      <h1>🔑 閱讀器登入</h1>
+      <p>首次使用請輸入 GitHub Personal Access Token（Token 只存在您的裝置上，不會上傳任何地方）。</p>
+      <details class="help">
+        <summary>如何取得 Token？</summary>
+        <ol>
+          <li>到 <a href="https://github.com/settings/tokens?type=beta" target="_blank" rel="noopener">Fine-grained tokens 頁面</a></li>
+          <li>點「Generate new token」</li>
+          <li>Repository access → Only select repositories → 選 <code>jung_trilogy</code></li>
+          <li>Permissions → Repository permissions → <strong>Contents: Read-only</strong></li>
+          <li>複製產生的 token（只會顯示一次）貼到下面</li>
+        </ol>
+      </details>
+      <input type="password" id="token-input" placeholder="github_pat_..." autocomplete="off">
+      <button id="token-submit">進入閱讀</button>
+      <div id="auth-error" class="error hidden"></div>
+    </div>
+  </div>
+
+  <!-- 主畫面 -->
+  <div id="main-screen" class="screen hidden">
+    <header class="topbar">
+      <button id="menu-btn" aria-label="目錄"><span>☰</span></button>
+      <div class="title" id="title-bar">閱讀器</div>
+      <button id="theme-btn" aria-label="切換主題"><span id="theme-icon">🌙</span></button>
+    </header>
+
+    <aside id="sidebar" class="sidebar hidden">
+      <div class="sidebar-header">
+        <h2>目錄</h2>
+        <button id="close-sidebar" aria-label="關閉">×</button>
+      </div>
+      <div id="toc"></div>
+      <div class="sidebar-footer">
+        <button id="logout-btn" class="text-btn">重設 Token</button>
+      </div>
+    </aside>
+    <div id="overlay" class="overlay hidden"></div>
+
+    <main id="content" class="content">
+      <div class="loader">載入中…</div>
+    </main>
+
+    <nav class="bottombar">
+      <button id="prev-btn" aria-label="上一章">‹ 上一章</button>
+      <button id="next-btn" aria-label="下一章">下一章 ›</button>
+    </nav>
+  </div>
+
+  <script src="reader.js"></script>
+</body>
+</html>
