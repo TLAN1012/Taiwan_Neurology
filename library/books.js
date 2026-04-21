@@ -71,8 +71,8 @@ window.BOOKS = [
     title: '貨幣、人命與島嶼',
     subtitle: '台灣 400 年的經濟演化史',
     cover: '📊',
-    repo: { owner: 'TLAN1012', name: 'taiwan-economic-history', branch: 'main' },
-    pathPrefix: '',
+    repo: { owner: 'TLAN1012', name: 'jung_trilogy', branch: 'main' },
+    pathPrefix: '04-taiwan-economic-history',
     chapters: [
       { file: '00-preface.md', title: '序章 · 一張鹿皮與一片晶圓之間' },
       { file: '01-鹿皮.md', title: '01 · 鹿皮怎麼把島嶼變成國際商品' },
