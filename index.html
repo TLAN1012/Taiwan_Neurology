@@ -158,7 +158,7 @@
 
 <header>
   <h1>台灣神經學學會 — 未來教育訓練課程</h1>
-  <p>資料擷取自 neuro.org.tw｜更新日期：2026-05-04｜共 <span id="totalCount"></span> 場</p>
+  <p>資料擷取自 neuro.org.tw｜更新日期：2026-05-18｜共 <span id="totalCount"></span> 場</p>
 </header>
 
 <div class="container">
@@ -172,6 +172,7 @@
       <option value="5">五月</option>
       <option value="6">六月</option>
       <option value="7">七月</option>
+      <option value="9">九月</option>
     </select>
   </div>
 
@@ -219,88 +220,28 @@
 <script>
 const events = [
   {
-    sid: 3280, title: "Alzheimer's disease & insomnia international conference",
-    date: "2026-05-04", time: "12:00–15:30", month: 5,
-    location: "振興醫院", organizer: "振興醫療財團法人振興醫院",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3303, title: "高血壓新療法-腎動脈交感神經阻斷術線上研討會",
-    date: "2026-05-06", time: "12:25–13:25", month: 5,
-    location: "線上視訊課程", organizer: "中華民國基層醫療協會",
-    online: true, closed: false, region: "online"
-  },
-  {
-    sid: 3278, title: "2026腦中風與血脂管理整合照護(南區)",
-    date: "2026-05-09", time: "08:50–12:00", month: 5,
-    location: "高雄萬豪酒店 皇喜會議室A廳", organizer: "社團法人台灣腦中風學會",
+    sid: 3269, title: "高雄榮民總醫院內科部總查房暨臨床病理討論會",
+    date: "2026-05-21", time: "14:00–15:00", month: 5,
+    location: "高雄榮民總醫院第二會議室", organizer: "高雄榮民總醫院內科部",
     online: false, closed: false, region: "south"
   },
   {
-    sid: 3276, title: "中華民國醫用超音波學會第十四屆骨骼肌肉系統超音波工作坊 USMSIT2026",
-    date: "2026-05-09", time: "兩日(5/9–5/10)", month: 5,
-    location: "張榮發基金會國際會議中心 801會議室", organizer: "中華民國醫用超音波學會",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3309, title: "早期介入,全面守護:心腎代謝風險的整合治療策略",
-    date: "2026-05-14", time: "18:30–20:40", month: 5,
-    location: "Zoom 線上", organizer: "社團法人中華民國糖尿病學會",
-    online: true, closed: false, region: "online"
-  },
-  {
-    sid: 3291, title: "早期介入,全面守護:心腎代謝風險的整合治療策略",
-    date: "2026-05-14", time: "18:30–20:40", month: 5,
-    location: "Zoom 線上", organizer: "社團法人中華民國糖尿病學會",
-    online: true, closed: false, region: "online"
-  },
-  {
-    sid: 3318, title: "2026桃竹苗神經及腦中風雙月會",
-    date: "2026-05-15", time: "18:30–21:15", month: 5,
-    location: "桃園和逸飯店", organizer: "新竹國泰醫院 / 敏盛醫院",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3281, title: "衛生福利部臺南醫院內科專題演講暨雜誌研討會",
-    date: "2026-05-15", time: "08:00–09:00", month: 5,
-    location: "衛福部臺南醫院急診六樓簡報室", organizer: "衛生福利部臺南醫院內科",
-    online: false, closed: false, region: "south"
-  },
-  {
-    sid: 3295, title: "泛太平洋幹細胞及癌症研究研討會 (PPSSC)",
-    date: "2026-05-16", time: "兩日(5/16–5/17)", month: 5,
-    location: "花蓮慈濟醫院協力講堂(花蓮市中央路三段707號)", organizer: "財團法人幹細胞及再生醫學教育基金會",
-    online: false, closed: false, region: "east"
-  },
-  {
-    sid: 3293, title: "台灣神經學會神經基因學組 春季討論會",
-    date: "2026-05-16", time: "13:30–17:30", month: 5,
-    location: "張榮發國際會議中心1003會議室", organizer: "台灣神經學會神經基因學組",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3287, title: "TMS 線上實務研討會(台北)",
-    date: "2026-05-17", time: "10:00–12:00", month: 5,
-    location: "台北市中山區復興北路290號2樓之1", organizer: "台灣臨床TMS腦刺激學會",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3285, title: "115年聯醫失智照護配方 – 藥師",
-    date: "2026-05-17", time: "08:00–17:00", month: 5,
-    location: "臺北市萬華區艋舺大道101號11樓", organizer: "臺北市立聯合醫院失智症中心",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3284, title: "2026跨領域癲癇學術研討會",
-    date: "2026-05-17", time: "09:00–16:00", month: 5,
-    location: "台北喜來登飯店", organizer: "台灣癲癇醫學會",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3283, title: "衛生福利部臺南醫院內科專題演講暨雜誌研討會",
+    sid: 3283, title: "內科專題演講暨雜誌研討會",
     date: "2026-05-22", time: "08:00–09:00", month: 5,
     location: "衛福部臺南醫院急診六樓簡報室", organizer: "衛生福利部臺南醫院內科",
     online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3300, title: "115年春季學術演講會",
+    date: "2026-05-23", time: "5/23 13:00 – 5/24 17:20", month: 5,
+    location: "台南成大醫學院", organizer: "臺灣醫學會、成大醫院",
+    online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3306, title: "2026年台灣臨床神經生理學學會 夏季學術研討會",
+    date: "2026-05-23", time: "13:00–17:00", month: 5,
+    location: "中國附醫癌症中心大樓1樓階梯教室（臺中市北區學士路6號）", organizer: "台灣臨床神經生理學學會",
+    online: false, closed: false, region: "central"
   },
   {
     sid: 3321, title: "2026 台灣動作障礙學會 巴金森氏症跨領域全人照護工作坊",
@@ -309,40 +250,34 @@ const events = [
     online: true, closed: false, region: "online"
   },
   {
-    sid: 3306, title: "2026年台灣臨床神經生理學學會 夏季學術研討會",
-    date: "2026-05-23", time: "13:00–17:00", month: 5,
-    location: "中國附醫癌症中心大樓1樓階梯教室(臺中市北區學士路6號)", organizer: "台灣臨床神經生理學學會",
-    online: false, closed: false, region: "central"
-  },
-  {
-    sid: 3300, title: "115年春季學術演講會",
-    date: "2026-05-23", time: "兩日(5/23–5/24)", month: 5,
-    location: "台南成大醫學院", organizer: "臺灣醫學會、成大醫院",
-    online: false, closed: false, region: "south"
-  },
-  {
-    sid: 3323, title: "精準智慧醫療全實戰:AI 基因報告判讀、5G 遠距應用與臨床倫理研習會",
+    sid: 3266, title: "2026 Pediatric Epilepsy Training PET1",
     date: "2026-05-24", time: "08:30–17:30", month: 5,
-    location: "花蓮市中央路三段707號(花蓮慈濟)", organizer: "花蓮慈濟醫院",
-    online: false, closed: false, region: "east"
+    location: "臺北醫學大學藥學暨營養大樓B1 3003教室", organizer: "台灣兒童伊比力斯協會",
+    online: false, closed: false, region: "north"
   },
   {
-    sid: 3304, title: "領航大家醫系列研討會-CKM關鍵前線(高雄)",
-    date: "2026-05-24", time: "10:00–12:00", month: 5,
-    location: "高雄洲際酒店3F宴會廳II", organizer: "台灣家庭醫學醫學會",
-    online: false, closed: false, region: "south"
-  },
-  {
-    sid: 3296, title: "身心與代謝的交會:脂肪酸與超加工食品對腦健康、心理健康與慢性疾病的影響",
+    sid: 3296, title: "身心與代謝的交會：脂肪酸與超加工食品對腦健康、心理健康與慢性疾病的影響",
     date: "2026-05-24", time: "09:00–12:00", month: 5,
     location: "臺中市西屯區臺灣大道三段540號10樓之五", organizer: "台灣營養精神醫學研究學會",
     online: false, closed: false, region: "central"
   },
   {
-    sid: 3322, title: "台灣神經影像聯合討論會(第40次)",
-    date: "2026-05-28", time: "19:00–20:00", month: 5,
-    location: "線上視訊", organizer: "台灣神經學學會、中華民國核醫學學會神經組",
-    online: true, closed: false, region: "online"
+    sid: 3304, title: "領航大家醫系列研討會-CKM關鍵前線（高雄）",
+    date: "2026-05-24", time: "10:00–12:00", month: 5,
+    location: "高雄洲際酒店3F宴會廳II", organizer: "台灣家庭醫學醫學會",
+    online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3323, title: "精準智慧醫療全實戰：AI 基因報告判讀、5G 遠距應用與臨床倫理研習會",
+    date: "2026-05-24", time: "08:30–17:30", month: 5,
+    location: "花蓮慈濟醫院（花蓮市中央路三段707號）", organizer: "花蓮慈濟醫院",
+    online: false, closed: false, region: "east"
+  },
+  {
+    sid: 3329, title: "失智症醫事專業8小時訓練課程（醫師）",
+    date: "2026-05-24", time: "08:20–17:40", month: 5,
+    location: "台北慈濟醫院3樓合心會議室", organizer: "台北慈濟醫院失智共照中心",
+    online: false, closed: false, region: "north"
   },
   {
     sid: 3305, title: "Neuromuscular Diagnostic Challenges: From Clinical Puzzles to Postmortem Insights",
@@ -351,27 +286,21 @@ const events = [
     online: false, closed: false, region: "north"
   },
   {
-    sid: 3301, title: "115年度醫藥生技跨領域人才培訓課程-第一場(線上)",
+    sid: 3322, title: "台灣神經影像聯合討論會（第40次）",
+    date: "2026-05-28", time: "19:00–20:00", month: 5,
+    location: "視訊", organizer: "台灣神經學學會、中華民國核醫學學會神經委員會",
+    online: true, closed: false, region: "online"
+  },
+  {
+    sid: 3301, title: "115年度醫藥生技跨領域人才培訓課程-第一場（線上）",
     date: "2026-05-29", time: "12:30–16:30", month: 5,
     location: "線上 Cisco Webex", organizer: "台灣精準醫療品質策進會、衛福部雙和醫院",
     online: true, closed: false, region: "online"
   },
   {
-    sid: 3317, title: "肩肘腕關節疼痛之肌肉骨骼超音波臨床實戰課程",
-    date: "2026-05-30", time: "09:00–16:00", month: 5,
-    location: "台北市內湖區基湖路18號(BenQ明基大樓 T13會議室)", organizer: "台灣肌肉骨骼神經超音波醫學會",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3316, title: "115年聯醫失智照護配方 – 心理師",
-    date: "2026-05-30", time: "08:00–17:00", month: 5,
-    location: "臺北市鄭州路145號", organizer: "臺北市立聯合醫院失智症中心",
-    online: false, closed: false, region: "north"
-  },
-  {
-    sid: 3290, title: "中南區頭痛讀書會",
-    date: "2026-05-30", time: "13:35–17:00", month: 5,
-    location: "台南老爺行旅", organizer: "台灣頭痛學會",
+    sid: 3342, title: "雲嘉區 AD Treatment Symposium",
+    date: "2026-05-29", time: "18:00–20:30", month: 5,
+    location: "新悅花園酒店 頤粵軒餐廳（嘉義）", organizer: "嘉義基督教醫院、嘉義長庚醫院、台大醫院雲林分院、高雄長庚醫院",
     online: false, closed: false, region: "south"
   },
   {
@@ -381,39 +310,123 @@ const events = [
     online: false, closed: false, region: "central"
   },
   {
+    sid: 3290, title: "中南區頭痛讀書會",
+    date: "2026-05-30", time: "13:35–17:00", month: 5,
+    location: "台南老爺行旅", organizer: "台灣頭痛學會",
+    online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3316, title: "115年聯醫失智照護配方 – 心理師",
+    date: "2026-05-30", time: "08:00–17:00", month: 5,
+    location: "臺北市鄭州路145號", organizer: "臺北市立聯合醫院失智症中心",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3317, title: "肩肘腕關節疼痛之肌肉骨骼超音波臨床實戰課程",
+    date: "2026-05-30", time: "09:00–16:00", month: 5,
+    location: "BenQ 明基大樓 T13 會議室（台北市內湖區基湖路18號）", organizer: "台灣肌肉骨骼神經超音波醫學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3341, title: "中區失智論壇",
+    date: "2026-05-30", time: "14:00–18:00", month: 5,
+    location: "台中萬豪萬楓酒店（台中市西屯區環中路二段1155號）", organizer: "彰化秀傳醫院",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3302, title: "臺中市醫師公會學術演講會（5/31）",
+    date: "2026-05-31", time: "13:30–16:30", month: 5,
+    location: "衛生福利部臺中醫院12樓大禮堂", organizer: "社團法人臺中市醫師公會",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3330, title: "中華民國醫用超音波學會2026年第一次學術研討會暨第二十一屆北區會員代表選舉",
+    date: "2026-05-31", time: "13:30–16:00", month: 5,
+    location: "台大醫學院基礎醫學大樓", organizer: "中華民國醫用超音波學會",
+    online: false, closed: false, region: "north"
+  },
+  {
     sid: 3320, title: "雲嘉神經季會",
     date: "2026-06-02", time: "18:30–20:30", month: 6,
-    location: "嘉義長榮文苑酒店 2 樓會議室 B 廳", organizer: "嘉義長庚神經內科",
+    location: "嘉義長榮文苑酒店 2樓會議室B廳", organizer: "嘉義長庚神經內科",
+    online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3267, title: "2026年6月醫學研討會",
+    date: "2026-06-04", time: "08:00–09:00", month: 6,
+    location: "嘉義市東區忠孝路539號9B禮拜堂", organizer: "嘉義基督教醫院內科部",
     online: false, closed: false, region: "south"
   },
   {
     sid: 3319, title: "社會責任醫療永續成果發表暨台灣中部地區社會處方初探",
     date: "2026-06-04", time: "08:00–18:00", month: 6,
-    location: "臺中榮總研究大樓二樓 第一會議室", organizer: "臺中榮民總醫院、臺灣醫院整合醫學醫學會",
+    location: "臺中榮總研究大樓二樓第一會議室", organizer: "臺中榮民總醫院、臺灣醫院整合醫學醫學會",
     online: false, closed: false, region: "central"
   },
   {
-    sid: 3313, title: "115年度醫藥生技跨領域人才培訓課程-第二場(線上)",
+    sid: 3313, title: "115年度醫藥生技跨領域人才培訓課程-第二場（線上）",
     date: "2026-06-05", time: "12:30–16:30", month: 6,
     location: "線上 Cisco Webex", organizer: "台灣精準醫療品質策進會",
     online: true, closed: false, region: "online"
   },
   {
-    sid: 3307, title: "2026年肌無力症治療共識營(新竹區)",
+    sid: 3307, title: "2026年肌無力症治療共識營（新竹區）",
     date: "2026-06-06", time: "13:30–16:50", month: 6,
-    location: "新竹臺大分院 六樓多媒體會議室", organizer: "台灣神經免疫學會、新竹臺大分院",
+    location: "新竹臺大分院六樓多媒體會議室", organizer: "台灣神經免疫學會、新竹臺大分院",
     online: false, closed: false, region: "north"
   },
   {
-    sid: 3297, title: "宜蘭縣醫師公會115年6月7日繼續教育課程",
+    sid: 3324, title: "2026 睡眠醫學實務線上 hands-on 課程",
+    date: "2026-06-06", time: "09:00–12:40", month: 6,
+    location: "線上視訊", organizer: "台灣睡眠醫學學會",
+    online: true, closed: false, region: "online"
+  },
+  {
+    sid: 3328, title: "白袍前線論壇 — 基層醫師你我他",
+    date: "2026-06-06", time: "13:30–17:00", month: 6,
+    location: "台中長榮桂冠酒店桂冠廳I", organizer: "台灣家庭醫學醫學會",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3333, title: "2026 台灣動作障礙學會 Meet with the Master: Movement Disorder Clinical Case Demo（北部場）",
+    date: "2026-06-06", time: "13:00–18:10", month: 6,
+    location: "林口長庚醫院 醫學大樓一樓第二會議廳", organizer: "台灣動作障礙學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3337, title: "南區 AD Treatment Symposium",
+    date: "2026-06-06", time: "14:00–17:30", month: 6,
+    location: "H2O 水京棧 · 二樓宴會廳（高雄）", organizer: "高醫大附醫、高雄榮總、高市大同、高市岡山、高雄長庚",
+    online: false, closed: false, region: "south"
+  },
+  {
+    sid: 3297, title: "宜蘭縣醫師公會 115年6月7日繼續教育課程",
     date: "2026-06-07", time: "14:30–17:30", month: 6,
     location: "礁溪長榮鳳凰酒店", organizer: "宜蘭縣醫師公會",
     online: false, closed: false, region: "north"
   },
   {
-    sid: 3314, title: "115年度醫藥生技跨領域人才培訓課程-第三場(線上)",
+    sid: 3327, title: "2026年中區 AAT 臨床課程",
+    date: "2026-06-07", time: "08:30–17:00", month: 6,
+    location: "集思台中新烏日會議中心", organizer: "台灣臨床失智症學會",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3340, title: "NF1-PN Bridging Care Forum",
+    date: "2026-06-09", time: "19:00–21:00", month: 6,
+    location: "台北喜來登飯店 B1 玉瀾+薈萃廳（實體+線上）", organizer: "社團法人台灣神經罕見疾病學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3314, title: "115年度醫藥生技跨領域人才培訓課程-第三場（線上）",
     date: "2026-06-12", time: "12:30–16:30", month: 6,
     location: "線上 Cisco Webex", organizer: "台灣精準醫療品質策進會",
+    online: true, closed: false, region: "online"
+  },
+  {
+    sid: 3332, title: "2026 最新急性偏頭痛治療研討會",
+    date: "2026-06-12", time: "19:00–21:00", month: 6,
+    location: "線上 Teams", organizer: "台灣頭痛學會",
     online: true, closed: false, region: "online"
   },
   {
@@ -423,39 +436,87 @@ const events = [
     online: false, closed: false, region: "north"
   },
   {
-    sid: 3312, title: "2026癲癇實例全方位探討系列課程(第1-2場 6/14, 9/13 台中)",
-    date: "2026-06-14", time: "全日", month: 6,
+    sid: 3339, title: "抗栓必達,現身說法（實體+線上課程）",
+    date: "2026-06-13", time: "14:30–17:30", month: 6,
+    location: "台北喜來登2樓瑞穗園 / 線上", organizer: "台灣基層糖尿病學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3312, title: "2026 癲癇實例全方位探討系列課程 Lesson 1",
+    date: "2026-06-14", time: "09:00–12:00", month: 6,
     location: "台中福華大飯店5樓503會議室", organizer: "台灣兒童伊比力斯協會",
     online: false, closed: false, region: "central"
   },
   {
-    sid: 3315, title: "115年度醫藥生技跨領域人才培訓課程-第四場(線上)",
+    sid: 3331, title: "115年繼續教育課程（Dementia with Lewy Bodies and Late-Life Psychosis）",
+    date: "2026-06-14", time: "09:00–16:20", month: 6,
+    location: "線上", organizer: "台灣老年精神醫學會",
+    online: true, closed: false, region: "online"
+  },
+  {
+    sid: 3335, title: "第十五屆第3次年會暨學術研討會",
+    date: "2026-06-14", time: "08:00–16:20", month: 6,
+    location: "台大醫學院 101-104 講堂", organizer: "台灣老年學暨老年醫學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3336, title: "From Evidence to Consensus: Transforming Hypertension Care in Taiwan",
+    date: "2026-06-14", time: "09:00–16:30", month: 6,
+    location: "張榮發基金會國際會議中心 6F（台北市中山南路11號）", organizer: "社團法人台灣高血壓學會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3334, title: "心臟衰竭「心」視野 2026 ESC-HF New Updates",
+    date: "2026-06-21", time: "10:00–11:50", month: 6,
+    location: "線上直播（www.ths.org.tw）", organizer: "社團法人台灣高血壓學會",
+    online: true, closed: false, region: "online"
+  },
+  {
+    sid: 3315, title: "115年度醫藥生技跨領域人才培訓課程-第四場（線上）",
     date: "2026-06-26", time: "12:30–16:30", month: 6,
     location: "線上 Cisco Webex", organizer: "台灣精準醫療品質策進會",
     online: true, closed: false, region: "online"
   },
   {
-    sid: 3286, title: "2026中區神經雙月會暨2026健康台灣深耕計畫",
-    date: "2026-06-27", time: "08:30–16:10", month: 6,
-    location: "彰濱秀傳醫院 一樓國際會議廳", organizer: "中山醫學大學附設醫院 & 秀傳紀念醫院",
-    online: false, closed: false, region: "central"
-  },
-  {
-    sid: 3279, title: "痛定思痛!2026南區疼痛夏季高峰論壇",
+    sid: 3279, title: "痛定思痛!2026 南區疼痛夏季高峰論壇",
     date: "2026-06-27", time: "14:00–17:30", month: 6,
-    location: "台南禧榕軒大飯店宴會B廳", organizer: "台灣神經學學會、奇美醫學中心",
+    location: "台南禧榕軒大飯店宴會B廳（台南市北區成功路28號）", organizer: "台灣神經學學會、奇美醫學中心",
     online: false, closed: false, region: "south"
   },
   {
-    sid: 3311, title: "2026癲癇基因診斷研討會",
-    date: "2026-07-26", time: "09:20–15:50", month: 7,
-    location: "台中裕元花園酒店4F東側包廂", organizer: "台灣癲癇醫學會",
+    sid: 3286, title: "2026 中區神經雙月會暨2026健康台灣深耕計畫",
+    date: "2026-06-27", time: "08:30–16:10", month: 6,
+    location: "彰濱秀傳醫院 1F 國際會議廳", organizer: "中山醫學大學附設醫院、秀傳紀念醫院",
     online: false, closed: false, region: "central"
-  }
+  },
+  {
+    sid: 3325, title: "2026 台灣兒童伊比力斯協會年度學術會議暨第十四屆第二次會員大會",
+    date: "2026-06-28", time: "08:30–16:40", month: 6,
+    location: "台北喜來登大飯店 B1 逸絢廳", organizer: "台灣兒童伊比力斯協會",
+    online: false, closed: false, region: "north"
+  },
+  {
+    sid: 3338, title: "臺中市醫師公會學術演講會（6/28）",
+    date: "2026-06-28", time: "13:30–16:30", month: 6,
+    location: "衛生福利部臺中醫院12樓大禮堂", organizer: "社團法人臺中市醫師公會",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3311, title: "2026 癲癇基因診斷研討會",
+    date: "2026-07-26", time: "09:20–15:50", month: 7,
+    location: "台中裕元花園酒店4樓東側包廂", organizer: "台灣癲癇醫學會",
+    online: false, closed: false, region: "central"
+  },
+  {
+    sid: 3270, title: "失智症醫事專業 8小時訓練課程（限醫師）",
+    date: "2026-09-18", time: "08:15–17:00", month: 9,
+    location: "天主教輔仁大學附設醫院 六樓任顯群講堂（新北市泰山區貴子路69號）", organizer: "天主教輔仁大學附設醫院",
+    online: false, closed: false, region: "north"
+  },
 ];
 
 /* ── 常數 ── */
-const monthNames = { 4: "四月", 5: "五月", 6: "六月", 9: "九月" };
+const monthNames = { 5: "五月", 6: "六月", 7: "七月", 9: "九月" };
 const regionNames = { north: "北區", central: "中區", south: "南區", east: "東區", online: "線上" };
 const regionBadgeClass = { north: "badge-north", central: "badge-central", south: "badge-south", east: "badge-east", online: "badge-online" };
 const baseUrl = "https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=";
