@@ -1,0 +1,53 @@
+name: 更新神經學會課程
+
+# 自動爬取台灣神經學學會教育訓練課程 → 重新產生 index.html → 推回 repo
+# （GitHub Pages 隨即自動重建）。全程在 GitHub 雲端執行，不依賴任何本機電腦或排程器。
+# 取代原本靠 Hermes 定時器手動跑、不穩定的方式。
+on:
+  schedule:
+    # 每週日 15:00（台北）= 07:00 UTC，沿用原本「每週日更新」節奏。只在課程有變動時才 commit。
+    - cron: "0 7 * * 0"
+  workflow_dispatch: {}      # 也可在 Actions 頁手動按「Run workflow」即時更新
+
+# 允許用內建 GITHUB_TOKEN 把更新後的 index.html commit 回 repo。
+permissions:
+  contents: write
+
+# 同時間只跑一個，避免重疊。
+concurrency:
+  group: neuro-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Taipei          # 讓腳本的 date.today() 以台北日期計算
+    steps:
+      - name: 取出 repo
+        uses: actions/checkout@v4
+
+      - name: 安裝 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: 爬取課程並重新產生 index.html
+        # 腳本只用標準庫 + curl（runner 內建），無需 pip install。
+        # 偵測到 GITHUB_ACTIONS=true 時只寫檔、不自行 push（交由下一步）。
+        # 若來源網站無法存取／抓不到任何未來課程，腳本會以非零結束 →
+        # 此步驟失敗 → GitHub 自動寄信通知 repo 擁有者（藍醫師），不會靜默失敗。
+        run: python3 scripts/neuro_scrape_and_deploy.py
+
+      - name: 有變動才 commit & push
+        run: |
+          git config user.name  "Hermes Auto-Update"
+          git config user.email "tommy.lan@gmail.com"
+          if git diff --quiet -- index.html; then
+            echo "index.html 無變動，略過 commit。"
+          else
+            git add index.html
+            git commit -m "Auto-update: 神經學教育活動 $(date +%Y/%m/%d)"
+            git push
+            echo "已更新並推送 index.html。"
+          fi

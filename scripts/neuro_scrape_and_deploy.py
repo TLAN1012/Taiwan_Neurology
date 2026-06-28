@@ -1,14 +1,19 @@
 #!/usr/bin/env python3
 """
 neuro_scrape_and_deploy.py
-每週日 15:00 執行：
-1. 爬取 neuro.org.tw 教育活動（智慧停止：連續2頁無未來活動才停，最多8頁）
+每週日由 GitHub Actions 自動執行（見 .github/workflows/neuro-update.yml）：
+1. 爬取 neuro.org.tw 教育活動（智慧停止：連續2頁無未來活動才停，最多15頁）
 2. 過濾今日起3個月內的活動
 3. 產生 index.html（含地區/類別/積分 filter）
-4. git commit + push 到 TLAN1012/Taiwan_Neurology
+4. 更新 index.html → 由 workflow commit + push 到 TLAN1012/Taiwan_Neurology
+
+執行環境：
+- GitHub Actions（GITHUB_ACTIONS=true）：只把 index.html 寫回 repo 根目錄，
+  交由 workflow 用內建 GITHUB_TOKEN 負責 commit/push。
+- 本機手動執行：走 git_deploy（clone 到 /tmp 後自行 push）。
 """
 
-import subprocess, re, json, sys
+import subprocess, re, json, sys, os
 from datetime import date, datetime, timedelta
 from pathlib import Path
 
@@ -531,8 +536,9 @@ def main():
     print(f"\n爬取完畢：共 {len(all_events)} 筆，其中 {len(future_events)} 筆在未來3個月")
 
     if not future_events:
-        print("無未來活動，不更新")
-        return
+        print("無未來活動，不更新（可能是來源網站無法存取）")
+        # 在 GitHub Actions 以非零結束，讓 GitHub 寄信通知 → 避免像舊排程那樣靜默失敗
+        sys.exit(1 if os.environ.get("GITHUB_ACTIONS") == "true" else 0)
 
     print("更新未來活動的學分資訊...")
     for idx, e in enumerate(future_events):
@@ -549,9 +555,17 @@ def main():
     print("產生 HTML...")
     html = build_html(future_events)
 
-    print("部署到 GitHub...")
-    changed, msg = git_deploy(html)
-    print(f"部署結果：{msg}")
+    if os.environ.get("GITHUB_ACTIONS") == "true":
+        # GitHub Actions：只寫檔到 repo 根目錄，commit/push 交給 workflow
+        # （workflow 已用內建 GITHUB_TOKEN 設好推送權限，毋須再 clone）。
+        out_path = Path(__file__).resolve().parent.parent / "index.html"
+        out_path.write_text(html, encoding="utf-8")
+        changed, msg = True, f"已寫入 {out_path}（交由 workflow commit/push）"
+        print(f"[CI] {msg}")
+    else:
+        print("部署到 GitHub...")
+        changed, msg = git_deploy(html)
+        print(f"部署結果：{msg}")
 
     # 輸出摘要（由 cron 系統推送到 Telegram）
     summary_lines = [f"🧠 神經學教育活動已更新 ({TODAY.strftime('%Y/%m/%d')})"]
