@@ -15,10 +15,10 @@ neuro_scrape_and_deploy.py
   tnms      台灣神經免疫醫學會    member.tnms.com.tw/active/list.asp
   pmr       台灣復健醫學會        pmr.org.tw/active_news/active.asp
   tssm      台灣睡眠醫學學會      tssm.org.tw/learn_list.php（含學分欄位）
-  tsim      台灣內科醫學會        tsim.org.tw/ehc-tsim/...（民國年；僅神經相關）
+  tsim      台灣內科醫學會        tsim.org.tw/ehc-tsim/...（民國年；神經相關或線上）
   headache  台灣頭痛學會          WordPress REST API（JSON）
   epilepsy  台灣癲癇醫學會        Drupal RSS feed
-  tma       醫師公會全聯會        tma.tw/credit/index_06.asp（全國總表；僅神經相關）
+  tma       醫師公會全聯會        tma.tw/credit/index_06.asp（全國總表；神經相關或線上）
 
 註：家醫科醫學會（TAFM）課程查詢頁有伺服器端驗證碼無法直接爬，
     其申請西醫師積分之課程改由全聯會總表（tma）按主辦單位涵蓋。
@@ -120,7 +120,10 @@ RELEVANT_KW = [
 RELEVANT_ORG = ["神經", "腦中風", "癲癇", "動作障礙", "失智", "頭痛", "睡眠",
                 "疼痛", "復健", "家庭醫學", "內科醫學會"]
 
-def is_relevant(title, organizer=""):
+def is_relevant(title, organizer="", location=""):
+    """神經相關，或線上課程（線上不受地點限制，一律列入方便蒐集積分）"""
+    if is_online(title + " " + location):
+        return True
     for kw in RELEVANT_ORG:
         if kw in organizer:
             return True
@@ -327,7 +330,7 @@ def src_tssm():
     return events
 
 def src_tsim():
-    """台灣內科醫學會（單頁全量；民國年；僅收神經相關）"""
+    """台灣內科醫學會（單頁全量；民國年；收神經相關或線上課程）"""
     base = "https://www.tsim.org.tw"
     h = fetch(f"{base}/ehc-tsim/s/w/edu/schedule/schedule", timeout=60)
     events = []
@@ -346,7 +349,7 @@ def src_tsim():
         location  = parts[1] if len(parts) > 1 else ""
         organizer = re.sub(r"認定類別.*$", "", parts[2]).strip() if len(parts) > 2 else ""
         title_c = clean_text(title)
-        if not is_relevant(title_c, organizer):
+        if not is_relevant(title_c, organizer, location):
             continue
         e = make_event(d, title_c, "tsim", url=f"{base}{href}",
                        organizer=organizer, location=location)
@@ -400,7 +403,7 @@ def src_epilepsy():
     return events
 
 def src_tma():
-    """醫師公會全聯會 全國課程總表（日期由近到遠遞增；僅收神經相關）"""
+    """醫師公會全聯會 全國課程總表（日期由近到遠遞增；收神經相關或線上課程）"""
     base = "https://www.tma.tw/credit"
     events, prev_rows = [], None
     for page in range(1, 61):
@@ -427,7 +430,8 @@ def src_tma():
                 continue
             dates_on_page.append(d)
             title_c, org_c = clean_text(title), clean_text(org)
-            if not (TODAY <= d <= CUTOFF) or not is_relevant(title_c, org_c):
+            loc_c = clean_text(loc)
+            if not (TODAY <= d <= CUTOFF) or not is_relevant(title_c, org_c, loc_c):
                 continue
             events.append(make_event(
                 d, title_c, "tma", url=f"{base}/index_06.asp",
@@ -485,8 +489,8 @@ REGION_KEYWORDS = {
                 "中區", "中部", "中南區"],
     "east":    ["花蓮", "台東", "臺東", "花蓮慈濟", "東區", "東部"],
 }
-ONLINE_KEYWORDS = ["線上", "視訊", "直播", "遠距", "雲端", "webex", "teams",
-                   "zoom", "webinar", "online"]
+ONLINE_KEYWORDS = ["線上", "視訊", "直播", "遠距", "雲端", "網路課程", "webex",
+                   "teams", "zoom", "webinar", "online"]
 
 def is_online(text):
     low = text.lower()
