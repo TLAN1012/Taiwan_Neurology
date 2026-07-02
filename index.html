@@ -17,7 +17,7 @@
     header h1 { font-size: 1.9em; font-weight: 700; margin-bottom: 8px; letter-spacing: .02em; }
     header p  { font-size: .95em; opacity: .85; }
     .header-meta {
-      display: inline-flex; gap: 20px; margin-top: 14px;
+      display: inline-flex; gap: 20px; margin-top: 14px; flex-wrap: wrap; justify-content: center;
       background: rgba(255,255,255,.12); border-radius: 30px;
       padding: 8px 20px; font-size: .85em;
     }
@@ -54,6 +54,9 @@
     .pill.region { border-color: #a5d6a7; color: #2e7d32; }
     .pill.region:hover  { background: #e8f5e9; }
     .pill.region.active { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+    .pill.src { border-color: #ffcc80; color: #e65100; }
+    .pill.src:hover  { background: #fff3e0; }
+    .pill.src.active { background: #e65100; color: #fff; border-color: #e65100; }
     .stats { font-size: .88em; color: #666; margin-bottom: 16px; padding: 0 4px; }
     .grid {
       display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 18px;
@@ -70,6 +73,9 @@
     .card.cat-stroke    { border-left-color: #c62828; }
     .card.cat-epilepsy  { border-left-color: #2e7d32; }
     .card.cat-sleep     { border-left-color: #00838f; }
+    .card.cat-headache  { border-left-color: #ad1457; }
+    .card.cat-pain      { border-left-color: #ef6c00; }
+    .card.cat-rehab     { border-left-color: #558b2f; }
     .card.cat-neuro     { border-left-color: #1565c0; }
     .card.cat-other     { border-left-color: #78909c; }
     .card-date { font-size: .82em; color: #666; display: flex; align-items: center; gap: 6px; }
@@ -90,6 +96,7 @@
     .tag-credits { background: #e8f5e9; color: #2e7d32; }
     .tag-online  { background: #eceff1; color: #546e7a; }
     .tag-region  { background: #f3e5f5; color: #6a1b9a; }
+    .tag-src     { background: #fff3e0; color: #e65100; }
     .card-location { font-size: .88em; color: #555; display: flex; align-items: flex-start; gap: 5px; }
     .card-location::before { content: "📍"; flex-shrink: 0; }
     .card-link {
@@ -105,7 +112,7 @@
     }
     .month-divider span { font-size: 1em; font-weight: 700; color: #1a237e; white-space: nowrap; }
     .month-divider::after { content: ''; flex: 1; height: 1px; background: #c5cae9; }
-    footer { text-align: center; margin-top: 40px; font-size: .8em; color: #999; }
+    footer { text-align: center; margin-top: 40px; font-size: .8em; color: #999; line-height: 1.9; }
     footer a { color: #3949ab; text-decoration: none; }
     @media (max-width: 600px) {
       header h1 { font-size: 1.4em; }
@@ -116,17 +123,17 @@
 <body>
 <header>
   <h1>🧠 神經學相關教育活動</h1>
-  <p>台灣神經學學會繼續教育積分活動 — 未來三個月彙整</p>
+  <p>神經科與相關學會繼續教育活動 — 未來三個月彙整（11 個資料來源）</p>
   <div class="header-meta">
-    <span>📅 2026/06/28 起</span>
-    <span>⏱️ 截至 2026/09/28</span>
-    <span>🔄 資料來源：neuro.org.tw</span>
+    <span>📅 2026/07/02 起</span>
+    <span>⏱️ 截至 2026/10/02</span>
+    <span>📚 共 112 筆</span>
   </div>
 </header>
 
 <div class="container">
   <div class="controls">
-    <input class="search-box" id="search" type="text" placeholder="搜尋活動名稱或地點…">
+    <input class="search-box" id="search" type="text" placeholder="搜尋活動名稱、主辦單位或地點…">
     <select class="sort-select" id="sortSel">
       <option value="date-asc">📅 日期由近到遠</option>
       <option value="date-desc">📅 日期由遠到近</option>
@@ -142,6 +149,9 @@
     <button class="pill" data-cat="stroke">腦中風</button>
     <button class="pill" data-cat="epilepsy">癲癇</button>
     <button class="pill" data-cat="sleep">睡眠</button>
+    <button class="pill" data-cat="headache">頭痛</button>
+    <button class="pill" data-cat="pain">疼痛</button>
+    <button class="pill" data-cat="rehab">復健</button>
     <button class="pill" data-cat="neuro">神經科</button>
     <button class="pill" data-cat="other">其他</button>
     <div class="pill-divider"></div>
@@ -150,78 +160,154 @@
     <button class="pill region" data-region="north">🏙️ 北部</button>
     <button class="pill region" data-region="central">🏔️ 中部</button>
     <button class="pill region" data-region="south">🌊 南部</button>
-    <button class="pill region" data-region="kaoping">🌇 高屏</button>
     <button class="pill region" data-region="east">🌿 東部</button>
     <button class="pill region" data-region="online">💻 線上</button>
+    <button class="pill region" data-region="other">❓ 其他</button>
+  </div>
+
+  <div class="pills-bar">
+    <span class="pill-label">來源：</span>
+    <button class="pill src active" data-src="all">全部</button>
+    <button class="pill src" data-src="neuro">神經學學會</button><button class="pill src" data-src="stroke">腦中風學會</button><button class="pill src" data-src="tmds">動作障礙學會</button><button class="pill src" data-src="tncs">神經重症醫學會</button><button class="pill src" data-src="tnms">神經免疫醫學會</button><button class="pill src" data-src="pmr">復健醫學會</button><button class="pill src" data-src="tssm">睡眠醫學學會</button><button class="pill src" data-src="tsim">內科醫學會</button><button class="pill src" data-src="headache">頭痛學會</button><button class="pill src" data-src="epilepsy">癲癇醫學會</button><button class="pill src" data-src="tma">醫師公會全聯會</button>
   </div>
 
   <div class="stats" id="stats"></div>
   <div class="grid" id="grid"></div>
 
   <footer>
-    資料擷取自 <a href="https://www.neuro.org.tw/active/other_list.asp" target="_blank">台灣神經學學會 · 其他活動</a>｜
-    更新於 2026/06/28｜每週日 15:00 自動更新
+    資料來源：神經學學會 40筆｜腦中風學會 5筆｜動作障礙學會 2筆｜神經重症醫學會 1筆｜神經免疫醫學會 2筆｜復健醫學會 50筆｜睡眠醫學學會 28筆｜內科醫學會 14筆｜頭痛學會 1筆｜癲癇醫學會 1筆｜醫師公會全聯會 0筆<br>
+    更新於 2026/07/02｜每週日 15:00 自動更新｜地區依活動地點自動判讀，可能有誤，請以主辦單位公告為準
   </footer>
 </div>
 
 <script>
 const EVENTS = [
-  {date:"2026-06-28",title:"2026高雄家庭醫學週末研討會",location:"台灣家庭醫學醫學會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3361",cat:"other",online:false,region:"kaoping"},
-  {date:"2026-06-28",title:"TMS 精準治療：治療 protocols 與專家對話(2026/6/28台北)",location:"台灣臨床TMS腦刺激學會",credits:8,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3349",cat:"other",online:false,region:"north"},
-  {date:"2026-06-28",title:"臺中市醫師公會學術演講會",location:"社團法人臺中市醫師公會",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3338",cat:"other",online:false,region:"central"},
-  {date:"2026-06-28",title:"2026 台灣兒童伊比力斯協會年度學術會議暨第十四屆第二次會員大會",location:"台灣兒童伊比力斯協會",credits:5,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3325",cat:"epilepsy",online:false,region:"other"},
-  {date:"2026-07-03",title:"北區AD Treatment Symposium",location:"長庚醫院 / 市立土城醫院 / 市立雙和醫院 / 馬偕醫院",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3377",cat:"other",online:false,region:"north"},
-  {date:"2026-07-03",title:"115年度醫藥生技跨領域人才培訓課程-第五場(線上)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3356",cat:"other",online:true,region:"online"},
-  {date:"2026-07-04",title:"2026年台灣睡眠醫學學會夏季會 睡眠科技暨產業論壇",location:"台灣睡眠醫學學會",credits:3,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3363",cat:"sleep",online:false,region:"other"},
-  {date:"2026-07-05",title:"2026 台灣動作障礙學會夏季學術研討會 Bridging Neurology and Psychiatry in Parkinson’s Disease: From Mechanisms to Management",location:"台灣動作障礙學會",credits:6,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3371",cat:"movement",online:false,region:"other"},
-  {date:"2026-07-10",title:"115年度醫藥生技跨領域人才培訓課程-第六場(線上)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3357",cat:"other",online:true,region:"online"},
-  {date:"2026-07-11",title:"第二屆2026年度夏季研討會 Neuroimmunological and Neuromuscular Diseases Education-Taichung 2026",location:"台灣神經免疫醫學會",credits:5,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3393",cat:"neuro",online:false,region:"other"},
-  {date:"2026-07-11",title:"聚心會神·攜手抗栓暨北區雙月會",location:"社團法人台灣腦中風學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3379",cat:"stroke",online:false,region:"other"},
-  {date:"2026-07-11",title:"AOC Hands-on Learning Series 學術研討會",location:"國際臨床神經生理學聯盟亞洲暨大洋洲分會",credits:5,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3372",cat:"other",online:false,region:"other"},
-  {date:"2026-07-11",title:"2026夏季頭暈研討會",location:"台灣神經學會自律神經及頭暈學組",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3351",cat:"other",online:false,region:"other"},
-  {date:"2026-07-12",title:"TMS 線上實務研討會(2026/7/12台北)",location:"台灣臨床TMS腦刺激學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3369",cat:"other",online:true,region:"north"},
-  {date:"2026-07-17",title:"115年度醫藥生技跨領域人才培訓課程-第七場(線上)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3358",cat:"other",online:true,region:"online"},
-  {date:"2026-07-18",title:"第五屆運動醫學專科醫師訓練課程",location:"台灣運動醫學醫學會(TASM)",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3388",cat:"other",online:false,region:"other"},
-  {date:"2026-07-18",title:"Holistic and Patient-Centered Critical Care Workshop",location:"台灣復甦照護學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3380",cat:"other",online:false,region:"other"},
-  {date:"2026-07-19",title:"中華民國醫用超音波學會2026年第二次學術研討會",location:"中華民國醫用超音波學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3384",cat:"other",online:false,region:"other"},
-  {date:"2026-07-23",title:"Smoldering AD: Rethinking Alzheimer’s Disease as a Chronic Biological Process Beyond Initial Amyloid Clearance",location:"醫知彼科技股份有限公司",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3386",cat:"dementia",online:false,region:"other"},
-  {date:"2026-07-23",title:"阿茲海默症的新希望",location:"社團法人高雄市醫師公會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3381",cat:"dementia",online:false,region:"kaoping"},
-  {date:"2026-07-23",title:"失智症總覽及阿茲海默症最新治療進展",location:"社團法人高雄縣醫師公會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3362",cat:"dementia",online:false,region:"kaoping"},
-  {date:"2026-07-24",title:"2026學術研討會-T2D Forward 糖進羅浮",location:"台灣動脈硬化暨血管病醫學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3394",cat:"other",online:false,region:"other"},
-  {date:"2026-07-24",title:"115年度醫藥生技跨領域人才培訓課程-第八場(線上)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3373",cat:"other",online:true,region:"online"},
-  {date:"2026-07-25",title:"膝踝疼痛之肌肉骨骼超音波臨床實戰課程",location:"台灣肌肉骨骼神經超音波醫學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3392",cat:"other",online:false,region:"other"},
-  {date:"2026-07-25",title:"115年聯醫失智照護配方 – 護理師",location:"臺北市立聯合醫院  失智症中心",credits:6,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3390",cat:"dementia",online:false,region:"north"},
-  {date:"2026-07-25",title:"2026 慢性偏頭痛診斷與治療訓練課程",location:"台灣頭痛學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3376",cat:"other",online:false,region:"other"},
-  {date:"2026-07-25",title:"2026台灣動作障礙學會 Meet with the Master: Movement Disorder Clinical Case Demo-中部場",location:"台灣動作障礙學會",credits:4,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3345",cat:"movement",online:false,region:"central"},
-  {date:"2026-07-25",title:"安眠藥減量策略論壇: 腦健康視角下的慢性失眠治療",location:"台灣神經學學會",credits:3,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3343",cat:"sleep",online:false,region:"other"},
-  {date:"2026-07-26",title:"臺中市醫師公會學術演講會",location:"社團法人臺中市醫師公會",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3378",cat:"other",online:false,region:"central"},
-  {date:"2026-07-26",title:"2026癲癇基因診斷研討會",location:"台灣癲癇醫學會",credits:5,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3311",cat:"epilepsy",online:false,region:"other"},
-  {date:"2026-07-29",title:"巴金森治療案例研討會",location:"台灣動作障礙學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3389",cat:"movement",online:false,region:"other"},
-  {date:"2026-07-31",title:"115年度醫藥生技跨領域人才培訓課程-第九場(線上)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3359",cat:"other",online:true,region:"online"},
-  {date:"2026-08-01",title:"抗栓必達，現身說法 (實體/線上課程)",location:"台灣基層糖尿病學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3391",cat:"stroke",online:true,region:"online"},
-  {date:"2026-08-01",title:"A型肉毒桿菌素於神經復健之臨床應用 - 從評估、規劃到注射策略",location:"台灣神經復健醫學會",credits:2,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3370",cat:"neuro",online:false,region:"other"},
-  {date:"2026-08-05",title:"糖尿病神經病變的跨科對談與整合照護",location:"社團法人中華民國糖尿病學會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3382",cat:"neuro",online:false,region:"other"},
-  {date:"2026-08-07",title:"115年度醫藥生技跨領域人才培訓課程-第十場(實體)",location:"台灣精準醫療品質策進會",credits:1,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3360",cat:"other",online:false,region:"other"},
-  {date:"2026-08-08",title:"2026台北醫學會研討會",location:"台北醫學大學、台北醫學大學附設醫院",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3383",cat:"other",online:false,region:"north"},
-  {date:"2026-08-08",title:"2026腦電圖研習營-基礎課程",location:"台灣癲癇醫學會",credits:6,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3365",cat:"other",online:false,region:"other"},
-  {date:"2026-08-09",title:"2026腦電圖研習營-進階課程",location:"台灣癲癇醫學會",credits:6,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3366",cat:"other",online:false,region:"other"},
-  {date:"2026-08-22",title:"Meet-a-Lyse The New Standard of AIS",location:"百靈佳",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3395",cat:"other",online:false,region:"other"},
-  {date:"2026-08-23",title:"Meet-a-Lyse The New Standard of AIS",location:"百靈佳",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3397",cat:"other",online:false,region:"other"},
-  {date:"2026-08-23",title:"Meet-a-Lyse The New Standard of AIS",location:"百靈佳",credits:0,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3396",cat:"other",online:false,region:"other"},
-  {date:"2026-09-05",title:"第十屆測驗式神經放射線複習課程 (2026)",location:"中華民國神經放射線醫學會",credits:5,url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3368",cat:"neuro",online:false,region:"other"}
+  {date:"2026-07-02",title:"腦波壓力測試",location:"雙和醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"north"},
+  {date:"2026-07-03",title:"北區AD Treatment Symposium",location:"長庚醫院 / 市立土城醫院 / 市立雙和醫院 / 馬偕醫院 / 君品酒店五樓 笛卡兒廳+盧梭廳",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3377",src:"neuro",cat:"dementia",online:false,region:"north"},
+  {date:"2026-07-03",title:"115年度醫藥生技跨領域人才培訓課程-第五場(線上)",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3356",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-07-04",title:"2026年台灣睡眠醫學學會夏季會 睡眠科技暨產業論壇",location:"台灣睡眠醫學學會 / 張榮發基金會國際會議中心1001廳",credits:3,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3363",src:"neuro",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-04",title:"老人肌力訓練工作坊-理論班115.07.04(共50分)(0.5點)",location:"中華民國骨質疏鬆症學會 / 衛生福利部臺南醫院 急診大樓6樓 大會議廳 (臺南市中西區中山路125號)",credits:0,ctext:"復健 50 分",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4441.html",src:"pmr",cat:"other",online:false,region:"south"},
+  {date:"2026-07-04",title:"東區「重症運動會」重症早期復健研討會115.07.04(共3小時20分)(2.5點)",location:"台灣急救加護醫學會 / 花蓮慈濟醫院 感恩樓2樓二期講堂",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4436.html",src:"pmr",cat:"rehab",online:false,region:"east"},
+  {date:"2026-07-04",title:"惡性腫瘤蕈狀傷口與疼痛整合照護研討會",location:"台灣癌症安寧緩和醫學會 / 中國醫藥大學 立夫教學大樓9 樓T902 會議室",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/71676133ad414650b02c06f2834f7746",src:"tsim",cat:"pain",online:false,region:"central"},
+  {date:"2026-07-05",title:"2026 台灣動作障礙學會夏季學術研討會 Bridging Neurology and Psychiatry in Parkinson’s Disease: From Mechanisms to Management",location:"台灣動作障礙學會 / 中國醫藥大學教學大樓1樓102教室",credits:6,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3371",src:"neuro",cat:"movement",online:false,region:"central"},
+  {date:"2026-07-05",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-05",title:"基層醫療學術講座 Stroke Prevention in AF (新北)【https://23316696.org】",location:"中華民國基層醫療協會 / 新板希爾頓酒店-3樓圓滿B廳 (新北市板橋區民權路88號)",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/05276700298646e290c30c45827f09f1",src:"tsim",cat:"stroke",online:false,region:"north"},
+  {date:"2026-07-07",title:"睡眠醫學文獻選讀：Are we getting enough sleep? Frequent irregular sleep found in an analysis of over 11 million nights of objective in-home sleep data",location:"台大雲林分院精神醫學部",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-10",title:"115年度醫藥生技跨領域人才培訓課程-第六場(線上)",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3357",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-07-10",title:"第二屆2026年度夏季研討會 Neuroimmunological and Neuromuscular Diseases Education-Taichung 2026 (晚宴)",location:"台灣神經免疫醫學會 / 台中李方艾美酒店 [21F 星空廳1] (臺中市中區綠川里建國路111號)",credits:0,ctext:"",url:"https://member.tnms.com.tw/active/index.asp?/27.html",src:"tnms",cat:"neuro",online:false,region:"central"},
+  {date:"2026-07-10",title:"Positive airway pressure therapy and all cause and cardiovascular",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"stroke",online:false,region:"north"},
+  {date:"2026-07-10",title:"高效抗病毒與精準止痛:帶狀皰疹及神經痛之臨床處方策略",location:"社團法人高雄市醫師公會 / 高雄市醫師公會四樓禮堂",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/677f066527504a8da1eabeda7516146e",src:"tsim",cat:"neuro",online:false,region:"south"},
+  {date:"2026-07-11",title:"第二屆2026年度夏季研討會 Neuroimmunological and Neuromuscular Diseases Education-Taichung 2026",location:"台灣神經免疫醫學會 / 台中李方艾美酒店 21樓 星空廳I",credits:5,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3393",src:"neuro",cat:"neuro",online:false,region:"central"},
+  {date:"2026-07-11",title:"聚心會神·攜手抗栓暨北區雙月會",location:"社團法人台灣腦中風學會 / 新板希爾頓飯店3樓會議室1+2 (新北市民權路88號)",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3379",src:"neuro",cat:"stroke",online:false,region:"north"},
+  {date:"2026-07-11",title:"AOC Hands-on Learning Series 學術研討會",location:"國際臨床神經生理學聯盟亞洲暨大洋洲分會 / 台大醫學院1樓101講堂(基礎醫學大樓)",credits:5,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3372",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-07-11",title:"2026夏季頭暈研討會",location:"台灣神經學會自律神經及頭暈學組 / 臺北榮民總醫院 / 中正16樓神經內科會議室",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3351",src:"neuro",cat:"neuro",online:false,region:"north"},
+  {date:"2026-07-11",title:"2026/7/11「聚心會神 攜手抗栓」北區雙月會",location:"台灣腦中風學會",credits:0,ctext:"",url:"http://www.stroke.org.tw/news/knowledge_info.asp?/385.html",src:"stroke",cat:"stroke",online:false,region:"north"},
+  {date:"2026-07-11",title:"115年度以家庭為中心早期療育專業研討會「嬰幼兒餵食困難面面觀」115.07.11(共3小時)(1.5點)",location:"新竹市立馬偕兒童醫院 / 300046新竹市東區建功二路28號 新竹市立馬偕兒童醫院9樓臨床技能中心",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4440.html",src:"pmr",cat:"rehab",online:false,region:"north"},
+  {date:"2026-07-11",title:"跨專業網絡：兒童高風險家庭辨識與因應115.07.11(共2時40分)(1.5點)",location:"台灣基督長老教會馬偕醫療財團法人馬偕紀念醫院-兒童發展暨早期療育評估中心 / 台北馬偕紀念醫院平安樓15樓階梯講堂(台北市中山區中山北路二段92號)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4437.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-11",title:"115年氣喘專科醫師核心教育訓練課程",location:"台灣氣喘學會",credits:2.0,ctext:"睡眠 2 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-11",title:"115年度學術研討會(一)",location:"台灣家庭醫學醫學會 / 南京東路二段97號6樓",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/ad51ab57d2564f82a4d8637d6da773bb",src:"tsim",cat:"other",online:false,region:"north"},
+  {date:"2026-07-12",title:"TMS 線上實務研討會(2026/7/12台北)",location:"台灣臨床TMS腦刺激學會 / 台北市中山區復興北路290號2樓之1",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3369",src:"neuro",cat:"other",online:true,region:"north"},
+  {date:"2026-07-12",title:"失眠與疼痛 -- 運用腦心連結找出最適合你的芳香醫學 115.07.12(共6時30分)(3點)",location:"台灣芳香醫學醫學會 / 臺北市松山區中正里復興北路99號2樓206教室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4461.html",src:"pmr",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-12",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-12",title:"大腦健康新紀元：從介入醫學到中西醫營養的睡眠身心全攻略",location:"台灣營養精神醫學研究學會",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"other"},
+  {date:"2026-07-12",title:"氣喘專科醫師核心教育訓練課程",location:"台灣氣喘學會",credits:2.0,ctext:"睡眠 2 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-12",title:"115年度學術研討會(二)",location:"台灣家庭醫學醫學會 / 台大醫院國際會議中心",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/f78af244c3124ae4b7070ed88a9f7ceb",src:"tsim",cat:"other",online:false,region:"north"},
+  {date:"2026-07-12",title:"會員代表選舉-金馬地區:骨質疏鬆症的預防與治療",location:"台灣內科醫學會 / 金門醫院醫療大樓8樓視訊會議室",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/2707f7f7af134f05a257bc081164e5a0",src:"tsim",cat:"other",online:true,region:"online"},
+  {date:"2026-07-13",title:"115年早期療育醫事人員訓練研習會：「語」光譜同行，自閉症兒童的社交溝通策略與家庭增能115.07.13 (共1時)(0.5點)",location:"衛生福利部臺中醫院 / 衛生福利部臺中醫院復能大樓第八會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4442.html",src:"pmr",cat:"rehab",online:false,region:"central"},
+  {date:"2026-07-13",title:"Lemborexant and treatment for insomnia",location:"恩主公醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-14",title:"睡眠醫學文獻選讀：Acute sleep rebound following sleep restriction is associated with reduced mortality risk",location:"台大雲林分院精神醫學部",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-15",title:"品質改善_Inter-score結果討論(二)",location:"亞東醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"north"},
+  {date:"2026-07-17",title:"115年度醫藥生技跨領域人才培訓課程-第七場(線上)",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3358",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-07-17",title:"Vision Interventional Pain Symposium (VIPS 2026) 115.07.17(共50分)、115.07.18(共5時40分)、115.07.19(共5時40分)(0.8/2.8/2.8點)",location:"台灣疼痛醫學會 / Lecture (7/17)：台中慈濟醫院感恩樓5樓階梯講堂 Workshop(7/18-19)：彰濱秀傳IRCAD",credits:0,ctext:"復健 50 分",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4372.html",src:"pmr",cat:"pain",online:false,region:"central"},
+  {date:"2026-07-17",title:"Case Discussion",location:"花蓮慈濟睡眠醫學中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"east"},
+  {date:"2026-07-18",title:"第五屆運動醫學專科醫師訓練課程",location:"台灣運動醫學醫學會(TASM) / 臺北IEAT會議中心 (臺北市中山區松江路350號)",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3388",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-07-18",title:"Holistic and Patient-Centered Critical Care Workshop",location:"台灣復甦照護學會 / 國泰人壽大樓B1國際會議廳",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3380",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-07-18",title:"2026年神經重症繼續教育課程_神經重症病人的重症核心照護",location:"台灣神經重症醫學會",credits:0,ctext:"",url:"https://www.tncs.org.tw/active/active_info.asp?/66.html",src:"tncs",cat:"neuro",online:false,region:"other"},
+  {date:"2026-07-18",title:"TBMJ 骨骼優化論壇-骨肌關新視野 (線上研討會) 115.07.18(共1時15分)(0.5點)",location:"台灣骨鬆肌少關節防治學會 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4450.html",src:"pmr",cat:"other",online:true,region:"online"},
+  {date:"2026-07-18",title:"骨腫瘤影像全攻略 Bone Tumor Imaging: A Comprehensive Review 115.07.18 (共3時20分)(1點)",location:"臺北榮民總醫院 影像診療部 / 臺北榮民總醫院致德樓第三會議室(臺北市北投區石牌路二段322號)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4438.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-19",title:"中華民國醫用超音波學會2026年第二次學術研討會",location:"中華民國醫用超音波學會 / 中國醫藥大學 立夫教學大樓教室 (學士路與英才路交叉口)",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3384",src:"neuro",cat:"other",online:false,region:"central"},
+  {date:"2026-07-19",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-19",title:"新世代新冠疫苗 mNEXSPIKE 台灣上市學術研討會(台北/不公開報名)",location:"台灣家庭醫學醫學會 / 台北艾麗酒店5樓 葵楓柏廳",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/86c0d538bf6c4500a3b274289085c1aa",src:"tsim",cat:"other",online:false,region:"north"},
+  {date:"2026-07-21",title:"Fundamentals of Sleep Medicine:Insomnia diagnosis and treatment",location:"北醫附醫睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-21",title:"個案報告討論",location:"基隆長庚",credits:2.0,ctext:"睡眠 2 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"north"},
+  {date:"2026-07-22",title:"早期療育人員研習課程115.7.22(共3時)(1.5點)",location:"衛生福利部屏東醫院/兒童發展聯合評估中心 / 衛生福利部屏東醫院 二樓屏杏雅築會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4448.html",src:"pmr",cat:"rehab",online:false,region:"south"},
+  {date:"2026-07-23",title:"Smoldering AD: Rethinking Alzheimer’s Disease as a Chronic Biological Process Beyond Initial Amyloid Clearance",location:"醫知彼科技股份有限公司 / Zoom Webinar (線上講座)",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3386",src:"neuro",cat:"dementia",online:true,region:"online"},
+  {date:"2026-07-23",title:"阿茲海默症的新希望",location:"社團法人高雄市醫師公會 / 高雄市醫師公會4樓禮堂(高雄市前金區市中一路225號4樓)",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3381",src:"neuro",cat:"dementia",online:false,region:"south"},
+  {date:"2026-07-23",title:"失智症總覽及阿茲海默症最新治療進展",location:"社團法人高雄縣醫師公會 / 衛生福利部旗山醫院（高雄市旗山區中學路60號）",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3362",src:"neuro",cat:"dementia",online:false,region:"south"},
+  {date:"2026-07-23",title:"屏東縣發展遲緩兒童社區療育服務概述及特教轉銜與鑑定安置之實務115.07.23(共2時40分)(1.5點)",location:"屏東榮民總醫院 / 屏東榮總民總醫院醫療大樓5樓大會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4452.html",src:"pmr",cat:"other",online:false,region:"south"},
+  {date:"2026-07-24",title:"2026學術研討會-T2D Forward 糖進羅浮",location:"台灣動脈硬化暨血管病醫學會 / 台北喜來登飯店B1彩蝶廳",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3394",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-07-24",title:"115年度醫藥生技跨領域人才培訓課程-第八場(線上)",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3373",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-07-24",title:"115. 07.24 Mobilisation and Manipulation (共3時)(1.5點)",location:"台灣臨床下肢生物力學國際學會 / JR東日本大飯店 104台北市中山區南京東路三段133號",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4447.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-24",title:"115. 07.24 Clinical Biomechanics of The Lower Limbs (共7時)、115.07.25 Clinical Biomechanics of The Lower Limbs (共7時)(3.5/3.5點)",location:"台灣臨床下肢生物力學國際學會 / JR東日本大飯店 104台北市中山區南京東路三段133號",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4446.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-24",title:"Sleep Apnea Screening with a Contact-Free Under-the-Mattress Sensor",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-25",title:"膝踝疼痛之肌肉骨骼超音波臨床實戰課程",location:"台灣肌肉骨骼神經超音波醫學會 / 台北市內湖區基湖路18號(BenQ明基大樓 T13會議室)",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3392",src:"neuro",cat:"pain",online:false,region:"north"},
+  {date:"2026-07-25",title:"115年聯醫失智照護配方 – 護理師",location:"臺北市立聯合醫院 失智症中心 / 臺北市中正區中華路二段33號10樓",credits:6,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3390",src:"neuro",cat:"dementia",online:false,region:"north"},
+  {date:"2026-07-25",title:"2026 慢性偏頭痛診斷與治療訓練課程",location:"台灣頭痛學會 / 張榮發基金會國際會議中心8樓",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3376",src:"neuro",cat:"headache",online:false,region:"north"},
+  {date:"2026-07-25",title:"2026台灣動作障礙學會 Meet with the Master: Movement Disorder Clinical Case Demo-中部場",location:"台灣動作障礙學會 / 中國醫藥大學附設醫院 癌症大樓一樓會議室",credits:4,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3345",src:"neuro",cat:"movement",online:false,region:"central"},
+  {date:"2026-07-25",title:"安眠藥減量策略論壇: 腦健康視角下的慢性失眠治療",location:"台灣神經學學會 / 張榮發會議中心801會議室",credits:3,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3343",src:"neuro",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-25",title:"M.A.E.S. Therapy 簡介與分享(共3時)(1.5點)",location:"醫療財團法人徐元智先生藥基金會亞東紀念醫院兒童發展中心 / 亞東紀念醫院 北棟六樓階梯教室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4455.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-25",title:"以家庭為中心的兒童發展支持與早期介入研討會115.07.25(共6時)(3點)",location:"光田醫療社團法人光田綜合醫院 / 光田綜合醫院向上院區 B1401會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4449.html",src:"pmr",cat:"rehab",online:false,region:"central"},
+  {date:"2026-07-25",title:"低口語兒童的溝通誘發與語言引導115.07.25(共4時)(2點)",location:"安泰醫療社團法人安泰醫院兒童發展聯合評估中心 / 安泰醫院附設護理之家一樓交誼廳",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4444.html",src:"pmr",cat:"other",online:false,region:"south"},
+  {date:"2026-07-25",title:"台日韓隊醫經驗分享及座談115.07.25(共4小時55分)(3點)",location:"台灣運動醫學學會 / 林口桃園福容A8",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4435.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-26",title:"Seminar of Pathophysiology, Diagnosis and Management of Wilson’s disease",location:"中國附醫兒童醫院 / 台中勤美洲際酒店",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3399",src:"neuro",cat:"other",online:false,region:"central"},
+  {date:"2026-07-26",title:"臺中市醫師公會學術演講會",location:"社團法人臺中市醫師公會 / 衛生福利部臺中醫院12樓大禮堂(臺中市西區三民路一段199號)",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3378",src:"neuro",cat:"other",online:false,region:"central"},
+  {date:"2026-07-26",title:"2026癲癇基因診斷研討會",location:"台灣癲癇醫學會",credits:0,ctext:"",url:"https://www.epilepsy.org.tw/news/event-information/266",src:"epilepsy",cat:"epilepsy",online:false,region:"other"},
+  {date:"2026-07-26",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
+  {date:"2026-07-29",title:"巴金森治療案例研討會",location:"台灣動作障礙學會 / 線上會議",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3389",src:"neuro",cat:"movement",online:true,region:"online"},
+  {date:"2026-07-31",title:"115年度醫藥生技跨領域人才培訓課程-第九場(線上)",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3359",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-07-31",title:"Case Discussion",location:"花蓮慈濟睡眠醫學中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"east"},
+  {date:"2026-08-01",title:"抗栓必達，現身說法 (實體/線上課程)",location:"台灣基層糖尿病學會 / 台中日月千禧5樓V1+V2 /線上課程",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3391",src:"neuro",cat:"stroke",online:true,region:"central"},
+  {date:"2026-08-01",title:"A型肉毒桿菌素於神經復健之臨床應用 - 從評估、規劃到注射策略",location:"台灣神經復健醫學會 / 臺大醫學院201講堂",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3370",src:"neuro",cat:"rehab",online:false,region:"north"},
+  {date:"2026-08-01",title:"2026台灣足踝醫學聯合學術研討會(共3時20分)(2點)",location:"社團法人台灣足踝穿戴裝置協會 / 407台中市西屯區台灣大道四段1650號 (臺中榮民總醫院研究大樓1樓 第四會議室)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4460.html",src:"pmr",cat:"other",online:false,region:"central"},
+  {date:"2026-08-01",title:"115年度早期療育專業人員訓練課程『發展遲緩兒童視覺問題的早期發現與功能性視覺介入』(共3時)(1.5點)",location:"臺大醫院兒童發展評估及療育中心 / 臺北市中正區中山南路8號 B1講堂",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4459.html",src:"pmr",cat:"rehab",online:false,region:"north"},
+  {date:"2026-08-05",title:"糖尿病神經病變的跨科對談與整合照護",location:"社團法人中華民國糖尿病學會 / 線上課程請報名https://reurl.cc/vENvGo",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3382",src:"neuro",cat:"neuro",online:true,region:"online"},
+  {date:"2026-08-07",title:"115年度醫藥生技跨領域人才培訓課程-第十場(實體)",location:"台灣精準醫療品質策進會 / 中國文化大學推廣教育部建國校區 (大夏館) 10樓",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3360",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-08-08",title:"2026台北醫學會研討會",location:"台北醫學大學、台北醫學大學附設醫院 / 台北醫學大學胡水旺國際會議廳、誠樸廳、後棟15樓第二會議室、教學大樓一樓2101~2104教室、杏春樓2樓6201室~6204教室",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3383",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-08-08",title:"2026腦電圖研習營-基礎課程",location:"台灣癲癇醫學會 / 張榮發基金會國際會議中心 8樓801會議室",credits:6,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3365",src:"neuro",cat:"epilepsy",online:false,region:"north"},
+  {date:"2026-08-09",title:"2026腦電圖研習營-進階課程",location:"台灣癲癇醫學會 / 張榮發基金會國際會議中心 8樓801會議室",credits:6,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3366",src:"neuro",cat:"epilepsy",online:false,region:"north"},
+  {date:"2026-08-10",title:"Insomnia and excessive daytime sleepiness in patients with epilepsy",location:"恩主公醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"epilepsy",online:false,region:"north"},
+  {date:"2026-08-14",title:"Sleep-wake disturbances in shift workers",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-08-15",title:"以家庭為中心-兒童篩檢教育訓練課程115.08.15(共3時)(2點)",location:"國立臺灣大學醫學院附設醫院新竹臺大分院、新竹市臨床心理師公會 / 新竹市北區經國路一段442巷25號- 5樓第一會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4418.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-08-16",title:"跨領域骨盆障礙與疼痛之評估及訓練工作坊115.8.16(7時)(3.5點)",location:"中華運動培訓教育學會 / Jungle叢零體適能中心",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4432.html",src:"pmr",cat:"pain",online:false,region:"other"},
+  {date:"2026-08-16",title:"115年兒童發展暨早期療育專業研討會「跨領域團隊照護課程-心理劇應用在兒童臨床及治療」115.08.16(共5小時)(2.5點)",location:"童綜合醫院兒童發展聯合評估中心 / 童綜合醫院梧棲院區20樓視聽教室（臺中市梧棲區臺灣大道八段699號）",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4401.html",src:"pmr",cat:"rehab",online:false,region:"central"},
+  {date:"2026-08-18",title:"Fundamentals of Sleep Medicine:Circadian Rhythm sleep-wake disorders",location:"北醫睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-08-21",title:"智慧機器人復健治療於長者及亞健康族群",location:"高雄縣醫師公會 / 財團法人私立高雄醫學大學附設高醫岡山醫院（恕不對外開放）",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/6ff3c4729a994b078b09d2af5f6e7227",src:"tsim",cat:"rehab",online:false,region:"south"},
+  {date:"2026-08-22",title:"115年執行再生醫療醫師訓練基礎課程",location:"台灣精準醫療品質策進會 / 線上Cisco Webex",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3400",src:"neuro",cat:"other",online:true,region:"online"},
+  {date:"2026-08-22",title:"Meet-a-Lyse The New Standard of AIS",location:"百靈佳 / W Hotel 8F Greay Room綺麗廳 (臺北市信義區忠孝東路五段10號)",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3395",src:"neuro",cat:"other",online:false,region:"north"},
+  {date:"2026-08-22",title:"老人肌力訓練工作坊-實務班115.08.22(共1時30分)(0.5點)",location:"中華民國骨質疏鬆症學會 / 衛生福利部臺南醫院 急診大樓6樓 大會議廳 (臺南市中西區中山路125號)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4445.html",src:"pmr",cat:"other",online:false,region:"south"},
+  {date:"2026-08-23",title:"Meet-a-Lyse The New Standard of AIS",location:"百靈佳 / 高雄萬豪酒店8F萬享C廳 (高雄市鼓山區龍德新路222號)",credits:0,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3397",src:"neuro",cat:"other",online:false,region:"south"},
+  {date:"2026-08-28",title:"Tirzepatide for the Treatment of Obstructive Sleep Apnea and Obesity",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-08-29",title:"轉化，從家庭開始-早療人員的家庭賦能與親職教練實務115.08.29(共4時)(2點)",location:"安泰醫療社團法人安泰醫院兒童發展聯合評估中心 / 安泰醫院附設護理之家一樓交誼廳",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4462.html",src:"pmr",cat:"rehab",online:false,region:"south"},
+  {date:"2026-09-05",title:"第十屆測驗式神經放射線複習課程 (2026)",location:"中華民國神經放射線醫學會 / 振興醫院國際會議中心",credits:5,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3368",src:"neuro",cat:"neuro",online:false,region:"north"},
+  {date:"2026-09-05",title:"台灣復健醫學會2026年IDDSI與吞嚥內視鏡評估實務暨工作坊(共3時)(2.5點)",location:"台灣復健醫學會 / 長庚轉運站國際會議中心",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4456.html",src:"pmr",cat:"rehab",online:false,region:"north"},
+  {date:"2026-09-05",title:"台南5月份地方月會:｢115年流感疫苗教育訓練｣",location:"台灣內科醫學會 / 成大醫學院一樓 第二講堂",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/eaa1203e9df84bd18285ae73aac6f93b",src:"tsim",cat:"other",online:false,region:"south"},
+  {date:"2026-09-07",title:"早期療育專業人員講座—注意力不足過動症的非藥物治療 (共2時45分)(1點)",location:"天主教若瑟醫療財團法人若瑟醫院兒童發展聯合評估中心 / 天主教若瑟醫療財團法人若瑟醫院第二會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4458.html",src:"pmr",cat:"rehab",online:false,region:"central"},
+  {date:"2026-09-11",title:"快速眼動睡眠行為障礙 (RBD)",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-09-12",title:"高屏5月份地方月會:｢115年流感疫苗教育訓練｣",location:"台灣內科醫學會 / 高雄醫學大學附設中和紀念醫院 啟川大樓6樓第二講堂",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/ae98bf3335b547d2a9c4f88111ba7796",src:"tsim",cat:"other",online:false,region:"south"},
+  {date:"2026-09-14",title:"OSA and other sleep disorders in patients with epilepsy",location:"恩主公醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"epilepsy",online:false,region:"north"},
+  {date:"2026-09-15",title:"Fundamentals of Sleep Medicine:Parasomnia",location:"北醫睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
+  {date:"2026-09-18",title:"睡眠呼吸中止和中風概論Sleep Apnea and Stroke",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"stroke",online:false,region:"north"},
+  {date:"2026-09-19",title:"以家庭為中心-動作與認知的交會-以ADHD兒童與青少年為例的物理治療新視角(共3時)(1.5點)",location:"國立臺灣大學醫學院附設醫院新竹臺大分院-早療中心、新竹市臨床心理師公會 / 新竹市北區經國路一段442巷25號- 5樓第一會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4451.html",src:"pmr",cat:"dementia",online:false,region:"north"},
+  {date:"2026-09-19",title:"2026/09/19-20 ISCD Quality Bone Densitometry Course: Performance, Interpretation, and Clinical Application for Clinician (ISCD授權骨密課程及TOA考試)(台南)(僅限中華民國骨質疏鬆症學會醫師會員報名)115.09.19(共50分)(0.5點)",location:"中華民國骨質疏鬆症學會 / 衛生福利部臺南醫院 急診大樓6樓 大會議廳 (臺南市中西區中山路125號)",credits:0,ctext:"復健 50 分",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4443.html",src:"pmr",cat:"other",online:false,region:"south"},
+  {date:"2026-09-19",title:"高屏地區9月份地方月會",location:"台灣內科醫學會 / 高雄長庚紀念醫院-兒童醫院6樓藍廳",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/02597f6db9fb4686b468c344b530515e",src:"tsim",cat:"other",online:false,region:"south"},
+  {date:"2026-09-30",title:"【線上課程】頭痛、偏頭痛與大腦健康系列課程115.07.01-115.09.30(共2時27分)(2點)",location:"宏恩醫療財團法人宏恩綜合醫院復健科 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4428.html",src:"pmr",cat:"headache",online:true,region:"online"},
+  {date:"2026-09-30",title:"【線上課程】脊椎手術與上肢生物力學系列課程115.07.01-115.09.30(共3時)(2點)",location:"宏恩醫療財團法人宏恩綜合醫院復健科 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4427.html",src:"pmr",cat:"other",online:true,region:"online"},
+  {date:"2026-09-30",title:"【線上課程】生產與骨盆問題臨床介入系列課程115.07.01-115.09.30(共3時9分)(2點)",location:"宏恩醫療財團法人宏恩綜合醫院復健科 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4426.html",src:"pmr",cat:"other",online:true,region:"online"},
+  {date:"2026-09-30",title:"【線上課程】下背痛之成因與治療系列課程115.07.01-115.09.30(共3時17分)(2點)",location:"宏恩醫療財團法人宏恩綜合醫院復健科 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4425.html",src:"pmr",cat:"other",online:true,region:"online"}
 ];
 
 const WEEKDAYS = ['日','一','二','三','四','五','六'];
 const CAT_LABELS = {
-  movement:'動作障礙', dementia:'失智症', stroke:'腦中風',
-  epilepsy:'癲癇', sleep:'睡眠', neuro:'神經科', other:'其他'
+  movement:'動作障礙', dementia:'失智症', stroke:'腦中風', epilepsy:'癲癇',
+  sleep:'睡眠', headache:'頭痛', pain:'疼痛', rehab:'復健', neuro:'神經科', other:'其他'
 };
 const REGION_LABELS = {
   north:'🏙️ 北部', central:'🏔️ 中部', south:'🌊 南部',
-  kaoping:'🌇 高屏', east:'🌿 東部', online:'💻 線上', other:'其他'
+  east:'🌿 東部', online:'💻 線上', other:'❓ 其他'
 };
+const SRC_LABELS = {"neuro": "神經學學會", "stroke": "腦中風學會", "tmds": "動作障礙學會", "tncs": "神經重症醫學會", "tnms": "神經免疫醫學會", "pmr": "復健醫學會", "tssm": "睡眠醫學學會", "tsim": "內科醫學會", "headache": "頭痛學會", "epilepsy": "癲癇醫學會", "tma": "醫師公會全聯會"};
 
-const today = new Date('2026-06-28');
+const today = new Date('2026-07-02');
 today.setHours(0,0,0,0);
 
 function daysLeft(dateStr) {
@@ -237,12 +323,15 @@ function getMonthKey(dateStr) {
   return `${d.getFullYear()}年${d.getMonth()+1}月`;
 }
 
-let currentCat = 'all', currentRegion = 'all', currentSearch = '', currentSort = 'date-asc';
+let currentCat = 'all', currentRegion = 'all', currentSrc = 'all',
+    currentSearch = '', currentSort = 'date-asc';
 
 function getFiltered() {
   let data = [...EVENTS];
   if (currentCat !== 'all') data = data.filter(e => e.cat === currentCat);
-  if (currentRegion !== 'all') data = data.filter(e => e.region === currentRegion);
+  if (currentRegion === 'online') data = data.filter(e => e.online || e.region === 'online');
+  else if (currentRegion !== 'all') data = data.filter(e => e.region === currentRegion);
+  if (currentSrc !== 'all') data = data.filter(e => e.src === currentSrc);
   if (currentSearch) {
     const q = currentSearch.toLowerCase();
     data = data.filter(e => e.title.toLowerCase().includes(q) || e.location.toLowerCase().includes(q));
@@ -276,10 +365,13 @@ function render() {
     let dlClass = 'days-left', dlText = `${dl} 天後`;
     if (dl === 0) { dlClass += ' today'; dlText = '今天'; }
     else if (dl <= 7) { dlClass += ' soon'; }
-    const creditBadge = e.credits ? `<span class="tag tag-credits">⭐ ${e.credits} 積分</span>` : '';
+    const creditLabel = e.ctext ? e.ctext : (e.credits ? `${e.credits} 積分` : '');
+    const creditBadge = creditLabel ? `<span class="tag tag-credits">⭐ ${creditLabel}</span>` : '';
     const onlineBadge = e.online   ? `<span class="tag tag-online">💻 線上</span>` : '';
     const catBadge    = `<span class="tag tag-cat">${CAT_LABELS[e.cat]||e.cat}</span>`;
     const regionBadge = `<span class="tag tag-region">${REGION_LABELS[e.region]||e.region}</span>`;
+    const srcBadge    = `<span class="tag tag-src">${SRC_LABELS[e.src]||e.src}</span>`;
+    const linkBtn     = e.url ? `<a class="card-link" href="${e.url}" target="_blank">詳細資訊 →</a>` : '';
     html += `
       <div class="card cat-${e.cat}">
         <div class="card-date">
@@ -288,30 +380,28 @@ function render() {
           <span class="${dlClass}">${dlText}</span>
         </div>
         <div class="card-title">${e.title}</div>
-        <div class="card-tags">${catBadge}${regionBadge}${creditBadge}${onlineBadge}</div>
+        <div class="card-tags">${catBadge}${regionBadge}${srcBadge}${creditBadge}${onlineBadge}</div>
         <div class="card-location">${e.location}</div>
-        <a class="card-link" href="${e.url}" target="_blank">詳細資訊 →</a>
+        ${linkBtn}
       </div>`;
   });
   grid.innerHTML = html;
 }
 
-document.querySelectorAll('.pill:not(.region)').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.pill:not(.region)').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentCat = btn.dataset.cat;
-    render();
+function bindPills(selector, setter) {
+  document.querySelectorAll(selector).forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll(selector).forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      setter(btn);
+      render();
+    });
   });
-});
-document.querySelectorAll('.pill.region').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.pill.region').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentRegion = btn.dataset.region;
-    render();
-  });
-});
+}
+bindPills('.pill:not(.region):not(.src)', btn => currentCat = btn.dataset.cat);
+bindPills('.pill.region', btn => currentRegion = btn.dataset.region);
+bindPills('.pill.src',    btn => currentSrc = btn.dataset.src);
+
 document.getElementById('search').addEventListener('input', e => {
   currentSearch = e.target.value; render();
 });
