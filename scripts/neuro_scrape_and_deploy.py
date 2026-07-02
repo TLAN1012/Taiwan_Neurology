@@ -111,6 +111,9 @@ RELEVANT_KW = [
     "頭痛", "偏頭痛", "睡眠", "疼痛", "復健", "眩暈", "暈眩", "顫抖", "肌無力",
     "多發性硬化", "脊髓", "周邊神經", "週邊神經", "肌電圖", "腦電圖", "EEG",
     "電生理", "神智", "譫妄", "帶狀疱疹後神經痛",
+    # 糖尿病照護網（共照網認證/展延學分課程）
+    "糖尿病", "血糖", "胰島素", "腸泌素", "共同照護", "共照網", "糖心腎",
+    "DKD", "Diabetes", "diabetes", "DIABETES",
     "Neuro", "neuro", "NEURO", "Stroke", "stroke", "Epilep", "epilep",
     "Parkinson", "parkinson", "Dementia", "dementia", "Alzheimer",
     "Headache", "headache", "Migraine", "migraine", "Sleep", "Pain",
@@ -518,6 +521,8 @@ CAT_KEYWORDS = {
     "headache": ["頭痛", "headache", "migraine", "偏頭痛"],
     "pain":     ["疼痛", "pain"],
     "rehab":    ["復健", "rehab", "早療", "早期療育", "兒童發展"],
+    "dm":       ["糖尿病", "共同照護網", "共照網", "血糖", "胰島素", "腸泌素",
+                 "糖心腎", "dkd", "diabetes", "glp-1", "sglt2"],
     "neuro":    ["神經", "neuro", "肌無力", "nf1", "神經影像", "臨床神經", "頭暈",
                  "眩暈", "急症", "住院醫師", "多發性硬化", "脊髓"],
 }
@@ -567,7 +572,7 @@ def build_html(events, src_stats):
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>神經學相關教育活動（未來三個月）</title>
+  <title>基層神經科醫師教育活動全集（未來三個月）</title>
   <style>
     *, *::before, *::after {{ box-sizing: border-box; margin: 0; padding: 0; }}
     body {{
@@ -640,6 +645,7 @@ def build_html(events, src_stats):
     .card.cat-headache  {{ border-left-color: #ad1457; }}
     .card.cat-pain      {{ border-left-color: #ef6c00; }}
     .card.cat-rehab     {{ border-left-color: #558b2f; }}
+    .card.cat-dm        {{ border-left-color: #00695c; }}
     .card.cat-neuro     {{ border-left-color: #1565c0; }}
     .card.cat-other     {{ border-left-color: #78909c; }}
     .card-date {{ font-size: .82em; color: #666; display: flex; align-items: center; gap: 6px; }}
@@ -686,7 +692,7 @@ def build_html(events, src_stats):
 </head>
 <body>
 <header>
-  <h1>🧠 神經學相關教育活動</h1>
+  <h1>🧠 基層神經科醫師教育活動全集</h1>
   <p>神經科與相關學會繼續教育活動 — 未來三個月彙整（{len(SRC_LABELS)} 個資料來源）</p>
   <div class="header-meta">
     <span>📅 {today_str} 起</span>
@@ -716,6 +722,7 @@ def build_html(events, src_stats):
     <button class="pill" data-cat="headache">頭痛</button>
     <button class="pill" data-cat="pain">疼痛</button>
     <button class="pill" data-cat="rehab">復健</button>
+    <button class="pill" data-cat="dm">糖尿病照護網</button>
     <button class="pill" data-cat="neuro">神經科</button>
     <button class="pill" data-cat="other">其他</button>
     <div class="pill-divider"></div>
@@ -750,7 +757,8 @@ const EVENTS = {events_js};
 const WEEKDAYS = ['日','一','二','三','四','五','六'];
 const CAT_LABELS = {{
   movement:'動作障礙', dementia:'失智症', stroke:'腦中風', epilepsy:'癲癇',
-  sleep:'睡眠', headache:'頭痛', pain:'疼痛', rehab:'復健', neuro:'神經科', other:'其他'
+  sleep:'睡眠', headache:'頭痛', pain:'疼痛', rehab:'復健',
+  dm:'糖尿病照護網', neuro:'神經科', other:'其他'
 }};
 const REGION_LABELS = {{
   north:'🏙️ 北部', central:'🏔️ 中部', south:'🌊 南部',
@@ -930,7 +938,7 @@ def main():
         changed, msg = git_deploy(html)
         print(f"部署結果：{msg}")
 
-    summary_lines = [f"🧠 神經學教育活動已更新 ({TODAY.strftime('%Y/%m/%d')})"]
+    summary_lines = [f"🧠 基層神經科醫師教育活動已更新 ({TODAY.strftime('%Y/%m/%d')})"]
     summary_lines.append(f"📊 共 {len(events)} 筆活動（未來3個月，{len(FETCHERS)} 個來源）")
     if failed:
         summary_lines.append(f"⚠️ 失敗來源：{'、'.join(failed)}")
