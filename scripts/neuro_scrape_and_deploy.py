@@ -19,9 +19,11 @@ neuro_scrape_and_deploy.py
   headache  台灣頭痛學會          WordPress REST API（JSON）
   epilepsy  台灣癲癇醫學會        Drupal RSS feed
   tma       醫師公會全聯會        tma.tw/credit/index_06.asp（全國總表；神經相關或線上）
+  tafm      台灣家庭醫學醫學會    tafm.org.tw 首頁精選課程（免驗證碼；含詳細頁欄位）
 
-註：家醫科醫學會（TAFM）課程查詢頁有伺服器端驗證碼無法直接爬，
-    其申請西醫師積分之課程改由全聯會總表（tma）按主辦單位涵蓋。
+註：家醫科醫學會（TAFM）的「完整課程查詢」頁有伺服器端驗證碼無法直接爬，
+    改抓其首頁免驗證碼渲染的近期精選課程（學會主打的年會/認證課程），
+    其餘申請西醫師積分之家醫課程另由全聯會總表（tma）按主辦單位涵蓋。
 
 執行環境：
 - GitHub Actions（GITHUB_ACTIONS=true）：只把 index.html 寫回 repo 根目錄，
@@ -54,10 +56,11 @@ SRC_LABELS = {
     "headache": "頭痛學會",
     "epilepsy": "癲癇醫學會",
     "tma":      "醫師公會全聯會",
+    "tafm":     "家庭醫學醫學會",
 }
 # 去重優先序：數字小者優先保留（學會官網 > 睡眠 > 內科 > 全聯會總表）
 SRC_PRIORITY = {"neuro": 1, "stroke": 1, "tmds": 1, "tncs": 1, "tnms": 1,
-                "pmr": 1, "headache": 1, "epilepsy": 1,
+                "pmr": 1, "headache": 1, "epilepsy": 1, "tafm": 1,
                 "tssm": 2, "tsim": 3, "tma": 4}
 
 # ── 共用工具 ──────────────────────────────────────
@@ -444,11 +447,48 @@ def src_tma():
             break
     return [e for e in events if e]
 
+def src_tafm():
+    """台灣家庭醫學醫學會（首頁免驗證碼精選課程；民國年）
+
+    完整課程查詢頁需伺服器端驗證碼，故改抓首頁渲染的近期精選課程
+    （學會主打的年會/認證課程），全數列入（家醫課程視同基層相關）。
+    首頁走 http（其 https 憑證經 proxy 驗證失敗）。
+    """
+    base = "http://www.tafm.org.tw"
+    h = fetch(f"{base}/ehc-tafm/s/index.htm")
+    events = []
+    blocks = re.findall(
+        r'<li>\s*<div class="row">(.*?)</div>\s*'
+        r'<div class="title"><a href="(/ehc-tafm/s/w/edu/scheduleInfo1/schedule/[0-9a-f]+)">'
+        r'(.*?)</a></div>\s*<div class="row info">(.*?)</div>',
+        h, re.DOTALL)
+    seen = set()
+    for tags, href, title, info in blocks:
+        dm = re.search(r"(\d{3})/(\d{1,2})/(\d{1,2})", info)
+        if not dm:
+            continue
+        d = parse_date(int(dm.group(1)) + 1911, dm.group(2), dm.group(3))
+        cm = re.search(r"積分<span[^>]*>([\d.]+)", tags)
+        lm = re.search(r'fa-map-marker"></i>(.*?)</span>', info, re.DOTALL)
+        try:
+            credits = float(cm.group(1)) if cm else 0
+        except ValueError:
+            credits = 0
+        e = make_event(d, title, "tafm", url=f"{base}{href}",
+                       organizer="台灣家庭醫學醫學會",
+                       location=lm.group(1) if lm else "",
+                       credits=credits,
+                       credit_text=f"家醫 {cm.group(1)} 積分" if cm else "")
+        if e and e["url"] not in seen and in_window(e):
+            seen.add(e["url"])
+            events.append(e)
+    return events
+
 FETCHERS = {
     "neuro": src_neuro, "stroke": src_stroke, "tmds": src_tmds,
     "tncs": src_tncs, "tnms": src_tnms, "pmr": src_pmr,
     "tssm": src_tssm, "tsim": src_tsim, "headache": src_headache,
-    "epilepsy": src_epilepsy, "tma": src_tma,
+    "epilepsy": src_epilepsy, "tma": src_tma, "tafm": src_tafm,
 }
 
 # ── 跨來源去重 ────────────────────────────────────

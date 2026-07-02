@@ -124,11 +124,11 @@
 <body>
 <header>
   <h1>🧠 基層神經科醫師教育活動全集</h1>
-  <p>神經科與相關學會繼續教育活動 — 未來三個月彙整（11 個資料來源）</p>
+  <p>神經科與相關學會繼續教育活動 — 未來三個月彙整（12 個資料來源）</p>
   <div class="header-meta">
     <span>📅 2026/07/02 起</span>
     <span>⏱️ 截至 2026/10/02</span>
-    <span>📚 共 146 筆</span>
+    <span>📚 共 152 筆</span>
   </div>
 </header>
 
@@ -170,14 +170,14 @@
   <div class="pills-bar">
     <span class="pill-label">來源：</span>
     <button class="pill src active" data-src="all">全部</button>
-    <button class="pill src" data-src="neuro">神經學學會</button><button class="pill src" data-src="stroke">腦中風學會</button><button class="pill src" data-src="tmds">動作障礙學會</button><button class="pill src" data-src="tncs">神經重症醫學會</button><button class="pill src" data-src="tnms">神經免疫醫學會</button><button class="pill src" data-src="pmr">復健醫學會</button><button class="pill src" data-src="tssm">睡眠醫學學會</button><button class="pill src" data-src="tsim">內科醫學會</button><button class="pill src" data-src="headache">頭痛學會</button><button class="pill src" data-src="epilepsy">癲癇醫學會</button><button class="pill src" data-src="tma">醫師公會全聯會</button>
+    <button class="pill src" data-src="neuro">神經學學會</button><button class="pill src" data-src="stroke">腦中風學會</button><button class="pill src" data-src="tmds">動作障礙學會</button><button class="pill src" data-src="tncs">神經重症醫學會</button><button class="pill src" data-src="tnms">神經免疫醫學會</button><button class="pill src" data-src="pmr">復健醫學會</button><button class="pill src" data-src="tssm">睡眠醫學學會</button><button class="pill src" data-src="tsim">內科醫學會</button><button class="pill src" data-src="headache">頭痛學會</button><button class="pill src" data-src="epilepsy">癲癇醫學會</button><button class="pill src" data-src="tma">醫師公會全聯會</button><button class="pill src" data-src="tafm">家庭醫學醫學會</button>
   </div>
 
   <div class="stats" id="stats"></div>
   <div class="grid" id="grid"></div>
 
   <footer>
-    資料來源：神經學學會 40筆｜腦中風學會 5筆｜動作障礙學會 2筆｜神經重症醫學會 1筆｜神經免疫醫學會 2筆｜復健醫學會 50筆｜睡眠醫學學會 28筆｜內科醫學會 54筆｜頭痛學會 1筆｜癲癇醫學會 1筆｜醫師公會全聯會 0筆<br>
+    資料來源：神經學學會 40筆｜腦中風學會 5筆｜動作障礙學會 2筆｜神經重症醫學會 1筆｜神經免疫醫學會 2筆｜復健醫學會 55筆｜睡眠醫學學會 28筆｜內科醫學會 54筆｜頭痛學會 1筆｜癲癇醫學會 1筆｜醫師公會全聯會 0筆｜家庭醫學醫學會 5筆<br>
     更新於 2026/07/02｜每週日 15:00 自動更新｜地區依活動地點自動判讀，可能有誤，請以主辦單位公告為準
   </footer>
 </div>
@@ -210,11 +210,14 @@ const EVENTS = [
   {date:"2026-07-11",title:"2026/7/11「聚心會神 攜手抗栓」北區雙月會",location:"台灣腦中風學會",credits:0,ctext:"",url:"http://www.stroke.org.tw/news/knowledge_info.asp?/385.html",src:"stroke",cat:"stroke",online:false,region:"north"},
   {date:"2026-07-11",title:"115年度以家庭為中心早期療育專業研討會「嬰幼兒餵食困難面面觀」115.07.11(共3小時)(1.5點)",location:"新竹市立馬偕兒童醫院 / 300046新竹市東區建功二路28號 新竹市立馬偕兒童醫院9樓臨床技能中心",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4440.html",src:"pmr",cat:"rehab",online:false,region:"north"},
   {date:"2026-07-11",title:"跨專業網絡：兒童高風險家庭辨識與因應115.07.11(共2時40分)(1.5點)",location:"台灣基督長老教會馬偕醫療財團法人馬偕紀念醫院-兒童發展暨早期療育評估中心 / 台北馬偕紀念醫院平安樓15樓階梯講堂(台北市中山區中山北路二段92號)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4437.html",src:"pmr",cat:"other",online:false,region:"north"},
+  {date:"2026-07-11",title:"年度學術研討會-115.7.11(六) 第一天",location:"台灣家庭醫學醫學會 / 台大醫院國際會議中心",credits:16.0,ctext:"家醫 16 積分",url:"http://www.tafm.org.tw/ehc-tafm/s/w/edu/scheduleInfo1/schedule/4596fa6fe70547e890686fb6e5cd0f95",src:"tafm",cat:"other",online:false,region:"north"},
   {date:"2026-07-11",title:"115年氣喘專科醫師核心教育訓練課程",location:"台灣氣喘學會",credits:2.0,ctext:"睡眠 2 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
   {date:"2026-07-11",title:"台灣消化系醫學會第60屆教育研討會",location:"台灣消化系醫學會 / 台大醫學院201講堂 / 同步視訊",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/58d4df78c09a442a85e4ac5a166788c7",src:"tsim",cat:"other",online:true,region:"north"},
   {date:"2026-07-11",title:"115年度學術研討會(一)",location:"台灣家庭醫學醫學會 / 南京東路二段97號6樓",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/ad51ab57d2564f82a4d8637d6da773bb",src:"tsim",cat:"other",online:false,region:"north"},
   {date:"2026-07-12",title:"TMS 線上實務研討會(2026/7/12台北)",location:"台灣臨床TMS腦刺激學會 / 台北市中山區復興北路290號2樓之1",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3369",src:"neuro",cat:"other",online:true,region:"north"},
   {date:"2026-07-12",title:"失眠與疼痛 -- 運用腦心連結找出最適合你的芳香醫學 115.07.12(共6時30分)(3點)",location:"台灣芳香醫學醫學會 / 臺北市松山區中正里復興北路99號2樓206教室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4461.html",src:"pmr",cat:"sleep",online:false,region:"north"},
+  {date:"2026-07-12",title:"年度學術研討會-115.7.12(日) 第二天",location:"台灣家庭醫學醫學會 / 台大醫院國際會議中心",credits:16.0,ctext:"家醫 16 積分",url:"http://www.tafm.org.tw/ehc-tafm/s/w/edu/scheduleInfo1/schedule/d7d7efaccd2b420abc2af8a0a0e55379",src:"tafm",cat:"other",online:false,region:"north"},
+  {date:"2026-07-12",title:"綠色家庭醫師認證課程-台大",location:"台灣家庭醫學醫學會 / 臺大醫院國際會議中心 402D",credits:4.0,ctext:"家醫 4 積分",url:"http://www.tafm.org.tw/ehc-tafm/s/w/edu/scheduleInfo1/schedule/4dff611b82af4356ab8ea259d0364354",src:"tafm",cat:"other",online:false,region:"north"},
   {date:"2026-07-12",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
   {date:"2026-07-12",title:"大腦健康新紀元：從介入醫學到中西醫營養的睡眠身心全攻略",location:"台灣營養精神醫學研究學會",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"other"},
   {date:"2026-07-12",title:"氣喘專科醫師核心教育訓練課程",location:"台灣氣喘學會",credits:2.0,ctext:"睡眠 2 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
@@ -245,6 +248,7 @@ const EVENTS = [
   {date:"2026-07-18",title:"TBMJ 骨骼優化論壇-骨肌關新視野 (線上研討會) 115.07.18(共1時15分)(0.5點)",location:"台灣骨鬆肌少關節防治學會 / 線上課程",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4450.html",src:"pmr",cat:"other",online:true,region:"online"},
   {date:"2026-07-18",title:"骨腫瘤影像全攻略 Bone Tumor Imaging: A Comprehensive Review 115.07.18 (共3時20分)(1點)",location:"臺北榮民總醫院 影像診療部 / 臺北榮民總醫院致德樓第三會議室(臺北市北投區石牌路二段322號)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4438.html",src:"pmr",cat:"other",online:false,region:"north"},
   {date:"2026-07-19",title:"中華民國醫用超音波學會2026年第二次學術研討會",location:"中華民國醫用超音波學會 / 中國醫藥大學 立夫教學大樓教室 (學士路與英才路交叉口)",credits:2,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3384",src:"neuro",cat:"other",online:false,region:"central"},
+  {date:"2026-07-19",title:"115年「友善性病門診專業醫師」基礎認證課程",location:"台灣家庭醫學醫學會 / 成大醫學院 第二講堂",credits:6.0,ctext:"家醫 6 積分",url:"http://www.tafm.org.tw/ehc-tafm/s/w/edu/scheduleInfo1/schedule/1961118b165c410bab8b819ba72866db",src:"tafm",cat:"other",online:false,region:"south"},
   {date:"2026-07-19",title:"115 年度「苯二氮平類藥品使用規範」教育訓練",location:"衛生福利部食品藥物管理署",credits:3.0,ctext:"睡眠 3 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"other",online:false,region:"other"},
   {date:"2026-07-19",title:"7/19 連續血糖監測進階工作坊-台大公衛(實體課程)",location:"中華民國糖尿病衛教學會 / 臺北市中正區徐州路17號(台大公衛2樓201會議室及208、209教室)",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/b38c9d264b38455f833bc7340a5f1982",src:"tsim",cat:"dm",online:false,region:"north"},
   {date:"2026-07-19",title:"【戰勝糖腎，全面守護】：nsMRA 在各類型 CKD 的心腎保護實證(需報名https://ho-young.zoom.us/webinar/register/WN_8_XuVt65T6uCNWuyM1xPNQ#/registration)",location:"中華民國糖尿病學會 / 線上",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/0803120473c74ab1a6c786724530c911",src:"tsim",cat:"other",online:true,region:"online"},
@@ -290,6 +294,7 @@ const EVENTS = [
   {date:"2026-08-01",title:"2026台灣足踝醫學聯合學術研討會(共3時20分)(2點)",location:"社團法人台灣足踝穿戴裝置協會 / 407台中市西屯區台灣大道四段1650號 (臺中榮民總醫院研究大樓1樓 第四會議室)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4460.html",src:"pmr",cat:"other",online:false,region:"central"},
   {date:"2026-08-01",title:"115年度早期療育專業人員訓練課程『發展遲緩兒童視覺問題的早期發現與功能性視覺介入』(共3時)(1.5點)",location:"臺大醫院兒童發展評估及療育中心 / 臺北市中正區中山南路8號 B1講堂",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4459.html",src:"pmr",cat:"rehab",online:false,region:"north"},
   {date:"2026-08-01",title:"社團法人中華民國糖尿病學會-北區季會http://www.endo-dm.org.tw/dia/seminar/events.asp",location:"中華民國糖尿病學會 / 台北凱撒飯店4 樓寶島廳",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/6a4356801bd747a8b1e92577a72d608d",src:"tsim",cat:"dm",online:false,region:"north"},
+  {date:"2026-08-02",title:"115年流感疫苗教育訓練 (中國醫)",location:"台灣家庭醫學醫學會 / 中國醫藥大學立夫教學大樓102講堂",credits:3.0,ctext:"家醫 3 積分",url:"http://www.tafm.org.tw/ehc-tafm/s/w/edu/scheduleInfo1/schedule/80c132fb475244b188de52487d9743f1",src:"tafm",cat:"other",online:false,region:"central"},
   {date:"2026-08-02",title:"FORefront 糖心腎關鍵前線 全國系列研討會(需報名https://forms.gle/G3p3zTwtzv86WjZo6)",location:"中華民國糖尿病學會 / 高雄洲際酒店 4 樓 芳苑 II 廳 + 線上直播",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/c557e1db5b3a426d8b1ba652ad05cc01",src:"tsim",cat:"dm",online:true,region:"south"},
   {date:"2026-08-05",title:"糖尿病神經病變的跨科對談與整合照護",location:"社團法人中華民國糖尿病學會 / 線上課程請報名https://reurl.cc/vENvGo",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3382",src:"neuro",cat:"dm",online:true,region:"online"},
   {date:"2026-08-07",title:"115年度醫藥生技跨領域人才培訓課程-第十場(實體)",location:"台灣精準醫療品質策進會 / 中國文化大學推廣教育部建國校區 (大夏館) 10樓",credits:1,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3360",src:"neuro",cat:"other",online:false,region:"north"},
@@ -315,6 +320,7 @@ const EVENTS = [
   {date:"2026-09-05",title:"第十屆測驗式神經放射線複習課程 (2026)",location:"中華民國神經放射線醫學會 / 振興醫院國際會議中心",credits:5,ctext:"",url:"https://www.neuro.org.tw/active/other_toApply_OK.asp?SID=3368",src:"neuro",cat:"neuro",online:false,region:"north"},
   {date:"2026-09-05",title:"台灣復健醫學會2026年IDDSI與吞嚥內視鏡評估實務暨工作坊(共3時)(2.5點)",location:"台灣復健醫學會 / 長庚轉運站國際會議中心",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4456.html",src:"pmr",cat:"rehab",online:false,region:"north"},
   {date:"2026-09-05",title:"台南5月份地方月會:｢115年流感疫苗教育訓練｣",location:"台灣內科醫學會 / 成大醫學院一樓 第二講堂",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/eaa1203e9df84bd18285ae73aac6f93b",src:"tsim",cat:"other",online:false,region:"south"},
+  {date:"2026-09-06",title:"以家庭為中心的自閉症社交技巧訓練115.09.06(共3時40分)(2點)",location:"臺北榮民總醫院 復健醫學部 - 早療評估中心 / 臺北榮民總醫院 醫療創新中心 (第三門診九樓)",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4463.html",src:"pmr",cat:"other",online:false,region:"north"},
   {date:"2026-09-07",title:"早期療育專業人員講座—注意力不足過動症的非藥物治療 (共2時45分)(1點)",location:"天主教若瑟醫療財團法人若瑟醫院兒童發展聯合評估中心 / 天主教若瑟醫療財團法人若瑟醫院第二會議室",credits:0,ctext:"",url:"https://www.pmr.org.tw/active_news/active_info.asp?/4458.html",src:"pmr",cat:"rehab",online:false,region:"central"},
   {date:"2026-09-11",title:"快速眼動睡眠行為障礙 (RBD)",location:"汐止國泰綜合醫院睡眠中心",credits:1.0,ctext:"睡眠 1 學分",url:"https://www.tssm.org.tw/learn_list.php",src:"tssm",cat:"sleep",online:false,region:"north"},
   {date:"2026-09-12",title:"115年度連江縣糖尿病共同照護網醫事人員繼續教育訓練",location:"連江縣衛生局 / 連江縣南竿鄉復興村216號",credits:0,ctext:"",url:"https://www.tsim.org.tw/ehc-tsim/s/w/edu/scheduleInfo1/schedule/dfdb45a49c3b4a788afc83ef13797e8c",src:"tsim",cat:"dm",online:false,region:"other"},
@@ -342,7 +348,7 @@ const REGION_LABELS = {
   north:'🏙️ 北部', central:'🏔️ 中部', south:'🌊 南部',
   east:'🌿 東部', online:'💻 線上', other:'❓ 其他'
 };
-const SRC_LABELS = {"neuro": "神經學學會", "stroke": "腦中風學會", "tmds": "動作障礙學會", "tncs": "神經重症醫學會", "tnms": "神經免疫醫學會", "pmr": "復健醫學會", "tssm": "睡眠醫學學會", "tsim": "內科醫學會", "headache": "頭痛學會", "epilepsy": "癲癇醫學會", "tma": "醫師公會全聯會"};
+const SRC_LABELS = {"neuro": "神經學學會", "stroke": "腦中風學會", "tmds": "動作障礙學會", "tncs": "神經重症醫學會", "tnms": "神經免疫醫學會", "pmr": "復健醫學會", "tssm": "睡眠醫學學會", "tsim": "內科醫學會", "headache": "頭痛學會", "epilepsy": "癲癇醫學會", "tma": "醫師公會全聯會", "tafm": "家庭醫學醫學會"};
 
 const today = new Date('2026-07-02');
 today.setHours(0,0,0,0);
