@@ -20,6 +20,7 @@ neuro_scrape_and_deploy.py
   epilepsy  台灣癲癇醫學會        Drupal RSS feed
   tma       醫師公會全聯會        tma.tw/credit/index_06.asp（全國總表；神經相關或線上）
   tafm      台灣家庭醫學醫學會    tafm.org.tw 首頁精選課程（免驗證碼；含詳細頁欄位）
+  sono      中華民國醫用超音波學會 sumroc.org.tw 月曆式行事曆（?action=activity_cal）
 
 註：家醫科醫學會（TAFM）的「完整課程查詢」頁有伺服器端驗證碼無法直接爬，
     改抓其首頁免驗證碼渲染的近期精選課程（學會主打的年會/認證課程），
@@ -57,10 +58,11 @@ SRC_LABELS = {
     "epilepsy": "癲癇醫學會",
     "tma":      "醫師公會全聯會",
     "tafm":     "家庭醫學醫學會",
+    "sono":     "超音波學會",
 }
 # 去重優先序：數字小者優先保留（學會官網 > 睡眠 > 內科 > 全聯會總表）
 SRC_PRIORITY = {"neuro": 1, "stroke": 1, "tmds": 1, "tncs": 1, "tnms": 1,
-                "pmr": 1, "headache": 1, "epilepsy": 1, "tafm": 1,
+                "pmr": 1, "headache": 1, "epilepsy": 1, "tafm": 1, "sono": 1,
                 "tssm": 2, "tsim": 3, "tma": 4}
 
 # ── 共用工具 ──────────────────────────────────────
@@ -484,11 +486,69 @@ def src_tafm():
             events.append(e)
     return events
 
+def src_sono():
+    """中華民國醫用超音波學會（月曆式行事曆）
+
+    來源格式與其他學會不同：以「月曆」呈現（?action=activity_cal&year&month），
+    每個日期格 .dayCell 內含當日活動的 activity_detail 連結。逐月抓取涵蓋
+    今日～截止的月份，跨月填充格（disable）略過，多日活動以 id 去重保留最早日，
+    再逐一抓詳細頁補活動地點與認定積分。
+    """
+    base = "https://www.sumroc.org.tw"
+    by_id = {}
+    # 產生今日～截止涵蓋的 (年,月) 清單
+    y, m = TODAY.year, TODAY.month
+    months = []
+    while (y, m) <= (CUTOFF.year, CUTOFF.month):
+        months.append((y, m))
+        m += 1
+        if m > 12:
+            m, y = 1, y + 1
+    for yy, mm in months:
+        h = fetch(f"{base}/index.php?action=activity_cal&year={yy}&month={mm}")
+        for chunk in h.split('<div class="dayCell')[1:]:
+            cls = chunk[:chunk.find('>')]
+            if "disable" in cls:
+                continue
+            dnum = re.search(r'<div class="day">(\d+)</div>', chunk)
+            if not dnum:
+                continue
+            d = parse_date(yy, mm, dnum.group(1))
+            if d is None:
+                continue
+            for eid, title in re.findall(r'activity_detail&id=(\d+)">([^<]+)</a>', chunk):
+                # 同一活動跨多日 → 保留最早日期
+                if eid not in by_id or d < by_id[eid][0]:
+                    by_id[eid] = (d, title)
+
+    events = []
+    for eid, (d, title) in by_id.items():
+        e = make_event(d, title, "sono",
+                       url=f"{base}/index.php?action=activity_detail&id={eid}",
+                       organizer="中華民國醫用超音波學會")
+        if not in_window(e):
+            continue
+        # 詳細頁補地點與積分
+        dh = fetch(e["url"], timeout=15, attempts=2)
+        pairs = dict(re.findall(
+            r'<div class="title">([^<]+)</div>\s*<div class="data">(.*?)</div>',
+            dh, re.DOTALL))
+        loc = pairs.get("活動地點", "")
+        if loc:
+            e["location"] = clean_text(loc)[:80]
+        cm = re.search(r"\d+", clean_text(pairs.get("認定積分", "")))
+        if cm:
+            e["credits"] = int(cm.group())
+            e["credit_text"] = f"超音波 {cm.group()} 積分"
+        events.append(e)
+    return events
+
 FETCHERS = {
     "neuro": src_neuro, "stroke": src_stroke, "tmds": src_tmds,
     "tncs": src_tncs, "tnms": src_tnms, "pmr": src_pmr,
     "tssm": src_tssm, "tsim": src_tsim, "headache": src_headache,
     "epilepsy": src_epilepsy, "tma": src_tma, "tafm": src_tafm,
+    "sono": src_sono,
 }
 
 # ── 跨來源去重 ────────────────────────────────────
@@ -583,7 +643,8 @@ def build_html(events, src_stats):
     js_items = []
     for e in events:
         d_iso  = e["date_obj"].strftime("%Y-%m-%d")
-        cat    = classify_cat(e["title"])
+        # 超音波學會來源一律歸「超音波」類別（該學會活動皆屬此領域）
+        cat    = "sono" if e["source"] == "sono" else classify_cat(e["title"])
         region = classify_region(e)
         online = region == "online" or is_online(
             e["title"] + " " + e["location"] + " " + e["organizer"])
@@ -686,6 +747,7 @@ def build_html(events, src_stats):
     .card.cat-pain      {{ border-left-color: #ef6c00; }}
     .card.cat-rehab     {{ border-left-color: #558b2f; }}
     .card.cat-dm        {{ border-left-color: #00695c; }}
+    .card.cat-sono      {{ border-left-color: #5e35b1; }}
     .card.cat-neuro     {{ border-left-color: #1565c0; }}
     .card.cat-other     {{ border-left-color: #78909c; }}
     .card-date {{ font-size: .82em; color: #666; display: flex; align-items: center; gap: 6px; }}
@@ -768,6 +830,7 @@ def build_html(events, src_stats):
     <button class="pill" data-cat="pain">疼痛</button>
     <button class="pill" data-cat="rehab">復健</button>
     <button class="pill" data-cat="dm">糖尿病照護網</button>
+    <button class="pill" data-cat="sono">超音波</button>
     <button class="pill" data-cat="neuro">神經科</button>
     <button class="pill" data-cat="other">其他</button>
     <div class="pill-divider"></div>
@@ -803,7 +866,7 @@ const WEEKDAYS = ['日','一','二','三','四','五','六'];
 const CAT_LABELS = {{
   movement:'動作障礙', dementia:'失智症', stroke:'腦中風', epilepsy:'癲癇',
   sleep:'睡眠', headache:'頭痛', pain:'疼痛', rehab:'復健',
-  dm:'糖尿病照護網', neuro:'神經科', other:'其他'
+  dm:'糖尿病照護網', sono:'超音波', neuro:'神經科', other:'其他'
 }};
 const REGION_LABELS = {{
   north:'🏙️ 北部', central:'🏔️ 中部', south:'🌊 南部',
