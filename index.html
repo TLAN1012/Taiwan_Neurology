@@ -100,13 +100,18 @@
     .tag-src     { background: #fff3e0; color: #e65100; }
     .card-location { font-size: .88em; color: #555; display: flex; align-items: flex-start; gap: 5px; }
     .card-location::before { content: "📍"; flex-shrink: 0; }
+    .card-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
     .card-link {
-      display: inline-block; margin-top: 4px; padding: 7px 18px;
+      display: inline-flex; align-items: center; gap: 5px; padding: 7px 16px;
       background: #1a237e; color: #fff; text-decoration: none;
       border-radius: 20px; font-size: .83em; font-weight: 600;
-      align-self: flex-start; transition: background .2s;
+      transition: background .2s;
     }
     .card-link:hover { background: #283593; }
+    .card-gcal {
+      background: #fff; color: #1a73e8; border: 2px solid #1a73e8;
+    }
+    .card-gcal:hover { background: #e8f0fe; }
     .no-results { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #999; font-size: 1.1em; }
     .month-divider {
       grid-column: 1/-1; display: flex; align-items: center; gap: 14px; margin: 10px 0 2px;
@@ -395,6 +400,29 @@ function getMonthKey(dateStr) {
   return `${d.getFullYear()}年${d.getMonth()+1}月`;
 }
 
+// 產生 Google 行事曆「建立活動」網址（整日活動：多數來源僅有日期無起訖時間）
+function gcalUrl(e) {
+  const ymd = e.date.replace(/-/g, '');                 // YYYYMMDD
+  const end = new Date(e.date); end.setDate(end.getDate() + 1);
+  const endYmd = `${end.getFullYear()}${String(end.getMonth()+1).padStart(2,'0')}${String(end.getDate()).padStart(2,'0')}`;
+  const src = SRC_LABELS[e.src] || e.src;
+  const credit = e.ctext || (e.credits ? `${e.credits} 積分` : '');
+  const details = [
+    `來源：${src}`,
+    credit ? `積分：${credit}` : '',
+    e.url ? `詳細資訊：${e.url}` : '',
+    '（由「基層神經科醫師教育活動全集」自動帶入，實際時間/積分請以主辦單位公告為準）'
+  ].filter(Boolean).join('\n');
+  const params = new URLSearchParams({
+    action: 'TEMPLATE',
+    text: e.title,
+    dates: `${ymd}/${endYmd}`,
+    details: details,
+    location: e.location || ''
+  });
+  return `https://calendar.google.com/calendar/render?${params.toString()}`;
+}
+
 // 類別、地區、來源皆可複選（空集合＝全部）
 let currentCats = new Set(), currentRegions = new Set(), currentSrcs = new Set(),
     currentSearch = '', currentSort = 'date-asc';
@@ -448,6 +476,7 @@ function render() {
     const regionBadge = `<span class="tag tag-region">${REGION_LABELS[e.region]||e.region}</span>`;
     const srcBadge    = `<span class="tag tag-src">${SRC_LABELS[e.src]||e.src}</span>`;
     const linkBtn     = e.url ? `<a class="card-link" href="${e.url}" target="_blank">詳細資訊 →</a>` : '';
+    const gcalBtn     = `<a class="card-link card-gcal" href="${gcalUrl(e)}" target="_blank" rel="noopener">📅 加入 Google 行事曆</a>`;
     html += `
       <div class="card cat-${e.cat}">
         <div class="card-date">
@@ -458,7 +487,7 @@ function render() {
         <div class="card-title">${e.title}</div>
         <div class="card-tags">${catBadge}${regionBadge}${srcBadge}${creditBadge}${onlineBadge}</div>
         <div class="card-location">${e.location}</div>
-        ${linkBtn}
+        <div class="card-actions">${linkBtn}${gcalBtn}</div>
       </div>`;
   });
   grid.innerHTML = html;
