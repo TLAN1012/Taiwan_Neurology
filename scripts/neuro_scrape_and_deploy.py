@@ -822,14 +822,18 @@ function getMonthKey(dateStr) {{
   return `${{d.getFullYear()}}年${{d.getMonth()+1}}月`;
 }}
 
-let currentCat = 'all', currentRegion = 'all', currentSrc = 'all',
+// 類別與地區可複選（空集合＝全部）；來源維持單選
+let currentCats = new Set(), currentRegions = new Set(), currentSrc = 'all',
     currentSearch = '', currentSort = 'date-asc';
+
+function matchRegion(e, r) {{
+  return r === 'online' ? (e.online || e.region === 'online') : e.region === r;
+}}
 
 function getFiltered() {{
   let data = [...EVENTS];
-  if (currentCat !== 'all') data = data.filter(e => e.cat === currentCat);
-  if (currentRegion === 'online') data = data.filter(e => e.online || e.region === 'online');
-  else if (currentRegion !== 'all') data = data.filter(e => e.region === currentRegion);
+  if (currentCats.size)    data = data.filter(e => currentCats.has(e.cat));
+  if (currentRegions.size) data = data.filter(e => [...currentRegions].some(r => matchRegion(e, r)));
   if (currentSrc !== 'all') data = data.filter(e => e.src === currentSrc);
   if (currentSearch) {{
     const q = currentSearch.toLowerCase();
@@ -887,7 +891,8 @@ function render() {{
   grid.innerHTML = html;
 }}
 
-function bindPills(selector, setter) {{
+// 單選 pill（來源）：點一個就取消其他
+function bindSinglePills(selector, setter) {{
   document.querySelectorAll(selector).forEach(btn => {{
     btn.addEventListener('click', () => {{
       document.querySelectorAll(selector).forEach(b => b.classList.remove('active'));
@@ -897,9 +902,33 @@ function bindPills(selector, setter) {{
     }});
   }});
 }}
-bindPills('.pill:not(.region):not(.src)', btn => currentCat = btn.dataset.cat);
-bindPills('.pill.region', btn => currentRegion = btn.dataset.region);
-bindPills('.pill.src',    btn => currentSrc = btn.dataset.src);
+
+// 複選 pill（類別、地區）：dataKey 為 'all' 者是「全部」鈕
+//  · 點分項 → 加入/移除該項並取消「全部」；若全部取消則自動回到「全部」
+//  · 點「全部」→ 清空分項選取
+function bindMultiPills(selector, dataKey, stateSet) {{
+  const pills = [...document.querySelectorAll(selector)];
+  const allPill = pills.find(p => p.dataset[dataKey] === 'all');
+  pills.forEach(btn => {{
+    btn.addEventListener('click', () => {{
+      const val = btn.dataset[dataKey];
+      if (val === 'all') {{
+        stateSet.clear();
+        pills.forEach(b => b.classList.remove('active'));
+        allPill.classList.add('active');
+      }} else {{
+        if (stateSet.has(val)) {{ stateSet.delete(val); btn.classList.remove('active'); }}
+        else {{ stateSet.add(val); btn.classList.add('active'); }}
+        allPill.classList.toggle('active', stateSet.size === 0);
+      }}
+      render();
+    }});
+  }});
+}}
+
+bindMultiPills('.pill:not(.region):not(.src)', 'cat', currentCats);
+bindMultiPills('.pill.region', 'region', currentRegions);
+bindSinglePills('.pill.src', btn => currentSrc = btn.dataset.src);
 
 document.getElementById('search').addEventListener('input', e => {{
   currentSearch = e.target.value; render();
