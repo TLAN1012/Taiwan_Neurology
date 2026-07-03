@@ -822,8 +822,8 @@ function getMonthKey(dateStr) {{
   return `${{d.getFullYear()}}年${{d.getMonth()+1}}月`;
 }}
 
-// 類別與地區可複選（空集合＝全部）；來源維持單選
-let currentCats = new Set(), currentRegions = new Set(), currentSrc = 'all',
+// 類別、地區、來源皆可複選（空集合＝全部）
+let currentCats = new Set(), currentRegions = new Set(), currentSrcs = new Set(),
     currentSearch = '', currentSort = 'date-asc';
 
 function matchRegion(e, r) {{
@@ -834,7 +834,7 @@ function getFiltered() {{
   let data = [...EVENTS];
   if (currentCats.size)    data = data.filter(e => currentCats.has(e.cat));
   if (currentRegions.size) data = data.filter(e => [...currentRegions].some(r => matchRegion(e, r)));
-  if (currentSrc !== 'all') data = data.filter(e => e.src === currentSrc);
+  if (currentSrcs.size)    data = data.filter(e => currentSrcs.has(e.src));
   if (currentSearch) {{
     const q = currentSearch.toLowerCase();
     data = data.filter(e => e.title.toLowerCase().includes(q) || e.location.toLowerCase().includes(q));
@@ -891,19 +891,7 @@ function render() {{
   grid.innerHTML = html;
 }}
 
-// 單選 pill（來源）：點一個就取消其他
-function bindSinglePills(selector, setter) {{
-  document.querySelectorAll(selector).forEach(btn => {{
-    btn.addEventListener('click', () => {{
-      document.querySelectorAll(selector).forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      setter(btn);
-      render();
-    }});
-  }});
-}}
-
-// 複選 pill（類別、地區）：dataKey 為 'all' 者是「全部」鈕
+// 複選 pill（類別、地區、來源）：dataKey 為 'all' 者是「全部」鈕
 //  · 點分項 → 加入/移除該項並取消「全部」；若全部取消則自動回到「全部」
 //  · 點「全部」→ 清空分項選取
 function bindMultiPills(selector, dataKey, stateSet) {{
@@ -928,7 +916,7 @@ function bindMultiPills(selector, dataKey, stateSet) {{
 
 bindMultiPills('.pill:not(.region):not(.src)', 'cat', currentCats);
 bindMultiPills('.pill.region', 'region', currentRegions);
-bindSinglePills('.pill.src', btn => currentSrc = btn.dataset.src);
+bindMultiPills('.pill.src', 'src', currentSrcs);
 
 document.getElementById('search').addEventListener('input', e => {{
   currentSearch = e.target.value; render();
