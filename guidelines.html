@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>神經科診療指引索引</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', 'PingFang TC', 'Noto Sans TC', sans-serif;
+      background: #f0f2f5; color: #222; min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, #4a148c 0%, #6a1b9a 50%, #7b1fa2 100%);
+      color: #fff; padding: 36px 24px 28px; text-align: center;
+    }
+    header h1 { font-size: 1.9em; font-weight: 700; margin-bottom: 8px; letter-spacing: .02em; }
+    header p  { font-size: .95em; opacity: .9; max-width: 760px; margin: 0 auto; line-height: 1.6; }
+    .header-nav { margin-top: 16px; }
+    .header-nav a {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff; color: #6a1b9a; text-decoration: none;
+      padding: 9px 22px; border-radius: 30px; font-size: .9em; font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .header-nav a:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+    .container { max-width: 1280px; margin: 0 auto; padding: 24px 20px 60px; }
+    .pills-bar {
+      background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08);
+      padding: 14px 20px; margin-bottom: 18px;
+      display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+    }
+    .pill-label { font-size: .85em; color: #555; font-weight: 600; margin-right: 4px; white-space: nowrap; }
+    .pill-divider { width: 1px; height: 22px; background: #e0e0e0; margin: 0 4px; }
+    .pill {
+      padding: 6px 14px; border: 2px solid #d1c4e9; background: #fff;
+      color: #6a1b9a; border-radius: 20px; font-size: .83em; cursor: pointer;
+      transition: all .2s; white-space: nowrap;
+    }
+    .pill:hover  { background: #f3e5f5; }
+    .pill.active { background: #6a1b9a; color: #fff; border-color: #6a1b9a; }
+    .pill.region { border-color: #a5d6a7; color: #2e7d32; }
+    .pill.region:hover  { background: #e8f5e9; }
+    .pill.region.active { background: #2e7d32; color: #fff; border-color: #2e7d32; }
+    .stats { font-size: .88em; color: #666; margin-bottom: 16px; padding: 0 4px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 18px; }
+    .card {
+      background: #fff; border-radius: 12px; padding: 20px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.08); border-left: 5px solid #7b1fa2;
+      transition: transform .25s, box-shadow .25s;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,.13); }
+    .card-cat-title { font-size: .78em; color: #7b1fa2; font-weight: 700; letter-spacing: .04em; }
+    .card-title { font-size: 1.05em; font-weight: 700; color: #4a148c; line-height: 1.45; }
+    .card-org { font-size: .88em; color: #555; display: flex; align-items: center; gap: 5px; }
+    .card-org::before { content: "🏛️"; flex-shrink: 0; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag { padding: 3px 10px; border-radius: 12px; font-size: .76em; font-weight: 600; white-space: nowrap; }
+    .tag-cat    { background: #f3e5f5; color: #6a1b9a; }
+    .tag-region { background: #e8f5e9; color: #2e7d32; }
+    .card-desc { font-size: .86em; color: #666; line-height: 1.55; }
+    .card-link {
+      display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; padding: 8px 18px;
+      background: #6a1b9a; color: #fff; text-decoration: none;
+      border-radius: 20px; font-size: .83em; font-weight: 600; align-self: flex-start;
+      transition: background .2s;
+    }
+    .card-link:hover { background: #4a148c; }
+    .no-results { grid-column: 1/-1; text-align: center; padding: 60px 20px; color: #999; font-size: 1.1em; }
+    footer { text-align: center; margin-top: 40px; font-size: .8em; color: #999; line-height: 1.9; }
+    footer a { color: #6a1b9a; text-decoration: none; }
+    @media (max-width: 600px) {
+      header h1 { font-size: 1.4em; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>📖 神經科診療指引索引</h1>
+  <p>彙整神經科及相關次專科的<strong>診療指引、治療準則與共識</strong>，依次專科分類，連向各學會與國際權威組織的官方指引頁面，方便基層神經科醫師查找。</p>
+  <div class="header-nav"><a href="index.html">← 返回教育活動彙整</a></div>
+</header>
+
+<div class="container">
+  <div class="pills-bar">
+    <span class="pill-label">類別：</span>
+    <button class="pill active" data-cat="all">全部</button>
+    <button class="pill" data-cat="neuro">一般神經</button>
+    <button class="pill" data-cat="stroke">腦中風</button>
+    <button class="pill" data-cat="epilepsy">癲癇</button>
+    <button class="pill" data-cat="headache">頭痛</button>
+    <button class="pill" data-cat="dementia">失智症</button>
+    <button class="pill" data-cat="movement">動作障礙</button>
+    <button class="pill" data-cat="sleep">睡眠</button>
+    <button class="pill" data-cat="pain">疼痛</button>
+    <button class="pill" data-cat="critical">神經重症</button>
+    <div class="pill-divider"></div>
+    <span class="pill-label">地區：</span>
+    <button class="pill region active" data-region="all">全部</button>
+    <button class="pill region" data-region="tw">🇹🇼 台灣</button>
+    <button class="pill region" data-region="intl">🌐 國際</button>
+  </div>
+
+  <div class="stats" id="stats"></div>
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    本頁為方便查詢之非官方彙整索引，連結指向各學會與國際組織的官方指引頁面。<br>
+    請以各官方來源之最新版本為準。｜
+    <a href="index.html">神經科教育活動彙整</a>
+  </footer>
+</div>
+
+<script>
+// 手動策展的指引索引（連結皆為各學會/國際組織官方頁面）
+const GUIDELINES = [
+  // ── 台灣學會 ──
+  { cat:'stroke', region:'tw', org:'台灣腦中風學會',
+    title:'腦中風治療指引',
+    desc:'急性缺血性中風靜脈血栓溶解治療指引（2025）、慢性腎臟病患者腦中風治療指引（2024）、Tenecteplase 溶栓共識（2026）等系列指引與共識。',
+    url:'http://www.stroke.org.tw/guideline/' },
+  { cat:'epilepsy', region:'tw', org:'台灣癲癇醫學會',
+    title:'癲癇診療指引（第七版）',
+    desc:'《癲癇診療指引》第七版（2025）、《兒童癲癇診療指引》、《台灣腦電圖指引》（2023）等出版刊物。',
+    url:'https://www.epilepsy.org.tw/publications' },
+  { cat:'headache', region:'tw', org:'台灣頭痛學會',
+    title:'頭痛診療準則下載',
+    desc:'偏頭痛急性發作與預防性藥物治療準則、叢發性頭痛治療準則、非急性頭痛神經影像檢查準則等（資料下載頁）。',
+    url:'https://taiwanheadache.org.tw/downloads/' },
+  { cat:'sleep', region:'tw', org:'台灣睡眠醫學學會',
+    title:'睡眠醫學臨床指引',
+    desc:'失眠問診指引（2026）、睡眠呼吸障礙於心血管疾病之評估處置臨床指引（2023）、HSAT 技術共識（2025）等。',
+    url:'https://www.tssm.org.tw/guide.php' },
+  { cat:'movement', region:'tw', org:'台灣動作障礙學會',
+    title:'巴金森病治療建議',
+    desc:'台灣動作障礙學會巴金森病治療建議、診斷處置要點等學術內容與治療建議。',
+    url:'https://www.tmds.org.tw/knowledge/index.asp' },
+  { cat:'pain', region:'tw', org:'台灣疼痛醫學會',
+    title:'疼痛相關法規與指引',
+    desc:'疼痛知識庫之疼痛相關法規與治療指引入口。',
+    url:'https://www.pain.org.tw/index.php/pain_page/index/17/4' },
+  { cat:'critical', region:'tw', org:'台灣神經重症醫學會',
+    title:'神經重症診療與訓練資源',
+    desc:'神經重症照護、高級神經救命術（ANLS）等訓練與診療資源。',
+    url:'https://www.tncs.org.tw/' },
+  { cat:'neuro', region:'tw', org:'台灣神經學學會',
+    title:'神經學雜誌（Acta Neurologica Taiwanica）',
+    desc:'各次專科學組之共識與診療建議多發表於此；學會另有各學組學術活動資訊。',
+    url:'https://www.neuro.org.tw/magz/' },
+  { cat:'dementia', region:'tw', org:'台灣臨床失智症學會',
+    title:'失智症診療與照護資源',
+    desc:'失智症診斷、藥物治療與認證訓練等學會資源（學會官方網站）。',
+    url:'https://www.tds.org.tw/' },
+  // ── 國際權威組織 ──
+  { cat:'neuro', region:'intl', org:'American Academy of Neurology (AAN)',
+    title:'AAN Clinical Practice Guidelines',
+    desc:'美國神經醫學會涵蓋各神經次專科的實證臨床指引中心。',
+    url:'https://www.aan.com/practice/guidelines' },
+  { cat:'neuro', region:'intl', org:'European Academy of Neurology (EAN)',
+    title:'EAN Guidelines',
+    desc:'歐洲神經醫學會的臨床指引資料庫。',
+    url:'https://www.ean.org/research/ean-guidelines' },
+  { cat:'stroke', region:'intl', org:'AHA/ASA',
+    title:'AHA/ASA Guidelines & Statements',
+    desc:'美國心臟／中風協會的中風診療指引與科學聲明。',
+    url:'https://professional.heart.org/en/guidelines-and-statements' },
+  { cat:'epilepsy', region:'intl', org:'ILAE',
+    title:'ILAE Guidelines',
+    desc:'國際抗癲癇聯盟的癲癇分類、診斷與治療指引。',
+    url:'https://www.ilae.org/guidelines' },
+  { cat:'headache', region:'intl', org:'International Headache Society (IHS)',
+    title:'ICHD-3 國際頭痛疾病分類',
+    desc:'國際頭痛疾病分類第三版，頭痛診斷的國際標準。',
+    url:'https://ichd-3.org/' },
+  { cat:'movement', region:'intl', org:'Movement Disorder Society (MDS)',
+    title:'MDS Clinical Resources',
+    desc:'國際動作障礙學會的診斷準則與臨床評估量表資源。',
+    url:'https://www.movementdisorders.org/MDS/Resources.htm' },
+];
+
+const CAT_LABELS = {
+  neuro:'一般神經', stroke:'腦中風', epilepsy:'癲癇', headache:'頭痛',
+  dementia:'失智症', movement:'動作障礙', sleep:'睡眠', pain:'疼痛', critical:'神經重症'
+};
+const REGION_LABELS = { tw:'🇹🇼 台灣', intl:'🌐 國際' };
+
+let currentCats = new Set(), currentRegions = new Set();
+
+function getFiltered() {
+  let data = [...GUIDELINES];
+  if (currentCats.size)    data = data.filter(g => currentCats.has(g.cat));
+  if (currentRegions.size) data = data.filter(g => currentRegions.has(g.region));
+  return data;
+}
+
+function render() {
+  const data = getFiltered();
+  const grid = document.getElementById('grid');
+  document.getElementById('stats').textContent = `顯示 ${data.length} / ${GUIDELINES.length} 筆指引資源`;
+  if (!data.length) {
+    grid.innerHTML = '<div class="no-results">😔 沒有符合條件的指引</div>';
+    return;
+  }
+  grid.innerHTML = data.map(g => `
+    <div class="card">
+      <div class="card-cat-title">${CAT_LABELS[g.cat] || g.cat}</div>
+      <div class="card-title">${g.title}</div>
+      <div class="card-tags">
+        <span class="tag tag-cat">${CAT_LABELS[g.cat] || g.cat}</span>
+        <span class="tag tag-region">${REGION_LABELS[g.region] || g.region}</span>
+      </div>
+      <div class="card-org">${g.org}</div>
+      <div class="card-desc">${g.desc}</div>
+      <a class="card-link" href="${g.url}" target="_blank" rel="noopener">前往指引 →</a>
+    </div>`).join('');
+}
+
+function bindMultiPills(selector, dataKey, stateSet) {
+  const pills = [...document.querySelectorAll(selector)];
+  const allPill = pills.find(p => p.dataset[dataKey] === 'all');
+  pills.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const val = btn.dataset[dataKey];
+      if (val === 'all') {
+        stateSet.clear();
+        pills.forEach(b => b.classList.remove('active'));
+        allPill.classList.add('active');
+      } else {
+        if (stateSet.has(val)) { stateSet.delete(val); btn.classList.remove('active'); }
+        else { stateSet.add(val); btn.classList.add('active'); }
+        allPill.classList.toggle('active', stateSet.size === 0);
+      }
+      render();
+    });
+  });
+}
+
+bindMultiPills('.pill:not(.region)', 'cat', currentCats);
+bindMultiPills('.pill.region', 'region', currentRegions);
+render();
+</script>
+</body>
+</html>

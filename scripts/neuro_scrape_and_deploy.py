@@ -691,6 +691,14 @@ def build_html(events, src_stats):
       background: rgba(255,255,255,.12); border-radius: 30px;
       padding: 8px 20px; font-size: .85em;
     }}
+    .header-nav {{ margin-top: 16px; }}
+    .header-nav a {{
+      display: inline-flex; align-items: center; gap: 6px;
+      background: #fff; color: #1a237e; text-decoration: none;
+      padding: 9px 22px; border-radius: 30px; font-size: .9em; font-weight: 700;
+      transition: transform .2s, box-shadow .2s;
+    }}
+    .header-nav a:hover {{ transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }}
     .container {{ max-width: 1280px; margin: 0 auto; padding: 24px 20px 60px; }}
     .controls {{
       background: #fff; border-radius: 12px; box-shadow: 0 2px 12px rgba(0,0,0,.08);
@@ -806,6 +814,7 @@ def build_html(events, src_stats):
     <span>⏱️ 截至 {cutoff_str}</span>
     <span>📚 共 {len(events)} 筆</span>
   </div>
+  <div class="header-nav"><a href="guidelines.html">📖 神經科診療指引索引 →</a></div>
 </header>
 
 <div class="container">
