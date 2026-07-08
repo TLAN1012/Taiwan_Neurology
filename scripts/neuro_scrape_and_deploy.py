@@ -19,6 +19,7 @@ neuro_scrape_and_deploy.py
   headache  台灣頭痛學會          WordPress REST API（JSON）
   epilepsy  台灣癲癇醫學會        Drupal RSS feed
   tma       醫師公會全聯會        tma.tw/credit/index_06.asp（全國總表；神經相關或線上）
+                                  + elearning_HM{民國年}/index.asp（家醫2.0線上直播課程）
   tafm      台灣家庭醫學醫學會    tafm.org.tw 首頁精選課程（免驗證碼；含詳細頁欄位）
   sono      中華民國醫用超音波學會 sumroc.org.tw 月曆式行事曆（?action=activity_cal）
 
@@ -411,7 +412,11 @@ def src_epilepsy():
     return events
 
 def src_tma():
-    """醫師公會全聯會 全國課程總表（日期由近到遠遞增；收神經相關或線上課程）"""
+    """醫師公會全聯會（兩個頁面）：
+    1. credit/index_06.asp 全國課程總表（日期遞增；收神經相關或線上課程）
+    2. elearning_HM{民國年}/index.asp 家醫2.0線上直播課程一覽表（全收，
+       實施方式含「線上」自然歸線上類）
+    """
     base = "https://www.tma.tw/credit"
     events, prev_rows = [], None
     for page in range(1, 61):
@@ -447,6 +452,35 @@ def src_tma():
         # 列表按日期遞增：整頁都超過截止日即可停
         if dates_on_page and min(dates_on_page) > CUTOFF:
             break
+
+    # 另抓「家醫2.0醫療群 線上直播課程開課一覽表」（網路繼續教育專頁；
+    # 路徑含民國年 elearning_HM{roc}，跨年時新頁可能尚未建立故連舊年一併嘗試）
+    roc = TODAY.year - 1911
+    for yr in (roc, roc - 1):
+        h = fetch(f"https://www.tma.tw/elearning_HM{yr}/index.asp")
+        rows = re.findall(r'<div class="hm\d+-row">(.*?)(?=<div class="hm\d+-row">|$)',
+                          h, re.DOTALL)
+        if not rows:
+            continue
+        for row in rows:
+            cells = dict(re.findall(
+                r'<div class="hm\d+-cell[^"]*" data-label="([^"]+)">(.*?)</div>',
+                row, re.DOTALL))
+            dm = re.search(r"(\d{3})\.(\d{1,2})\.(\d{1,2})", cells.get("日期", ""))
+            if not dm:
+                continue
+            d = parse_date(int(dm.group(1)) + 1911, dm.group(2), dm.group(3))
+            title_cell = cells.get("課程名稱", "")
+            um = re.search(r'href="([^"]+)"', title_cell)
+            e = make_event(
+                d, title_cell, "tma",
+                url=um.group(1) if um else f"https://www.tma.tw/elearning_HM{yr}/index.asp",
+                organizer=clean_text(cells.get("開課單位", "")),
+                location=clean_text(cells.get("實施方式", "")),
+                credit_text=clean_text(cells.get("積分", "")))
+            if in_window(e):
+                events.append(e)
+        break  # 抓到當年度頁即可
     return [e for e in events if e]
 
 def src_tafm():
