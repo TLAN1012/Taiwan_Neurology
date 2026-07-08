@@ -59,6 +59,8 @@
     .tag { padding: 3px 10px; border-radius: 12px; font-size: .76em; font-weight: 600; white-space: nowrap; }
     .tag-cat    { background: #f3e5f5; color: #6a1b9a; }
     .tag-region { background: #e8f5e9; color: #2e7d32; }
+    .tag-year   { background: #eceff1; color: #546e7a; }
+    .tag-pubmed { background: #e3f2fd; color: #1565c0; }
     .card-desc { font-size: .86em; color: #666; line-height: 1.55; }
     .card-link {
       display: inline-flex; align-items: center; gap: 5px; margin-top: 2px; padding: 8px 18px;
@@ -79,7 +81,7 @@
 <body>
 <header>
   <h1>📖 神經科診療指引索引</h1>
-  <p>彙整神經科及相關次專科的<strong>診療指引、治療準則與共識</strong>，依次專科分類，連向各學會與國際權威組織的官方指引頁面，方便基層神經科醫師查找。</p>
+  <p>彙整神經科及相關次專科的<strong>診療指引、治療準則與共識</strong>，依次專科分類，連向各學會與國際權威組織的官方指引頁面；無現成國際學會指引頁的次專科，則連向 <strong>PubMed</strong> 上該領域的權威指引文獻，方便基層神經科醫師查找。</p>
   <div class="header-nav"><a href="index.html">← 返回教育活動彙整</a></div>
 </header>
 
@@ -178,6 +180,27 @@ const GUIDELINES = [
     title:'MDS Clinical Resources',
     desc:'國際動作障礙學會的診斷準則與臨床評估量表資源。',
     url:'https://www.movementdisorders.org/MDS/Resources.htm' },
+  // ── 國際：無現成學會指引中心頁者，改連 PubMed 權威指引文獻 ──
+  { cat:'dementia', region:'intl', org:'European Academy of Neurology (EAN)', year:2020, pmid:'32713125',
+    title:'EAN guideline on medical management issues in dementia',
+    desc:'歐洲神經醫學會失智症內科處置指引（PubMed）。',
+    url:'https://pubmed.ncbi.nlm.nih.gov/32713125/' },
+  { cat:'sleep', region:'intl', org:'American Academy of Sleep Medicine (AASM)', year:2017, pmid:'27998379',
+    title:'Pharmacologic Treatment of Chronic Insomnia in Adults',
+    desc:'AASM 成人慢性失眠藥物治療臨床指引（PubMed）。',
+    url:'https://pubmed.ncbi.nlm.nih.gov/27998379/' },
+  { cat:'sleep', region:'intl', org:'American Academy of Sleep Medicine (AASM)', year:2017, pmid:'28162150',
+    title:'Diagnostic Testing for Adult Obstructive Sleep Apnea',
+    desc:'AASM 成人阻塞型睡眠呼吸中止症診斷檢查臨床指引（PubMed）。',
+    url:'https://pubmed.ncbi.nlm.nih.gov/28162150/' },
+  { cat:'pain', region:'intl', org:'IASP NeuPSIG', year:2015, pmid:'25575710',
+    title:'Pharmacotherapy for Neuropathic Pain in Adults',
+    desc:'國際疼痛學會神經病理性疼痛特別興趣小組之藥物治療系統性回顧與建議（Lancet Neurology，PubMed）。',
+    url:'https://pubmed.ncbi.nlm.nih.gov/25575710/' },
+  { cat:'critical', region:'intl', org:'Neurocritical Care Society (NCS)', year:2012, pmid:'22528274',
+    title:'Evaluation and Management of Status Epilepticus',
+    desc:'美國神經重症學會癲癇重積狀態評估與處置指引（PubMed）。',
+    url:'https://pubmed.ncbi.nlm.nih.gov/22528274/' },
 ];
 
 const CAT_LABELS = {
@@ -210,10 +233,12 @@ function render() {
       <div class="card-tags">
         <span class="tag tag-cat">${CAT_LABELS[g.cat] || g.cat}</span>
         <span class="tag tag-region">${REGION_LABELS[g.region] || g.region}</span>
+        ${g.year ? `<span class="tag tag-year">${g.year}</span>` : ''}
+        ${g.pmid ? `<span class="tag tag-pubmed">PubMed</span>` : ''}
       </div>
       <div class="card-org">${g.org}</div>
       <div class="card-desc">${g.desc}</div>
-      <a class="card-link" href="${g.url}" target="_blank" rel="noopener">前往指引 →</a>
+      <a class="card-link" href="${g.url}" target="_blank" rel="noopener">${g.pmid ? '前往 PubMed →' : '前往指引 →'}</a>
     </div>`).join('');
 }
 
